@@ -59,14 +59,15 @@ class StackDemo extends StatelessWidget {
 class TrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.white
+    var paint = Paint()
+      ..color = Colors.red
       ..style = PaintingStyle.fill;
 
     final path = Path();
-    path.moveTo(size.width - 10, 0);
+    path.moveTo(0, 0);
     path.lineTo(size.width, 0);
-    path.lineTo(size.width, 10);
+    path.lineTo(size.width*0.75, size.height);
+    path.lineTo(0, size.height);
     path.close();
 
     canvas.drawPath(path, paint);

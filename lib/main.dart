@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   width: 400,
-                  height: 600,
+                  height: 150,
                   child: GridView(
                     padding: EdgeInsets.symmetric(vertical: 0),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

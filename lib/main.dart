@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redstone_daily_site/contentwidget.dart';
 import 'package:redstone_daily_site/headwidget.dart';
-import 'package:redstone_daily_site/tiptest.dart';
+import 'package:redstone_daily_site/trapezoid_painter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,22 +17,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-          useMaterial3: true,
-          fontFamily: 'HuXiaoBo'),
-      home: CustomScrollView(
-        scrollDirection: Axis.vertical,
-        slivers: [
-          SliverList(delegate: new SliverChildListDelegate(
-            [
-              MyHomePage(title: "title")
-            ]
-          ))
-        ],
-      )
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan), useMaterial3: true, fontFamily: 'HuXiaoBo'),
+        home: CustomScrollView(
+          scrollDirection: Axis.vertical,
+          slivers: [
+            SliverList(delegate: new SliverChildListDelegate([MyHomePage(title: "title")]))
+          ],
+        ));
   }
 }
 
@@ -64,53 +56,72 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     var size = MediaQuery.of(context).size;
-    return Material(
-      child: Column(
-        children: [
-          HeadWidget(),
-          Container(
-            margin: EdgeInsets.fromLTRB(50, 10, 50, 0),
-            child: Column(
-              children: [
-                Center(
-                  child: ContentWidget(
-                      "LOL", "sadasdasdaasdsadsadsdsad\ndasads\nasddas", 1),
-                ),
-                Container(
-                  width: 400,
-                  height: 150,
-                  child: GridView(
-                    padding: EdgeInsets.symmetric(vertical: 0),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+    return Stack(
+      children: <Widget>[
+        Material(
+          child: Column(
+            children: [
+              HeadWidget(),
+              Container(
+                margin: EdgeInsets.fromLTRB(50, 10, 50, 0),
+                child: Column(
+                  children: [
+                    Center(
+                      child: ContentWidget("LOL", "sadasdasdaasdsadsadsdsad\ndasads\nasddas", 1),
                     ),
-                    children: [
-                      ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
-                      ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 400,
-                  height: 600,
-                  child: GridView(
-                    padding: EdgeInsets.symmetric(vertical: 0),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                    Container(
+                      width: 400,
+                      height: 150,
+                      child: GridView(
+                        padding: EdgeInsets.symmetric(vertical: 0),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        children: [
+                          ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
+                          ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
+                        ],
+                      ),
                     ),
-                    children: [
-                      ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
-                      ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
-                      ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
-                      ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    Container(
+                      width: 400,
+                      height: 600,
+                      child: GridView(
+                        padding: EdgeInsets.symmetric(vertical: 0),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        children: [
+                          ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
+                          ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
+                          ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
+                          ContentWidget("titlasdasdsadsdasade", "asdasdsadasdsad\nasdasdasdasdasdasd\ndasasda", 1),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+
+
+
+        // A reference picture aligning to the top, resized to fit the width, 30% opacity
+        Positioned(
+          top: 0,
+          left: 0,
+          child: Opacity(
+            opacity: 0.0,
+            child: Image.asset(
+              'assets/images/test_ref.png',
+              width: size.width,
+              fit: BoxFit.cover,
+            )
           )
-        ],
-      ),
+        )
+      ],
     );
   }
 }

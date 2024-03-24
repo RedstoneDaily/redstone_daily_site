@@ -1,8 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:redstone_daily_site/trapezoid_painter.dart';
 
 class HeadWidget extends StatefulWidget {
@@ -16,6 +14,7 @@ class HeadWidget extends StatefulWidget {
 
 enum SizeCategory {
   small,
+  medium,
   large,
 }
 
@@ -23,9 +22,18 @@ class _HeadState extends State<HeadWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    const modelDim = Size(1080, 175);
-    var sizeCategory = size.width < modelDim.width ? SizeCategory.small : SizeCategory.large;
-    var height = sizeCategory == SizeCategory.small ? modelDim.height : size.width / modelDim.width * modelDim.height;
+    const modelSize1 = Size(1080, 175);
+    const modelSize2 = Size(1920, 1920 / 1080 * 175);
+    var sizeCategory = size.width < modelSize1.width
+        ? SizeCategory.small
+        : size.width < modelSize2.width
+            ? SizeCategory.medium
+            : SizeCategory.large;
+    var height = switch(sizeCategory){
+      SizeCategory.small => modelSize1.height,
+      SizeCategory.medium => size.width / modelSize1.width * modelSize1.height,
+      SizeCategory.large => modelSize2.height,
+    };
 
     const positionCoeffImage = (
       // Prevent code folding
@@ -81,10 +89,7 @@ class _HeadState extends State<HeadWidget> {
                   imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
                   child: ColorFiltered(
                       // lower the brightness
-                      colorFilter: const ColorFilter.mode(
-                          Colors.black45,
-                          BlendMode.multiply
-                      ),
+                      colorFilter: const ColorFilter.mode(Colors.black45, BlendMode.multiply),
                       child: Image.asset(
                         'assets/images/header-background.png',
                         fit: BoxFit.cover,

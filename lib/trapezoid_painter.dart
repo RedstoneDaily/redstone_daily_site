@@ -75,7 +75,7 @@ class TrapezoidPainter extends CustomPainter {
     this.topEnd = 1,
     this.bottomStart = 0,
     this.bottomEnd = 1,
-    this.color = const Color(0xFF740000)
+    this.color = Colors.cyan
   });
   
   @override

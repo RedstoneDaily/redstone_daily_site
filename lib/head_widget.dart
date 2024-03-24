@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:redstone_daily_site/media_type.dart';
 import 'package:redstone_daily_site/trapezoid_painter.dart';
 
 class HeadWidget extends StatefulWidget {
@@ -12,27 +13,16 @@ class HeadWidget extends StatefulWidget {
   }
 }
 
-enum SizeCategory {
-  small,
-  medium,
-  large,
-}
-
 class _HeadState extends State<HeadWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    const modelSize1 = Size(1080, 175);
-    const modelSize2 = Size(1920, 1920 / 1080 * 175);
-    var sizeCategory = size.width < modelSize1.width
-        ? SizeCategory.small
-        : size.width < modelSize2.width
-            ? SizeCategory.medium
-            : SizeCategory.large;
-    var height = switch(sizeCategory){
-      SizeCategory.small => modelSize1.height,
-      SizeCategory.medium => size.width / modelSize1.width * modelSize1.height,
-      SizeCategory.large => modelSize2.height,
+    double height1 = 174;
+    var height2 = height1 * MediaType.large.width / MediaType.medium.width; // sbDart 这个地方不能const
+    var height = switch (getMediaType(context)) {
+      MediaType.small => height1,
+      MediaType.medium => size.width / MediaType.medium.width * height1,
+      MediaType.large => height2,
     };
 
     const positionCoeffImage = (
@@ -49,26 +39,22 @@ class _HeadState extends State<HeadWidget> {
     var whiteZhTextStyle1 = TextStyle(
       color: Colors.white,
       fontSize: 0.31 * height,
-      // fontWeight: FontWeight.w500,
     );
 
     var whiteZhTextStyle2 = TextStyle(
       color: Colors.white,
       fontSize: 0.35 * height,
-      // fontWeight: FontWeight.w500,
     );
 
     var whiteEnTextStyle1 = TextStyle(
       color: Colors.white,
       fontSize: 0.155 * height,
-      // fontWeight: FontWeight.w500,
     );
 
     var whiteEnTextStyle2 = TextStyle(
       color: Colors.white,
       fontSize: 0.155 * height,
       letterSpacing: 3,
-      // fontWeight: FontWeight.w500,
     );
 
     return SizedBox(
@@ -97,12 +83,13 @@ class _HeadState extends State<HeadWidget> {
           // 梯形
           CustomPaint(
             painter: TrapezoidPainter(
-                axis: Axis.horizontal,
-                topStart: 0,
-                bottomStart: 0,
-                topEnd: cutFraction + 0.5 * height * inverseSlopeTrapezoid / size.width,
-                bottomEnd: cutFraction - 0.5 * height * inverseSlopeTrapezoid / size.width,
-                color: const Color(0xFF740000)),
+              axis: Axis.horizontal,
+              topStart: 0,
+              bottomStart: 0,
+              topEnd: cutFraction + 0.5 * height * inverseSlopeTrapezoid / size.width,
+              bottomEnd: cutFraction - 0.5 * height * inverseSlopeTrapezoid / size.width,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             size: Size(size.width, height),
           ),
           SizedBox(

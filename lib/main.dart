@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redstone_daily_site/contentwidget.dart';
-import 'package:redstone_daily_site/headwidget.dart';
+import 'package:redstone_daily_site/content_widget.dart';
+import 'package:redstone_daily_site/head_widget.dart';
 import 'package:redstone_daily_site/trapezoid_painter.dart';
 
 import 'content_list.dart';
@@ -20,11 +20,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan), useMaterial3: true, fontFamily: 'HuXiaoBo'),
+        theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: const Color(0xFF740000),
+                secondary: const Color(0xFF740000),
+            ), useMaterial3: true, fontFamily: 'HuXiaoBo'),
         home: CustomScrollView(
           scrollDirection: Axis.vertical,
           slivers: [
-            SliverList(delegate: new SliverChildListDelegate([MyHomePage(title: "title")]))
+            SliverList(delegate: SliverChildListDelegate([const MyHomePage(title: "title")]))
           ],
         ));
   }
@@ -59,14 +63,46 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     var size = MediaQuery.of(context).size;
 
+    var footerTextStyle = TextStyle(
+      color: Theme.of(context).colorScheme.onSecondary,
+      fontSize: 20,
+      letterSpacing: 3
+    );
 
     return Stack(
       children: <Widget>[
         Material(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               HeadWidget(),
               ContentList(),
+              // 底部
+              Container(
+                height: 100, // 设置容器的高度
+                color: Theme.of(context).colorScheme.secondary,
+                padding: const EdgeInsets.all(4.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      '这里的第一行是各种声明,比如:本报所有内容均由用户生成,本报只做收集与整理,所有内容均与本报无关,就像这样,位占位占位占位占位占',
+                      style: footerTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '下面一行可以放一些鸣谢声明,像:本报版面由creepebucket设计,占位占位占位占位位占位占位占位占位占位占位占位占位占位占位占位',
+                      style: footerTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '在这里放一些东西,就像: 备案号:X公网安备XXX 支持我们:www.afdian.net/XXX 开源链接:github.com/XXX',
+                      style: footerTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -74,18 +110,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
         // A reference picture aligning to the top, resized to fit the width, 30% opacity
-        Positioned(
-          top: 0,
-          left: 0,
-          child: Opacity(
-            opacity: 0.0,
-            child: Image.asset(
-              'assets/images/test_ref.png',
-              width: size.width,
-              fit: BoxFit.cover,
-            )
-          )
-        )
+        // Positioned(
+        //   top: 0,
+        //   left: 0,
+        //   child: Opacity(
+        //     opacity: 0.0,
+        //     child: Image.asset(
+        //       'assets/images/test_ref.png',
+        //       width: size.width,
+        //       fit: BoxFit.cover,
+        //     )
+        //   )
+        // )
       ],
     );
   }

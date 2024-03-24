@@ -5,13 +5,13 @@ class ContentItem extends StatelessWidget {
   final String title;
   final String description;
 
-  final TextStyle _titleStyle = const TextStyle(
+  final TextStyle titleStyle = const TextStyle(
     fontFamily: 'HuXiaoBo',
     fontSize: 12,
     color: Colors.white,
   );
 
-  final TextStyle _descriptionStyle = const TextStyle(
+  final TextStyle descriptionStyle = const TextStyle(
     fontFamily: 'HuXiaoBo',
     fontSize: 9,
     color: Colors.black,
@@ -30,11 +30,11 @@ class ContentItem extends StatelessWidget {
       leading: Image.network(imageUrl),
       title: Text(
         title,
-        style: _titleStyle,
+        style: titleStyle,
       ),
       subtitle: Text(
         description,
-        style: _descriptionStyle,
+        style: descriptionStyle,
       ),
     );
   }

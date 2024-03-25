@@ -5,6 +5,7 @@ import 'package:image_network/image_network.dart';
 import 'package:redstone_daily_site/trapezoid_painter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class ContentWidget extends StatefulWidget {
   String title;
   String description;
@@ -106,10 +107,8 @@ class _ContentWidgetState extends State<ContentWidget> {
               children: [
                 // 封面图
                 Positioned.fill(
-                    child: Image(
-                  image: NetworkImage(imageUrl),
-                  fit: BoxFit.cover,
-                )),
+                    child: Image.network(imageUrl),
+                ),
                 // 左上角三角
                 CustomPaint(
                   painter: TrapezoidPainter(topStart: 0, topEnd: 1.1, bottomStart: 1, bottomEnd: 1.1, color: Theme.of(context).colorScheme.secondary),

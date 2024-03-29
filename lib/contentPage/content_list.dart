@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redstone_daily_site/content_widget.dart';
+import 'package:redstone_daily_site/contentPage/content_widget.dart';
 import 'package:redstone_daily_site/jsonobject/NewsPaper.dart';
 import 'package:redstone_daily_site/media_type.dart';
 
@@ -17,9 +19,6 @@ double inverseLerp(double a, double b, double x) {
 class ContentList extends StatelessWidget {
   const ContentList({super.key});
 
-  static const double heightHeader = 280;
-  static const double heightSubHeader = 130;
-  static const double heightContent = 100;
   static const double contentListPaddingMedium = 300;
   static const double contentListPaddingSmall = 10;
 
@@ -52,6 +51,10 @@ class ContentList extends StatelessWidget {
   }
 
   Widget buildWithNewsPaper(NewsPaper paper, BuildContext context) {
+    var mediaType = getMediaType(context);
+    var size = MediaQuery.of(context).size;
+    var itemScaling = min(1.0, size.width / MediaType.medium.width);
+
     List<ContentWidget> items = [];
     paper.content.asMap().entries.forEach((entry) {
       var index = entry.key;
@@ -68,9 +71,6 @@ class ContentList extends StatelessWidget {
     var anotherList = <ContentWidget>[];
     anotherList.addAll(items);
     anotherList.removeRange(0, 3);
-
-    var mediaType = getMediaType(context);
-    var size = MediaQuery.of(context).size;
 
     return Padding(
         padding: EdgeInsets.symmetric(
@@ -90,37 +90,37 @@ class ContentList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Padding(padding: EdgeInsets.only(top: 35)),
+                  Padding(padding: EdgeInsets.only(top: 35 * itemScaling)),
 
                   // 头条
                   SizedBox(
-                    height: heightHeader,
+                    height: ContentWidget.maxHeightHeader * itemScaling,
                     child: items[0],
                   ),
 
-                  const Padding(padding: EdgeInsets.only(top: 25)),
+                  Padding(padding: EdgeInsets.only(top: 25 * itemScaling)),
 
                   GridView(
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: mediaType == MediaType.small ? 1 : 2,
-                      mainAxisExtent: heightSubHeader,
-                      crossAxisSpacing: itemPadding,
-                      mainAxisSpacing: itemPadding,
+                      mainAxisExtent: (mediaType == MediaType.small ? 1.5 : 1) * ContentWidget.maxHeightSubHeader * itemScaling,
+                      crossAxisSpacing: itemPadding * itemScaling,
+                      mainAxisSpacing: itemPadding * itemScaling,
                     ),
                     children: [items[1], items[2]],
                   ),
 
-                  const Padding(padding: EdgeInsets.only(top: itemPadding)),
+                  Padding(padding: EdgeInsets.only(top: itemPadding * itemScaling)),
 
                   // 其余内容
                   GridView(
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: mediaType == MediaType.small ? 1 : 2,
-                      mainAxisExtent: heightContent,
-                      crossAxisSpacing: itemPadding,
-                      mainAxisSpacing: itemPadding,
+                      mainAxisExtent: (mediaType == MediaType.small ? 1.5 : 1) * ContentWidget.maxHeightContent * itemScaling,
+                      crossAxisSpacing: itemPadding * itemScaling,
+                      mainAxisSpacing: itemPadding * itemScaling,
                     ),
                     children: [...anotherList],
                   ),

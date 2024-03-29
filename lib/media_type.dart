@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 enum MediaType {
-  small(0),
-  medium(1080),
-  large(1920);
+  small(0),     // phone
+  medium(1080), // half desktop
+  large(1920);  // desktop
 
   const MediaType(this.width);
 

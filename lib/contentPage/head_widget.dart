@@ -20,7 +20,7 @@ class _HeadState extends State<HeadWidget> {
     double height1 = 174;
     var height2 = height1 * MediaType.large.width / MediaType.medium.width; // sbDart 这个地方不能const
     var height = switch (getMediaType(context)) {
-      MediaType.small => height1,
+      MediaType.small => size.width / MediaType.medium.width * height1,
       MediaType.medium => size.width / MediaType.medium.width * height1,
       MediaType.large => height2,
     };

@@ -1,11 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redstone_daily_site/content_widget.dart';
-import 'package:redstone_daily_site/head_widget.dart';
-import 'package:redstone_daily_site/trapezoid_painter.dart';
+import 'package:redstone_daily_site/contentPage/head_widget.dart';
 
+import '../media_type.dart';
 import 'content_list.dart';
 
 void main() {
@@ -62,11 +63,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     var size = MediaQuery.of(context).size;
+    var scaling = min(1.0, size.width / MediaType.medium.width);
 
     var footerTextStyle = TextStyle(
       color: Theme.of(context).colorScheme.onSecondary,
-      fontSize: 20,
-      letterSpacing: 3
+      fontSize: 20 * scaling,
+      letterSpacing: 3 * scaling
     );
 
     return Stack(
@@ -79,9 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ContentList(),
               // 底部
               Container(
-                height: 100, // 设置容器的高度
+                height: 100 * scaling, // 设置容器的高度
                 color: Theme.of(context).colorScheme.secondary,
-                padding: const EdgeInsets.all(4.0),
+                padding: EdgeInsets.all(4.0 * scaling),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -91,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      '下面一行可以放一些鸣谢声明,像:本报版面由creepebucket设计,占位占位占位占位位占位占位占位占位占位占位占位占位占位占位占位',
+                      '下面一行可以放一些鸣谢声明,像:本报版面由creepebucket设计,占位占位占位占位位占位占位占位占位占位占位占位占位占位',
                       style: footerTextStyle,
                       textAlign: TextAlign.center,
                     ),

@@ -20,7 +20,7 @@ class ContentList extends StatelessWidget {
   const ContentList({super.key});
 
   static const double contentListPaddingMedium = 300;
-  static const double contentListPaddingSmall = 10;
+  static const double contentListPaddingSmall = 20;
 
   // for large device, it is free
   static const double itemPadding = 20;

@@ -43,7 +43,7 @@ class _ContentWidgetState extends State<ContentWidget> {
   late final newsType type;
   late final double maxHeight;
 
-  // late final double minElasticWidth;  // 最小弹性宽度———大于这个宽度标题内容的长度会自动伸长，小于这个宽度则会整体缩放
+  // late final double minElasticWidth;   // 最小弹性宽度———大于这个宽度标题内容的长度会自动伸长，小于这个宽度则会整体缩放
 
   _ContentWidgetState(this.url, this.imageUrl, this.title, this.msg, this.ranking) {
     type = switch (ranking) {
@@ -203,6 +203,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                                         Positioned(
                                             left: -10 * scaling,
                                             bottom: 12 * scaling,
+                                            right: 0,
                                             child: Text(
                                               title,
                                               maxLines: 1,

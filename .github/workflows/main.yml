@@ -19,15 +19,18 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
+            - name: Print Texts
+              run: cat < cyber_budhha.txt && cat < RD_text.txt
+
             - name: Flutter action
               # You may pin to the exact commit or the version.
               # uses: subosito/flutter-action@1c5eb12d812966ca84680edc38353a0851c8fd56
-              uses: subosito/flutter-action@master
+              uses: subosito/flutter-action@v2
               with:
                   # The Flutter version to make available on the path
-                  flutter-version: 3.19.5
+                  # flutter-version: '3.19.5'
                   # The Flutter build release channel
-                  channel: stable
+                  channel: 'stable'
                   # Cache the Flutter SDK
                   cache: true
                   # Identifier for the Flutter SDK cache
@@ -40,15 +43,19 @@ jobs:
                   # pub-cache-path: # optional, default is default
                   # The architecture of Flutter SDK executable (x64 or arm64)
                   # architecture: # optional, default is ${{ runner.arch }}
-          
+            - run: flutter pub get
+            # - run: flutter test
+            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart
 
             # 上传打包资源
             - name: Deploy
-              uses: easingthemes/ssh-deploy@master
-              env:
-                  SSH_PRIVATE_KEY: ${{ env.SERVER_PRIVATE_KEY }}
+              uses: easingthemes/ssh-deploy@main
+              with:
+                  SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+                  REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+                  REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+                  REMOTE_USER: ${{ secrets.USER_NAME }}
                   ARGS: '-avz --delete'
-                  SOURCE: 'build/web'
-                  REMOTE_HOST: ${{ env.SERVER_HOST }}
-                  REMOTE_USER: ${{ env.USER_NAME }}
-                  TARGET: /root/redstone_daily/frontend/ # 服务器目标路径
+                  # https://ss64.com/bash/rsync_options.html
+                  SOURCE: 'build/web/'
+                  TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径

@@ -66,28 +66,29 @@ class _ContentWidgetState extends State<ContentWidget> {
       double scaling = height / maxHeight;
 
       TextStyle titleStyle = TextStyle(
-        fontFamily: 'HuXiaoBo',
+        fontFamily: 'Kingsoft_Cloud',
         fontSize: 22 * scaling,
-        letterSpacing: 3 * scaling,
+        letterSpacing: 0, //3 * scaling,
         color: Colors.white,
       );
       TextStyle headerDescriptionStyle = TextStyle(
         fontFamily: '黑体',
         fontSize: 25 * scaling,
         // letterSpacing: 3,
-        color: Colors.black,
+        color: Colors.black87,
       );
       TextStyle subHeaderDescriptionStyle = TextStyle(
         fontFamily: '黑体',
         fontSize: 12 * scaling,
         // letterSpacing: 3,
-        color: Colors.black,
+        color: Colors.black87,
       );
       TextStyle descriptionStyle = TextStyle(
         fontFamily: '黑体',
         fontSize: 12 * scaling,
         // letterSpacing: 3,
-        color: Colors.black,
+        height: 1.4,
+        color: Colors.black87,
       );
 
       TextSpan text1stRanking = TextSpan(
@@ -173,7 +174,9 @@ class _ContentWidgetState extends State<ContentWidget> {
                                 alignment: Alignment.centerLeft,
                                 color: Theme.of(context).colorScheme.secondary,
                                 child: type == newsType.header
+                                    // 如果是头条，显示Stack”今日头条“+”Headlines Today"+标题
                                     ? Stack(clipBehavior: Clip.none, children: [
+                                        // ”今日头条“
                                         Positioned(
                                             left: -40 * scaling,
                                             top: 5 * scaling,
@@ -187,6 +190,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                                                 color: Colors.white,
                                               ),
                                             )),
+                                        // ”Headlines Today“
                                         Positioned(
                                             left: 90 * scaling,
                                             top: 5 * scaling,
@@ -200,6 +204,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                                                 color: Colors.white,
                                               ),
                                             )),
+                                        // 标题
                                         Positioned(
                                             left: -10 * scaling,
                                             bottom: 12 * scaling,
@@ -209,13 +214,14 @@ class _ContentWidgetState extends State<ContentWidget> {
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
-                                                fontFamily: 'HuXiaoBo',
+                                                fontFamily: 'Kingsoft_Cloud',
                                                 fontSize: 27 * scaling,
-                                                letterSpacing: 3 * scaling,
+                                                letterSpacing: 0, //3 * scaling,
                                                 color: Colors.white,
                                               ),
                                             ))
                                       ])
+                                    // 否则普通标题
                                     : Text(
                                         title,
                                         style: titleStyle,
@@ -226,7 +232,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                         Expanded(
                           child: Container(
                             alignment: Alignment.topLeft,
-                            padding: const EdgeInsets.all(3),
+                            padding: const EdgeInsets.only(top: 3, left: 3),
                             child: Text(
                               msg,
                               style: switch (type) {

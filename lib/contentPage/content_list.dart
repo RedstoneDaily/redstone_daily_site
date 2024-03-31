@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -17,8 +18,14 @@ double inverseLerp(double a, double b, double x) {
 }
 
 // 网站内容列表
-class ContentList extends StatelessWidget {
+class ContentList extends StatefulWidget {
   const ContentList({super.key});
+
+  @override
+  State<ContentList> createState() => _ContentListState();
+}
+
+class _ContentListState extends State<ContentList> {
 
   static const double contentListPaddingMedium = 300;
   static const double contentListPaddingSmall = 20;
@@ -26,40 +33,15 @@ class ContentList extends StatelessWidget {
   // for large device, it is free
   static const double itemPadding = 20;
 
-  // 异步读取json
+  late Future<List<ContentWidget>> _futureBuildItems;
+
+  // 异步获取json字符串
   Future<String> fetchJson(BuildContext context) async {
     return DefaultAssetBundle.of(context).loadString("assets/demo.json");
   }
-
-  @override
-  Widget build(BuildContext context) {
-    builder(BuildContext context, AsyncSnapshot<String> snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        // 当Future还未完成时，显示加载中的UI
-        return CircularProgressIndicator();
-      } else if (snapshot.hasError) {
-        // 当Future发生错误时，显示错误提示的UI
-        return Text('Error: ${snapshot.error}');
-      } else {
-        // 当Future成功完成时，显示数据
-        return buildWithNewsPaper(newsPaperFromJson(snapshot.data!), context);
-      }
-    }
-
-    return FutureBuilder(
-      future: fetchJson(context),
-      builder: builder,
-    );
-  }
-
-  // 根据NewsPaper结构进行页面的构建
-  Widget buildWithNewsPaper(NewsPaper paper, BuildContext context) {
-    var mediaType = getMediaType(context);
-    var size = MediaQuery.of(context).size;
-    var itemScaling = min(1.0, size.width / MediaType.medium.width);
-
+  
+  List<ContentWidget> buildItems(NewsPaper paper) {
     List<ContentWidget> items = [];
-    //遍历主数据,创建ContentWidget也就是网站内容组件
     paper.content.asMap().entries.forEach((entry) {
       var index = entry.key;
       var content = entry.value;
@@ -71,6 +53,44 @@ class ContentList extends StatelessWidget {
         ranking: index + 1,
       ));
     });
+    return items;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // 获取内容信息json，并构建内容组件列表
+    _futureBuildItems = fetchJson(context)
+        .then((str) => newsPaperFromJson(str))
+        .then((paper) => buildItems(paper));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    builder(BuildContext context, AsyncSnapshot<List<ContentWidget>> snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        // 当Future还未完成时，显示加载中的UI
+        return const CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        // 当Future发生错误时，显示错误提示的UI
+        return Text('Error: ${snapshot.error}');
+      } else {
+        // 当Future成功完成时，显示数据
+        return buildWithNewsPaper(snapshot.data!, context);
+      }
+    }
+
+    return FutureBuilder(
+      future: _futureBuildItems,
+      builder: builder,
+    );
+  }
+
+  // 根据NewsPaper结构进行页面的构建
+  Widget buildWithNewsPaper(List<ContentWidget> items, BuildContext context) {
+    var mediaType = getMediaType(context);
+    var size = MediaQuery.of(context).size;
+    var itemScaling = min(1.0, size.width / MediaType.medium.width);
 
     var anotherList = <ContentWidget>[];
     anotherList.addAll(items);

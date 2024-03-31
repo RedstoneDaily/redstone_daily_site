@@ -83,6 +83,9 @@ flutter:
     - family: HuXiaoBo
       fonts:
         - asset: assets/fonts/HuXiaoBoZhenShuaiTi.otf
+    - family: Kingsoft_Cloud
+      fonts:
+        - asset: assets/fonts/Kingsoft_Cloud_Font.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -114,7 +114,7 @@ class _ContentWidgetState extends State<ContentWidget> {
           height: height,
           child: InkWell(
               onTap: () {
-                launch(url);
+                launchUrl(Uri.parse(url));
               },
               child: Row(
                 // mainAxisSize: MainAxisSize.max,

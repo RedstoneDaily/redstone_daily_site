@@ -16,6 +16,7 @@ double inverseLerp(double a, double b, double x) {
   return (x - a) / (b - a);
 }
 
+// 网站内容列表
 class ContentList extends StatelessWidget {
   const ContentList({super.key});
 
@@ -25,6 +26,7 @@ class ContentList extends StatelessWidget {
   // for large device, it is free
   static const double itemPadding = 20;
 
+  // 异步读取json
   Future<String> fetchJson(BuildContext context) async {
     return DefaultAssetBundle.of(context).loadString("assets/demo.json");
   }
@@ -50,12 +52,14 @@ class ContentList extends StatelessWidget {
     );
   }
 
+  // 根据NewsPaper结构进行页面的构建
   Widget buildWithNewsPaper(NewsPaper paper, BuildContext context) {
     var mediaType = getMediaType(context);
     var size = MediaQuery.of(context).size;
     var itemScaling = min(1.0, size.width / MediaType.medium.width);
 
     List<ContentWidget> items = [];
+    //遍历主数据,创建ContentWidget也就是网站内容组件
     paper.content.asMap().entries.forEach((entry) {
       var index = entry.key;
       var content = entry.value;
@@ -72,7 +76,7 @@ class ContentList extends StatelessWidget {
     anotherList.addAll(items);
     anotherList.removeRange(0, 3);
 
-    return Padding(
+    return Padding( // 设置两边平行同步
         padding: EdgeInsets.symmetric(
           horizontal: switch (mediaType) {
             MediaType.small => contentListPaddingSmall,
@@ -83,7 +87,7 @@ class ContentList extends StatelessWidget {
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             var largeWidth = MediaType.large.width - contentListPaddingMedium;
-            return SizedBox(
+            return SizedBox( //区块大小, 如果是大区块的,就是最大宽度,否则铺满页面
               width: mediaType != MediaType.large ? double.infinity : largeWidth,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -99,7 +103,7 @@ class ContentList extends StatelessWidget {
                   ),
 
                   Padding(padding: EdgeInsets.only(top: 25 * itemScaling)),
-
+                  // 副头条(2和3)
                   GridView(
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -67,6 +67,7 @@ flutter:
     - assets/images/2024-02-10_20.00.46.png
     - assets/images/test_ref.png
     - assets/demo.json
+    - assets/images/main_1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

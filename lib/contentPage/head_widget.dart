@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/media_type.dart';
-import 'package:redstone_daily_site/trapezoid_painter.dart';
+import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
 class HeadWidget extends StatefulWidget {
   const HeadWidget({super.key});

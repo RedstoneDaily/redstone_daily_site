@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:redstone_daily_site/trapezoid_painter.dart';
+import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 此组件的高度由content-list提供的约束控制;  可传入scaling参数使内部的排名三角、标题内容的高度和字体进行缩放

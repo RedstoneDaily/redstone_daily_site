@@ -1,27 +1,25 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MyTextButton extends StatefulWidget{
+class MyNavButton extends StatefulWidget{
   String text;
   String route="/";
-  MyTextButton(this.route,this.text);
+  MyNavButton(this.route,this.text);
 
   @override
   State<StatefulWidget> createState() {
-    return _MyTextButtonState(route, text);
+    return _MyNavButtonState(route, text);
   }
 
 }
 
-class _MyTextButtonState extends State<MyTextButton>{
+class _MyNavButtonState extends State<MyNavButton>{
 
   String text;
   String route;
   bool hover = true;
 
-  _MyTextButtonState(this.route,this.text);
+  _MyNavButtonState(this.route,this.text);
 
   @override
   Widget build(BuildContext context) {

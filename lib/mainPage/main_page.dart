@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 
 import 'MyTextButton.dart';
 
-class Main0 extends StatelessWidget {
+class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Text("/"),
-        MyTextButton("/", "日报"),
+        MyNavButton("/", "日报"),
         Text("/"),
-        MyTextButton("/", "探索"),
+        MyNavButton("/", "探索"),
         Text("/"),
-        MyTextButton("/", "更多"),
+        MyNavButton("/", "更多"),
         Text("/"),
         Spacer(),
         Container(
@@ -35,11 +35,11 @@ class Main0 extends StatelessWidget {
         ),
         Spacer(),
         Text("/"),
-        MyTextButton("/", "赞助"),
+        MyNavButton("/", "赞助"),
         Text("/"),
-        MyTextButton("/", "源码"),
+        MyNavButton("/", "源码"),
         Text("/"),
-        MyTextButton("/", "贡献"),
+        MyNavButton("/", "贡献"),
         Text("/"),
       ],
     );

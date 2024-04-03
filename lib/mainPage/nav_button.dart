@@ -3,25 +3,25 @@ import 'package:go_router/go_router.dart';
 
 import '../media_type.dart';
 
-class MyNavButton extends StatefulWidget{
+class NavButton extends StatefulWidget{
   String text;
   String route="/";
-  MyNavButton(this.route,this.text);
+  NavButton(this.route,this.text);
 
   @override
   State<StatefulWidget> createState() {
-    return _MyNavButtonState(route, text);
+    return _NavButtonState(route, text);
   }
 
 }
 
-class _MyNavButtonState extends State<MyNavButton>{
+class _NavButtonState extends State<NavButton>{
 
   String text;
   String route;
   bool hover = true;
 
-  _MyNavButtonState(this.route,this.text);
+  _NavButtonState(this.route,this.text);
 
   @override
   Widget build(BuildContext context) {

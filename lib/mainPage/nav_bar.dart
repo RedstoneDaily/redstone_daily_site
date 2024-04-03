@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../media_type.dart';
-import 'my_nav_button.dart';
+import 'nav_button.dart';
 
-class MyNavBar extends StatelessWidget {
-  const MyNavBar({
+class NavBar extends StatelessWidget {
+  const NavBar({
     super.key,
   });
 
@@ -27,11 +27,11 @@ class MyNavBar extends StatelessWidget {
     return Row(
       children: [
         Text("  /",style: style,),
-        MyNavButton("/", "日报"),
+        NavButton("/", "日报"),
         Text("/",style: style,),
-        MyNavButton("/", "探索"),
+        NavButton("/", "探索"),
         Text("/",style: style,),
-        MyNavButton("/", "更多"),
+        NavButton("/", "更多"),
         Text("/",style: style,),
         Spacer(),
         Container(
@@ -55,11 +55,11 @@ class MyNavBar extends StatelessWidget {
         ),
         Spacer(),
         Text("/",style: style,),
-        MyNavButton("/", "赞助"),
+        NavButton("/", "赞助"),
         Text("/",style: style,),
-        MyNavButton("/", "源码"),
+        NavButton("/", "源码"),
         Text("/",style: style,),
-        MyNavButton("/", "贡献"),
+        NavButton("/", "贡献"),
         Text("/  ",style: style,),
       ],
     );

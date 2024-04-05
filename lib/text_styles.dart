@@ -8,6 +8,7 @@ class TextStyles{
   late TextStyle whiteZhTextStyle1;
 
   late TextStyle whiteZhTextStyle2;
+  late TextStyle whiteZhTextStyle3;
 
   late TextStyle whiteEnTextStyle1;
 
@@ -17,6 +18,8 @@ class TextStyles{
   late TextStyle headerDescriptionStyle;
   late TextStyle subHeaderDescriptionStyle;
   late TextStyle descriptionStyle;
+  late TextStyle blackZhTextStyle1;
+  late TextStyle blackZhTextStyle2;
 
   TextStyles({double height = 0, double scaling = 0}){
     whiteZhTextStyle1 = TextStyle(
@@ -64,6 +67,26 @@ class TextStyles{
       // letterSpacing: 3,
       height: 1.4,
       color: Colors.black87,
+    );
+    blackZhTextStyle1 = TextStyle(
+      fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 0.4 * height,
+      // letterSpacing: 3,
+      height: 1.4,
+      color: Colors.black87,
+    );
+    blackZhTextStyle2 = TextStyle(
+      fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 0.155 * height,
+      // letterSpacing: 3,
+      height: 1.4,
+      color: Colors.black87,
+    );
+
+    whiteZhTextStyle3 = TextStyle(
+      color: Colors.white,
+      fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 0.31 * height,
     );
   }
 }

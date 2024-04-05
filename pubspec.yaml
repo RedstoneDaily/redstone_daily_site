@@ -91,6 +91,9 @@ flutter:
     - family: Kingsoft_Cloud
       fonts:
         - asset: assets/fonts/Kingsoft_Cloud_Font.ttf
+    - family: FontquanXinYiGuanHeiTi
+      fonts:
+        - asset: assets/fonts/FontquanXinYiGuanHeiTi-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

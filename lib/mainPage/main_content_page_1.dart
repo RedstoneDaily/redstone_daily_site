@@ -40,13 +40,13 @@ class MainContentPage1 extends StatelessWidget {
           painter: TrapezoidPainter(
               axis: Axis.horizontal,
               topEnd: 0.3,
-              bottomEnd: 0.4,
+              bottomEnd: 0.5,
               color: HexColor("#740000")),
           size: Size(width, height),
         ),
         Positioned(
             top: height * 0.25,
-            left: width * 0.12,
+            left: width * 0.07,
             child: Transform.rotate(
               angle: -30 * 3.14 / 180,
               child: SizedBox(
@@ -56,16 +56,16 @@ class MainContentPage1 extends StatelessWidget {
               ),
             )),
         Positioned(
-            top: height * 0.35, left: width * 0.5, child: Text("第一时间...",style: textStyles.redZhTextStyle1)),
+            top: height * 0.1, left: width * 0.5, child: Text("第一时间...",style: textStyles.blackZhTextStyle1)),
         Positioned(
-            top: height * 0.45, left: width * 0.6, child: Text("得到第一手信息...",style: textStyles.redZhTextStyle1)),
+            top: height * 0.25, left: width * 0.57, child: Text("得到第一手信息...",style: textStyles.blackZhTextStyle1)),
         Positioned(
-            top: height * 0.5,
-            left: width * 0.6,
-            child: Text("我们每日都会排查并分析对你有帮助的\n红石视频,以便您研究时查看最新进展。",style: textStyles.redZhTextStyle1, maxLines: 2)),
+            top: height * 0.45,
+            left: width * 0.55,
+            child: Text("我们每日都会排查并分析对你有帮助的\n红石视频,以便您研究时查看最新进展。",style: textStyles.blackZhTextStyle2, maxLines: 2)),
         Positioned(
             top: height * 0.7,
-            left: width * 0.5,
+            left: width * 0.6,
             child: InkWell(
               child: Container(
                 width: 0.35 * width,
@@ -80,7 +80,7 @@ class MainContentPage1 extends StatelessWidget {
                             bottomStart: 0,
                             bottomEnd: 0.8),
                         size: Size(0.35 * width, 0.15 * height)),
-                    Align(child: Text(">>了解更多",style: textStyles.whiteZhTextStyle2,))
+                    Align(child: Text(">>了解更多",style: textStyles.whiteZhTextStyle3,))
                   ],
                 ),
               ),

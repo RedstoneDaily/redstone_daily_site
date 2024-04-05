@@ -22,45 +22,43 @@ class MainContentPage0 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Stack(children: [
-        Image.asset("assets/images/main_1.png"),
-        NavBar(),
-        Positioned(
-            top: height * 0.3,
-            left: height * 0.2,
-            child: Text(
-              "红石",
-              style: redZhTextStyle1,
-            )),
-        CustomPaint(
-            painter: LinePainter(Colors.red, Offset(height * 0.5, height * 1.1),
-                Offset(height * 1.1, height * 0.4), 2)),
-        CustomPaint(
-            painter: LinePainter(
-                Colors.white,
-                Offset(height * 0.55, height * 1.15),
-                Offset(height * 1.15, height * 0.45),
-                2)),
-        Positioned(
-            top: height * 0.8,
-            left: height * 1.2,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  "日报",
-                  style: whiteZhTextStyle1,
-                ),
-                DateTextWidget(whiteZhTextStyle2),
-              ],
-            )),
-        Positioned(
-            top: height * 1.5,
-            left: height * 0.2,
-            child: Text("/发现,并创造自己的灵感/",style: whiteZhTextStyle2,)
-            ),
-      ]),
-    );
+    return Stack(children: [
+      Image.asset("assets/images/main_1.png"),
+      NavBar(),
+      Positioned(
+          top: height * 0.3,
+          left: height * 0.2,
+          child: Text(
+            "红石",
+            style: redZhTextStyle1,
+          )),
+      CustomPaint(
+          painter: LinePainter(Colors.red, Offset(height * 0.5, height * 1.1),
+              Offset(height * 1.1, height * 0.4), 2)),
+      CustomPaint(
+          painter: LinePainter(
+              Colors.white,
+              Offset(height * 0.55, height * 1.15),
+              Offset(height * 1.15, height * 0.45),
+              2)),
+      Positioned(
+          top: height * 0.8,
+          left: height * 1.2,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "日报",
+                style: whiteZhTextStyle1,
+              ),
+              DateTextWidget(whiteZhTextStyle2),
+            ],
+          )),
+      Positioned(
+          top: height * 1.5,
+          left: height * 0.2,
+          child: Text("/发现,并创造自己的灵感/",style: whiteZhTextStyle2,)
+          ),
+    ]);
   }
 }

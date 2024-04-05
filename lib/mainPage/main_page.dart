@@ -36,11 +36,13 @@ class MainPage extends StatelessWidget {
       color: Colors.white,
       fontSize: 0.15 * height,
     );
-    return Column(
-      children: [
-        MainContentPage0(height: height, redZhTextStyle1: redZhTextStyle1, whiteZhTextStyle1: whiteZhTextStyle1, whiteZhTextStyle2: whiteZhTextStyle2),
-        MainContentPage1(height: height, redZhTextStyle1: redZhTextStyle1, whiteZhTextStyle1: whiteZhTextStyle1, whiteZhTextStyle2: whiteZhTextStyle2),
-      ],
+    return Material(
+      child: Column(
+        children: [
+          MainContentPage0(height: height, redZhTextStyle1: redZhTextStyle1, whiteZhTextStyle1: whiteZhTextStyle1, whiteZhTextStyle2: whiteZhTextStyle2),
+          MainContentPage1(height: height, redZhTextStyle1: redZhTextStyle1, whiteZhTextStyle1: whiteZhTextStyle1, whiteZhTextStyle2: whiteZhTextStyle2),
+        ],
+      ),
     );
   }
 }

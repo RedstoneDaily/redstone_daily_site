@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../text_styles.dart';
+
 // 此组件的高度由content-list提供的约束控制;  可传入scaling参数使内部的排名三角、标题内容的高度和字体进行缩放
 class ContentWidget extends StatefulWidget {
   static const double maxHeightHeader = 280;
@@ -64,42 +66,18 @@ class _ContentWidgetState extends State<ContentWidget> {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       double height = min(maxHeight, constraints.maxHeight);
       double scaling = height / maxHeight;
+      var textStyles = TextStyles(height: 1,scaling: scaling);
 
-      TextStyle titleStyle = TextStyle(
-        fontFamily: 'Kingsoft_Cloud',
-        fontSize: 22 * scaling,
-        letterSpacing: 0, //3 * scaling,
-        color: Colors.white,
-      );
-      TextStyle headerDescriptionStyle = TextStyle(
-        fontFamily: '黑体',
-        fontSize: 25 * scaling,
-        // letterSpacing: 3,
-        color: Colors.black87,
-      );
-      TextStyle subHeaderDescriptionStyle = TextStyle(
-        fontFamily: '黑体',
-        fontSize: 12 * scaling,
-        // letterSpacing: 3,
-        color: Colors.black87,
-      );
-      TextStyle descriptionStyle = TextStyle(
-        fontFamily: '黑体',
-        fontSize: 12 * scaling,
-        // letterSpacing: 3,
-        height: 1.4,
-        color: Colors.black87,
-      );
 
       TextSpan text1stRanking = TextSpan(
           children: [TextSpan(text: "1", style: TextStyle(fontSize: 60 * scaling)), TextSpan(text: "st", style: TextStyle(fontSize: 40 * scaling))],
-          style: titleStyle);
+          style: textStyles.titleStyle);
       TextSpan text2ndRanking = TextSpan(
           children: [TextSpan(text: "2", style: TextStyle(fontSize: 30 * scaling)), TextSpan(text: "nd", style: TextStyle(fontSize: 20 * scaling))],
-          style: titleStyle);
+          style: textStyles.titleStyle);
       TextSpan text3rdRanking = TextSpan(
           children: [TextSpan(text: "3", style: TextStyle(fontSize: 30 * scaling)), TextSpan(text: "rd", style: TextStyle(fontSize: 20 * scaling))],
-          style: titleStyle);
+          style: textStyles.titleStyle);
 
       double heightTitle = switch (type) {
             newsType.header => 120,
@@ -224,7 +202,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                                     // 否则普通标题
                                     : Text(
                                         title,
-                                        style: titleStyle,
+                                        style: textStyles.titleStyle,
                                         maxLines: type == newsType.content ? 1 : 2,
                                         overflow: TextOverflow.ellipsis,
                                       ))),
@@ -236,9 +214,9 @@ class _ContentWidgetState extends State<ContentWidget> {
                             child: Text(
                               msg,
                               style: switch (type) {
-                                newsType.header => headerDescriptionStyle,
-                                newsType.subheader => subHeaderDescriptionStyle,
-                                newsType.content => descriptionStyle,
+                                newsType.header => textStyles.headerDescriptionStyle,
+                                newsType.subheader => textStyles.subHeaderDescriptionStyle,
+                                newsType.content => textStyles.descriptionStyle,
                               },
                               maxLines: (4 * scaling).floor(),
                               overflow: TextOverflow.ellipsis,

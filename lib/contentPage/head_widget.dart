@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/media_type.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
+import '../text_styles.dart';
+
 class HeadWidget extends StatefulWidget {
   const HeadWidget({super.key});
 
@@ -24,6 +26,7 @@ class _HeadState extends State<HeadWidget> {
       MediaType.medium => size.width / MediaType.medium.width * height1,
       MediaType.large => height2,
     };
+    var textStyles = TextStyles(height: height);
 
     const positionCoeffImage = (
       // Prevent code folding
@@ -36,26 +39,6 @@ class _HeadState extends State<HeadWidget> {
     const cutFraction = 0.387;
     const inverseSlopeTrapezoid = 0.44;
 
-    var whiteZhTextStyle1 = TextStyle(
-      color: Colors.white,
-      fontSize: 0.31 * height,
-    );
-
-    var whiteZhTextStyle2 = TextStyle(
-      color: Colors.white,
-      fontSize: 0.35 * height,
-    );
-
-    var whiteEnTextStyle1 = TextStyle(
-      color: Colors.white,
-      fontSize: 0.155 * height,
-    );
-
-    var whiteEnTextStyle2 = TextStyle(
-      color: Colors.white,
-      fontSize: 0.155 * height,
-      letterSpacing: 3,
-    );
 
     return SizedBox(
       height: height,
@@ -110,7 +93,7 @@ class _HeadState extends State<HeadWidget> {
                                 top: 0.054 * height,
                                 child: Text(
                                   "红",
-                                  style: whiteZhTextStyle1,
+                                  style: textStyles.whiteZhTextStyle1,
                                 ),
                               ),
                               Positioned(
@@ -118,13 +101,13 @@ class _HeadState extends State<HeadWidget> {
                                 top: 0.13 * height,
                                 child: Text(
                                   "石",
-                                  style: whiteZhTextStyle1,
+                                  style: textStyles.whiteZhTextStyle1,
                                 ),
                               ),
                               Positioned(
                                 right: 0.272 * height,
                                 top: 0.5 * height,
-                                child: Text("Redstone", style: whiteEnTextStyle1),
+                                child: Text("Redstone", style: textStyles.whiteEnTextStyle1),
                               )
                             ],
                           ))),
@@ -135,17 +118,17 @@ class _HeadState extends State<HeadWidget> {
                         Positioned(
                           left: 0.46 * height,
                           top: 0.245 * height,
-                          child: Text("Daily", style: whiteEnTextStyle2),
+                          child: Text("Daily", style: textStyles.whiteEnTextStyle2),
                         ),
                         Positioned(
                           left: 0.08 * height,
                           top: 0.405 * height,
-                          child: Text("日", style: whiteZhTextStyle2),
+                          child: Text("日", style: textStyles.whiteZhTextStyle2),
                         ),
                         Positioned(
                           left: 0.34 * height,
                           top: 0.405 * height,
-                          child: Text("报", style: whiteZhTextStyle2),
+                          child: Text("报", style: textStyles.whiteZhTextStyle2),
                         ),
                       ],
                     ),

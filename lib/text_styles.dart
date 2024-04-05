@@ -12,7 +12,7 @@ class TextStyles{
   late TextStyle whiteEnTextStyle1;
 
   late TextStyle whiteEnTextStyle2;
-
+  late TextStyle redZhTextStyle1;
   late TextStyle titleStyle;
   late TextStyle headerDescriptionStyle;
   late TextStyle subHeaderDescriptionStyle;
@@ -35,6 +35,10 @@ class TextStyles{
       color: Colors.white,
       fontSize: 0.155 * height,
       letterSpacing: 3,
+    );
+    redZhTextStyle1 =  TextStyle(
+      color: Colors.red,
+      fontSize: 0.4 * height,
     );
     headerDescriptionStyle = TextStyle(
       fontFamily: '黑体',

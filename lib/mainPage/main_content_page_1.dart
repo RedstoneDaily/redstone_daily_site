@@ -10,29 +10,27 @@ import 'package:redstone_daily_site/painter/line_painter.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
 import '../media_type.dart';
+import '../text_styles.dart';
 import 'nav_bar.dart';
 import 'nav_button.dart';
 
 class MainContentPage1 extends StatelessWidget {
   const MainContentPage1({
-    super.key,
-    required this.height,
-    required this.redZhTextStyle1,
-    required this.whiteZhTextStyle1,
-    required this.whiteZhTextStyle2,
-  });
-
-  final double height;
-  final TextStyle redZhTextStyle1;
-  final TextStyle whiteZhTextStyle1;
-  final TextStyle whiteZhTextStyle2;
+    super.key});
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    var size = mediaQuery.size;
+    var size = MediaQuery.of(context).size;
+    double height1 = 174;
+    var txt_height2 = height1 * MediaType.large.width / MediaType.medium.width; // sbDart 这个地方不能const
+    var txt_height = switch (getMediaType(context)) {
+      MediaType.small => size.width / MediaType.medium.width * height1,
+      MediaType.medium => size.width / MediaType.medium.width * height1,
+      MediaType.large => txt_height2,
+    };
+    var textStyles = TextStyles(height: txt_height);
     var width = size.width;
-    var height = width * 0.6;
+    var height = size.height;
     return Container(
       width: width,
       height: height,
@@ -44,7 +42,7 @@ class MainContentPage1 extends StatelessWidget {
               topEnd: 0.3,
               bottomEnd: 0.4,
               color: HexColor("#740000")),
-          size: Size(size.width, height),
+          size: Size(width, height),
         ),
         Positioned(
             top: height * 0.25,
@@ -58,13 +56,13 @@ class MainContentPage1 extends StatelessWidget {
               ),
             )),
         Positioned(
-            top: height * 0.35, left: width * 0.5, child: Text("第一时间...",style: redZhTextStyle1)),
+            top: height * 0.35, left: width * 0.5, child: Text("第一时间...",style: textStyles.redZhTextStyle1)),
         Positioned(
-            top: height * 0.45, left: width * 0.6, child: Text("得到第一手信息...",style: redZhTextStyle1)),
+            top: height * 0.45, left: width * 0.6, child: Text("得到第一手信息...",style: textStyles.redZhTextStyle1)),
         Positioned(
             top: height * 0.5,
             left: width * 0.6,
-            child: Text("我们每日都会排查并分析对你有帮助的\n红石视频,以便您研究时查看最新进展。",style: redZhTextStyle1, maxLines: 2)),
+            child: Text("我们每日都会排查并分析对你有帮助的\n红石视频,以便您研究时查看最新进展。",style: textStyles.redZhTextStyle1, maxLines: 2)),
         Positioned(
             top: height * 0.7,
             left: width * 0.5,
@@ -82,7 +80,7 @@ class MainContentPage1 extends StatelessWidget {
                             bottomStart: 0,
                             bottomEnd: 0.8),
                         size: Size(0.35 * width, 0.15 * height)),
-                    Align(child: Text(">>了解更多",style: whiteZhTextStyle2,))
+                    Align(child: Text(">>了解更多",style: textStyles.whiteZhTextStyle2,))
                   ],
                 ),
               ),

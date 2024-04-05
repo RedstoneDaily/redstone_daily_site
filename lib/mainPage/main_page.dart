@@ -14,33 +14,12 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    double height1 = 174;
-    var height2 = height1 *
-        MediaType.large.width /
-        MediaType.medium.width; // sbDart 这个地方不能const
-    var height = switch (getMediaType(context)) {
-      MediaType.small => size.width / MediaType.medium.width * height1,
-      MediaType.medium => size.width / MediaType.medium.width * height1,
-      MediaType.large => height2,
-    };
-    var redZhTextStyle1 = TextStyle(
-      color: Colors.red,
-      fontSize: 0.4 * height,
-    );
-    var whiteZhTextStyle1 = TextStyle(
-      color: Colors.white,
-      fontSize: 0.4 * height,
-    );
-    var whiteZhTextStyle2 = TextStyle(
-      color: Colors.white,
-      fontSize: 0.15 * height,
-    );
+
     return Material(
       child: Column(
         children: [
-          MainContentPage0(height: height, redZhTextStyle1: redZhTextStyle1, whiteZhTextStyle1: whiteZhTextStyle1, whiteZhTextStyle2: whiteZhTextStyle2),
-          MainContentPage1(height: height, redZhTextStyle1: redZhTextStyle1, whiteZhTextStyle1: whiteZhTextStyle1, whiteZhTextStyle2: whiteZhTextStyle2),
+          MainContentPage0(),
+          MainContentPage1(),
         ],
       ),
     );

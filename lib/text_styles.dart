@@ -9,6 +9,7 @@ class TextStyles{
 
   late TextStyle whiteZhTextStyle2;
   late TextStyle whiteZhTextStyle3;
+  late TextStyle whiteZhTextStyle4;
 
   late TextStyle whiteEnTextStyle1;
 
@@ -87,6 +88,11 @@ class TextStyles{
       color: Colors.white,
       fontFamily: 'FontquanXinYiGuanHeiTi',
       fontSize: 0.31 * height,
+    );
+    whiteZhTextStyle4 = TextStyle(
+      color: Colors.white,
+      fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 0.11 * height,
     );
   }
 }

@@ -11,7 +11,7 @@ class DateTextWidget extends StatelessWidget {
 // 获取当前日期
     DateTime now = DateTime.now();
 // 格式化日期为 "yyyy-mm-dd" 形式
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    String formattedDate = DateFormat('y.M.d').format(now);
 
     return Text(
       "[$formattedDate]",

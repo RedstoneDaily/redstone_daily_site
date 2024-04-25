@@ -8,6 +8,7 @@ import 'main_content_page_0.dart';
 import 'main_content_page_1.dart';
 import 'main_content_page_2.dart';
 import 'main_content_page_3.dart';
+import 'main_content_page_4.dart';
 import 'nav_bar.dart';
 import 'nav_button.dart';
 
@@ -21,7 +22,10 @@ class MainPage extends StatelessWidget {
       child: Column(
         children: [
           MainContentPage0(),
+          MainContentPage1(),
+          MainContentPage2(),
           MainContentPage3(),
+          MainContentPage4(),
         ],
       ),
     );

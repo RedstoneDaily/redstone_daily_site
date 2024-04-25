@@ -7,7 +7,7 @@ enum MediaType {
 
   const MediaType(this.width);
 
-  final double width;
+  final double width; // min width for the type
 }
 
 MediaType getMediaType(BuildContext context) {

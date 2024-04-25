@@ -5,20 +5,20 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hexcolor/hexcolor_web.dart';
-import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
 import 'package:redstone_daily_site/mainPage/parallelogram_button.dart';
+import 'package:redstone_daily_site/mainPage/typography.dart';
 import 'package:redstone_daily_site/painter/line_painter.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
+import '../color_schemes.dart';
 import '../media_type.dart';
 import '../text_styles.dart';
-import 'typography.dart';
 import 'nav_bar.dart';
 import 'nav_button.dart';
 
-class MainContentPage3 extends StatelessWidget {
-  const MainContentPage3({super.key});
+class MainContentPage4 extends StatelessWidget {
+  const MainContentPage4({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,58 +32,47 @@ class MainContentPage3 extends StatelessWidget {
         height: height,
         color: RDColorSchemes.white.background,
         child: Stack(
+          clipBehavior: Clip.none,
           children: [
             CustomPaint(
               painter: TrapezoidPainter(
-                axis: Axis.horizontal,
-                topStart: 0.36,
-                topEnd: 1,
-                bottomStart: 0.172,
-                bottomEnd: 1,
+                  axis: Axis.horizontal,
+                  topStart: 0.172,
+                  topEnd: 1.025,
+                  bottomStart: -0.016,  // 0.172 - 0.188
+                  bottomEnd: 0.837, // 1.025 - 0.188
                 color: RDColorSchemes.scarlet.surface,
               ),
               size: Size(width, height),
             ),
             Positioned(
-                top: height * 0.5,
-                left: width * (0.36 + 0.172) / 2,
-                child: FractionalTranslation(
-                    translation: const Offset(-0.61, -0.55),
-                    child: Transform.rotate(
-                        angle: -18 * 3.14159 / 180,
-                        child: SizedBox(
-                          width: 0.562 * height,
-                          height: 0.562 * height,
-                          child: Image.asset("assets/images/knowledge_book.png"),
-                        )))),
-            Positioned(
-                top: height * 0.207,
-                left: width * 0.456,
-                child: Text(
-                  "查看我们的成果...",
-                  textAlign: TextAlign.end,
+                bottom: height * -0.1,
+                right: width * -0.02,
+                child: Transform.rotate(
+                  angle: 30 * 3.14 / 180,
+                  child: SizedBox(
+                    width: 0.4 * width,
+                    height: 0.4 * width,
+                    child: Image.asset("assets/images/clock.png"),
+                  ),
+                )),
+            Align(
+                alignment: const FractionalOffset(0.35, 0.1),
+                child: Text("除此之外...",
+                    textAlign: TextAlign.end,
+                    style: textStyles.zhTextStyle1.copyWith(color: RDColorSchemes.scarlet.onSurface))),
+            Align(
+                alignment: const FractionalOffset(0.743, 0.37),
+                child: Text("这里也有其它功能",
+                    textAlign: TextAlign.end,
                   style: textStyles.zhTextStyle1.copyWith(color: RDColorSchemes.scarlet.onSurface),
                 )),
-            Positioned(
-                top: height * 0.502,
-                left: width * 0.4,
+            Align(
+                alignment: const FractionalOffset(0.24, 0.655),
                 child: ParallelogramButton(
                   width: 0.397 * width,
                   height: 0.115 * height,
-                  text: "查阅最新日报<<",
-                  textStyle: textStyles.zhTextStyle3.copyWith(color: RDColorSchemes.white.onBackground),
-                  buttonColor: RDColorSchemes.scarlet.onSurface,
-                  callback: () {
-                    print("clicked");
-                  },
-                )),
-            Positioned(
-                top: height * 0.686,
-                left: width * 0.545,
-                child: ParallelogramButton(
-                  width: 0.397 * width,
-                  height: 0.115 * height,
-                  text: "或者看看往期...",
+                  text: "<< 立刻探索   ",
                   textStyle: textStyles.zhTextStyle3.copyWith(color: RDColorSchemes.white.onBackground),
                   buttonColor: RDColorSchemes.scarlet.onSurface,
                   callback: () {
@@ -98,7 +87,7 @@ class MainContentPage3 extends StatelessWidget {
                 child: Opacity(
                     opacity: 0.3,
                     child: Image.asset(
-                      "assets/test-ref-images/mainPage/3.png",
+                      "assets/test-ref-images/mainPage/4.png",
                       width: size.width,
                       fit: BoxFit.cover,
                     )))

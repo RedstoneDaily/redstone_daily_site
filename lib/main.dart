@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redstone_daily_site/contentPage/foot_widget.dart';
 import 'package:redstone_daily_site/contentPage/head_widget.dart';
+import 'package:redstone_daily_site/color_schemes.dart';
 
 import 'mainPage/main_page.dart';
 import 'media_type.dart';
@@ -25,15 +26,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: '红石日报',
         theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xFF740000),
-                secondary: const Color(0xFF740000),
-            ), useMaterial3: true, fontFamily: 'HuXiaoBo'),
+            colorScheme: RDColorSchemes.white,
+            useMaterial3: true,
+            fontFamily: 'FontquanXinYiGuanHeiTi'),
         home: CustomScrollView(
           scrollDirection: Axis.vertical,
           slivers: [
-            SliverList(delegate: SliverChildListDelegate([
-               MainPage()]))
+            SliverList(delegate: SliverChildListDelegate([const MainPage()]))
           ],
         ));
   }

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/media_type.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
@@ -60,7 +61,7 @@ class _HeadState extends State<HeadWidget> {
                       // lower the brightness
                       colorFilter: const ColorFilter.mode(Colors.black45, BlendMode.multiply),
                       child: Image.asset(
-                        'assets/images/header-background.png',
+                        'assets/images/backgrounds/rd-nn.png',
                         fit: BoxFit.cover,
                       )))),
           // 梯形
@@ -71,7 +72,7 @@ class _HeadState extends State<HeadWidget> {
               bottomStart: 0,
               topEnd: cutFraction + 0.5 * height * inverseSlopeTrapezoid / size.width,
               bottomEnd: cutFraction - 0.5 * height * inverseSlopeTrapezoid / size.width,
-              color: Theme.of(context).colorScheme.secondary,
+              color: RDColorSchemes.scarlet.surface,
             ),
             size: Size(size.width, height),
           ),

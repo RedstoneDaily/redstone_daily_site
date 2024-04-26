@@ -45,7 +45,8 @@ jobs:
                   # architecture: # optional, default is ${{ runner.arch }}
             - run: flutter pub get
             # - run: flutter test
-            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart
+#            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart
+            - run: flutter build web --web-renderer html
 
             # 上传打包资源
             - name: Deploy

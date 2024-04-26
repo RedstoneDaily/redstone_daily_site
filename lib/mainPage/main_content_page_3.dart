@@ -15,7 +15,7 @@ import '../media_type.dart';
 import '../text_styles.dart';
 import 'typography.dart';
 import 'nav_bar.dart';
-import 'nav_button.dart';
+import 'nav_button2.dart';
 
 class MainContentPage3 extends StatelessWidget {
   const MainContentPage3({super.key});
@@ -23,7 +23,7 @@ class MainContentPage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var txtHeight = 0.29 * size.height;
+    var txtHeight = size.height;
     var textStyles = MainPageTypography(height: txtHeight);
     var width = size.width;
     var height = size.height;
@@ -48,13 +48,13 @@ class MainContentPage3 extends StatelessWidget {
                 top: height * 0.5,
                 left: width * (0.36 + 0.172) / 2,
                 child: FractionalTranslation(
-                    translation: const Offset(-0.61, -0.55),
-                    child: Transform.rotate(
-                        angle: -18 * 3.14159 / 180,
-                        child: SizedBox(
-                          width: 0.562 * height,
-                          height: 0.562 * height,
-                          child: Image.asset("assets/images/knowledge_book.png"),
+                    translation: const Offset(-0.57, -0.475),
+                    child: SizedBox.square(
+                        dimension: 0.7 * height,
+                        child: Image.asset(
+                          "assets/images/mojang_banner_pattern.png",
+                          filterQuality: FilterQuality.none,
+                          fit: BoxFit.cover,
                         )))),
             Positioned(
                 top: height * 0.207,
@@ -92,16 +92,16 @@ class MainContentPage3 extends StatelessWidget {
                 )),
 
             // Debug Reference Image
-            Positioned(
-                top: 0,
-                left: 0,
-                child: Opacity(
-                    opacity: 0.3,
-                    child: Image.asset(
-                      "assets/test-ref-images/mainPage/3.png",
-                      width: size.width,
-                      fit: BoxFit.cover,
-                    )))
+            // Positioned(
+            //     top: 0,
+            //     left: 0,
+            //     child: Opacity(
+            //         opacity: 0.3,
+            //         child: Image.asset(
+            //           "assets/test-ref-images/mainPage/3.png",
+            //           width: size.width,
+            //           fit: BoxFit.cover,
+            //         )))
           ],
         ));
   }

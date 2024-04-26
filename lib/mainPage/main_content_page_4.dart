@@ -15,7 +15,7 @@ import '../color_schemes.dart';
 import '../media_type.dart';
 import '../text_styles.dart';
 import 'nav_bar.dart';
-import 'nav_button.dart';
+import 'nav_button2.dart';
 
 class MainContentPage4 extends StatelessWidget {
   const MainContentPage4({super.key});
@@ -23,7 +23,7 @@ class MainContentPage4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var txtHeight = 0.29 * size.height;
+    var txtHeight = size.height;
     var textStyles = MainPageTypography(height: txtHeight);
     var width = size.width;
     var height = size.height;
@@ -46,14 +46,17 @@ class MainContentPage4 extends StatelessWidget {
               size: Size(width, height),
             ),
             Positioned(
-                bottom: height * -0.1,
-                right: width * -0.02,
+                bottom: height * -0.195,
+                right: width * -0.019,
                 child: Transform.rotate(
-                  angle: 30 * 3.14 / 180,
-                  child: SizedBox(
-                    width: 0.4 * width,
-                    height: 0.4 * width,
-                    child: Image.asset("assets/images/clock.png"),
+                  angle: 21 * 3.14 / 180,
+                  child: SizedBox.square(
+                    dimension: 0.681 * height,
+                    child: Image.asset(
+                        "assets/images/recovery_compass_07.png",
+                        filterQuality: FilterQuality.none,
+                        fit: BoxFit.cover,
+                    ),
                   ),
                 )),
             Align(
@@ -81,16 +84,16 @@ class MainContentPage4 extends StatelessWidget {
                 )),
 
             // Debug Reference Image
-            Positioned(
-                top: 0,
-                left: 0,
-                child: Opacity(
-                    opacity: 0.3,
-                    child: Image.asset(
-                      "assets/test-ref-images/mainPage/4.png",
-                      width: size.width,
-                      fit: BoxFit.cover,
-                    )))
+            // Positioned(
+            //     top: 0,
+            //     left: 0,
+            //     child: Opacity(
+            //         opacity: 0.3,
+            //         child: Image.asset(
+            //           "assets/test-ref-images/mainPage/4.png",
+            //           width: size.width,
+            //           fit: BoxFit.cover,
+            //         )))
           ],
         ));
   }

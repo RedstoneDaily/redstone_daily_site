@@ -1,22 +1,19 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:redstone_daily_site/jsonobject/NewsPaper.dart';
 
 class MainPageTypography{
 
   late TextStyle whiteZhTextStyle1;
-
   late TextStyle whiteZhTextStyle2;
-  late TextStyle zhTextStyle3;
-  late TextStyle zhTextStyle4;
-
   late TextStyle whiteEnTextStyle1;
-
   late TextStyle whiteEnTextStyle2;
   late TextStyle redZhTextStyle1;
+
   late TextStyle zhTextStyle1;
   late TextStyle zhTextStyle2;
+  late TextStyle zhTextStyle3;
+  late TextStyle zhTextStyle4;
+  late TextStyle zhTextStyle5;
 
   MainPageTypography({double height = 0, double scaling = 0}){
     whiteZhTextStyle1 = TextStyle(
@@ -41,25 +38,31 @@ class MainPageTypography{
       fontSize: 0.4 * height,
     );
     zhTextStyle1 = TextStyle(
-      fontFamily: 'FontquanXinYiGuanHeiTi',
-      fontSize: 0.4 * height,
+      // fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 0.116 * height,
       letterSpacing: 5.5,
       height: 1.4,
     );
     zhTextStyle2 = TextStyle(
-      fontFamily: 'FontquanXinYiGuanHeiTi',
-      fontSize: 0.18 * height,
+      // fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 0.0522 * height,
       letterSpacing: 3.5,
       height: 1.4,
     );
     zhTextStyle3 = TextStyle(
-      fontFamily: 'FontquanXinYiGuanHeiTi',
-      fontSize: 0.205 * height,
+      // fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 0.05945 * height,
       letterSpacing: 5
     );
     zhTextStyle4 = TextStyle(
-      fontFamily: 'FontquanXinYiGuanHeiTi',
-      fontSize: 0.11 * height,
+      // fontFamily: 'FontquanXinYiGuanHeiTi',
+        fontSize: 0.038 * height,
+        letterSpacing: 1
+    );
+    zhTextStyle5 = TextStyle(
+      // fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 0.0215 * height,
+      letterSpacing: 1.15
     );
   }
 }

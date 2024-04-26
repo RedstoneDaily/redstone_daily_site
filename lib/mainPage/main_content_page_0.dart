@@ -8,7 +8,7 @@ import '../media_type.dart';
 import '../text_styles.dart';
 import 'typography.dart';
 import 'nav_bar.dart';
-import 'nav_button.dart';
+import 'nav_button2.dart';
 
 class MainContentPage0 extends StatelessWidget {
   @override

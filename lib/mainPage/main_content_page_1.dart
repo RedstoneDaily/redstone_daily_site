@@ -15,7 +15,7 @@ import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 import '../media_type.dart';
 import '../text_styles.dart';
 import 'nav_bar.dart';
-import 'nav_button.dart';
+import 'nav_button2.dart';
 
 class MainContentPage1 extends StatelessWidget {
   const MainContentPage1({super.key});
@@ -23,7 +23,7 @@ class MainContentPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var txtHeight = 0.29 * size.height;
+    var txtHeight = size.height;
     var textStyles = MainPageTypography(height: txtHeight);
     var width = size.width;
     var height = size.height;

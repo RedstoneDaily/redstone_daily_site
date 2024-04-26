@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../media_type.dart';
-import 'nav_button.dart';
+import 'nav_button2.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -23,11 +23,11 @@ class NavBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("  /", style: style),
-              NavButton("/", "日报"),
+              NavButton2("/", "日报"),
               Text("/", style: style),
-              NavButton("/", "探索"),
+              NavButton2("/", "探索"),
               Text("/", style: style),
-              NavButton("/", "更多"),
+              NavButton2("/", "更多"),
               Text("/", style: style),
               const Spacer(),
               Column(
@@ -57,11 +57,11 @@ class NavBar extends StatelessWidget {
               ),
               Spacer(),
               Text("/", style: style),
-              NavButton("/", "赞助"),
+              NavButton2("/", "赞助"),
               Text("/", style: style),
-              NavButton("/", "源码"),
+              NavButton2("/", "源码"),
               Text("/", style: style),
-              NavButton("/", "贡献"),
+              NavButton2("/", "贡献"),
               Text("/  ", style: style),
             ],
           );

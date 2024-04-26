@@ -30,27 +30,27 @@ class MainContentPageEnd extends StatelessWidget {
   static const List<NavCategory> navData = [
     NavCategory("服务", [
       NavItem("最新日报 / 往期", "/daily"),
-      NavItem("最新周报 / 往期 (soon)", "/about"),
-      NavItem("最新月刊 / 往期 / bilibili (soon)", "/contact"),
-      NavItem("最新年刊 / 往期 / bilibili (soon)", "/contact"),
-      NavItem("搜索内容", "/contact"),
+      NavItem("最新周报 / 往期 (soon)", "/404"),
+      NavItem("最新月刊 / 往期 / bilibili (soon)", "/404"),
+      NavItem("最新年刊 / 往期 / bilibili (soon)", "/404"),
+      NavItem("搜索内容", "/404"),
     ]),
     NavCategory("交流", [
-      NavItem("咨询开发团队 / Github", "/daily"),
-      NavItem("加入交流群", "/daily/about"),
-      NavItem("与开发者交流合作 / Github", "/daily/contact"),
+      NavItem("咨询开发团队 / Github", "/404"),
+      NavItem("加入交流群", "/404"),
+      NavItem("与开发者交流合作 / Github", "/404"),
     ]),
     NavCategory("开发", [
-      NavItem("项目开源", "/about"),
-      NavItem("加入开发", "/contact"),
-      NavItem("开发者团队 / Github", "/contact"),
-      NavItem("API接口 (soon)", "/contact"),
+      NavItem("项目开源", "/404"),
+      NavItem("加入开发", "/404"),
+      NavItem("开发者团队 / Github", "/404"),
+      NavItem("API接口 (soon)", "/404"),
     ]),
     NavCategory("其他", [
-      NavItem("随机页面", "/about"),
-      NavItem("支持我们", "/contact"),
-      NavItem("致谢", "/contact"),
-      NavItem("友情链接", "/contact"),
+      NavItem("随机页面", "/404"),
+      NavItem("支持我们", "/404"),
+      NavItem("致谢", "/404"),
+      NavItem("友情链接", "/404"),
     ]),
   ];
 

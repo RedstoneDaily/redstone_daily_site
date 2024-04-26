@@ -24,7 +24,6 @@ class MainContentPage0 extends StatelessWidget {
     //   MediaType.large => height2,
     // };
     double height = size.height;
-    print(height);
 
     return SizedBox(
         width: size.width,

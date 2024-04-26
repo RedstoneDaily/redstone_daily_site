@@ -132,6 +132,7 @@ class _ContentListState extends State<ContentList> {
                       crossAxisSpacing: itemPadding * itemScaling,
                       mainAxisSpacing: itemPadding * itemScaling,
                     ),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [items[1], items[2]],
                   ),
 
@@ -146,6 +147,7 @@ class _ContentListState extends State<ContentList> {
                       crossAxisSpacing: itemPadding * itemScaling,
                       mainAxisSpacing: itemPadding * itemScaling,
                     ),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [...anotherList],
                   ),
 

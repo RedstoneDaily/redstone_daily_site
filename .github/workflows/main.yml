@@ -46,7 +46,7 @@ jobs:
             - run: flutter pub get
             # - run: flutter test
 #            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart
-            - run: flutter build web --web-renderer html
+            - run: flutter build web --web-renderer canvaskit
 
             # 上传打包资源
             - name: Deploy

@@ -13,7 +13,7 @@ import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
 import '../color_schemes.dart';
 import '../media_type.dart';
-import '../text_styles.dart';
+import '../contentPage/typography.dart';
 import 'nav_bar.dart';
 import 'nav_button2.dart';
 

@@ -18,18 +18,22 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Material(
-      child: Column(
-        children: [
-          MainContentPage0(),
-          MainContentPage1(),
-          MainContentPage2(),
-          MainContentPage3(),
-          MainContentPage4(),
-          MainContentPageEnd()
-        ],
-      ),
+    return CustomScrollView(
+      scrollDirection: Axis.vertical,
+      slivers: [
+        SliverList(delegate: SliverChildListDelegate([const Material(
+          child: Column(
+            children: [
+              MainContentPage0(),
+              MainContentPage1(),
+              MainContentPage2(),
+              MainContentPage3(),
+              MainContentPage4(),
+              MainContentPageEnd(),
+            ],
+          ),
+        )]))
+      ],
     );
   }
 }

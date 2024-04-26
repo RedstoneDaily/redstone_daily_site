@@ -1,14 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/media_type.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
-import '../text_styles.dart';
+import 'typography.dart';
 
 class HeadWidget extends StatefulWidget {
   const HeadWidget({super.key});
+
+  final routeHome = "/";
 
   @override
   State<StatefulWidget> createState() {
@@ -27,7 +30,7 @@ class _HeadState extends State<HeadWidget> {
       MediaType.medium => size.width / MediaType.medium.width * height1,
       MediaType.large => height2,
     };
-    var textStyles = TextStyles(height: height);
+    var typography = ContentPageTypography(height: height);
 
     const positionCoeffImage = (
       // Prevent code folding
@@ -39,7 +42,6 @@ class _HeadState extends State<HeadWidget> {
 
     const cutFraction = 0.387;
     const inverseSlopeTrapezoid = 0.44;
-
 
     return SizedBox(
       height: height,
@@ -76,9 +78,7 @@ class _HeadState extends State<HeadWidget> {
             ),
             size: Size(size.width, height),
           ),
-          SizedBox(
-              width: size.width,
-              height: height,
+          Positioned.fill(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -86,58 +86,74 @@ class _HeadState extends State<HeadWidget> {
                       child: FractionallySizedBox(
                           widthFactor: cutFraction * 2.0, // Who can explain why it needs * 2.0?????
                           heightFactor: 1.0,
-                          child: Stack(
-                            fit: StackFit.loose,
-                            children: [
-                              Positioned(
-                                right: 0.375 * height,
-                                top: 0.054 * height,
-                                child: Text(
-                                  "红",
-                                  style: textStyles.whiteZhTextStyle1,
-                                ),
-                              ),
-                              Positioned(
-                                right: 0.135 * height,
-                                top: 0.13 * height,
-                                child: Text(
-                                  "石",
-                                  style: textStyles.whiteZhTextStyle1,
-                                ),
-                              ),
-                              Positioned(
-                                right: 0.272 * height,
-                                top: 0.5 * height,
-                                child: Text("Redstone", style: textStyles.whiteEnTextStyle1),
-                              )
-                            ],
-                          ))),
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: leftTexts(height, typography)))),
                   Expanded(
-                    child: Stack(
-                      fit: StackFit.loose,
-                      children: [
-                        Positioned(
-                          left: 0.46 * height,
-                          top: 0.245 * height,
-                          child: Text("Daily", style: textStyles.whiteEnTextStyle2),
-                        ),
-                        Positioned(
-                          left: 0.08 * height,
-                          top: 0.405 * height,
-                          child: Text("日", style: textStyles.whiteZhTextStyle2),
-                        ),
-                        Positioned(
-                          left: 0.34 * height,
-                          top: 0.405 * height,
-                          child: Text("报", style: textStyles.whiteZhTextStyle2),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ))
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: rightTexts(height, typography))),
+            ],
+          ))
         ],
       ),
     );
+  }
+
+  Widget leftTexts(double height, ContentPageTypography typography) {
+    return SizedBox(
+        width: 1.1 * height,
+        height: height,
+        child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+                onTap: () {
+                  context.go(widget.routeHome);
+                },
+                child: Stack(
+                  fit: StackFit.loose,
+                  children: [
+                    Positioned(
+                      right: 0.375 * height,
+                      top: 0.054 * height,
+                      child: Text("红", style: typography.whiteZhTextStyle1),
+                    ),
+                    Positioned(
+                      right: 0.135 * height,
+                      top: 0.13 * height,
+                      child: Text("石", style: typography.whiteZhTextStyle1),
+                    ),
+                    Positioned(right: 0.272 * height, top: 0.5 * height, child: Text("Redstone", style: typography.whiteEnTextStyle1))
+                  ],
+                ))));
+  }
+
+  Widget rightTexts(double height, ContentPageTypography typography) {
+    return SizedBox(
+        width: height,
+        height: 1.1 * height,
+        child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+                onTap: () {
+                  context.go(widget.routeHome);
+                },
+                child: Stack(fit: StackFit.loose, children: [
+                  Positioned(
+                    left: 0.46 * height,
+                    top: 0.245 * height,
+                    child: Text("Daily", style: typography.whiteEnTextStyle2),
+                  ),
+                  Positioned(
+                    left: 0.08 * height,
+                    top: 0.405 * height,
+                    child: Text("日", style: typography.whiteZhTextStyle2),
+                  ),
+                  Positioned(
+                    left: 0.34 * height,
+                    top: 0.405 * height,
+                    child: Text("报", style: typography.whiteZhTextStyle2),
+                  )
+                ]))));
   }
 }

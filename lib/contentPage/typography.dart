@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/jsonobject/NewsPaper.dart';
 
-class TextStyles{
+class ContentPageTypography{
 
   late TextStyle whiteZhTextStyle1;
 
@@ -22,7 +22,7 @@ class TextStyles{
   late TextStyle blackZhTextStyle1;
   late TextStyle blackZhTextStyle2;
 
-  TextStyles({double height = 0, double scaling = 0}){
+  ContentPageTypography({double height = 0, double scaling = 0}){
     whiteZhTextStyle1 = TextStyle(
       color: Colors.white,
       fontSize: 0.31 * height,

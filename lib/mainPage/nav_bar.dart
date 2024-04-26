@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../media_type.dart';
+import 'nav_button.dart';
 import 'nav_button2.dart';
 
 class NavBar extends StatelessWidget {
@@ -13,6 +14,7 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints){
       var height = constraints.maxHeight;
+      var width = constraints.maxWidth;
       TextStyle style = TextStyle(
           color: Colors.white,
           // fontStyle: FontStyle.italic,
@@ -22,13 +24,14 @@ class NavBar extends StatelessWidget {
       return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("  /", style: style),
-              NavButton2("/", "日报"),
-              Text("/", style: style),
-              NavButton2("/", "探索"),
-              Text("/", style: style),
-              NavButton2("/", "更多"),
-              Text("/", style: style),
+              Padding(padding: EdgeInsets.only(left: width * 0.02)),
+              Text(" / ", style: style),
+              SizedBox(width: height * 3, child: NavButton(route: "/daily", text: "日报", style: style, underlineColor: Colors.white)),
+              Text(" / ", style: style),
+              SizedBox(width: height * 3, child: NavButton(route: "/404", text: "探索", style: style, underlineColor: Colors.white)),
+              Text(" / ", style: style),
+              SizedBox(width: height * 3, child: NavButton(route: "/404", text: "更多", style: style, underlineColor: Colors.white)),
+              Text(" / ", style: style),
               const Spacer(),
               Column(
                 children: [
@@ -55,14 +58,15 @@ class NavBar extends StatelessWidget {
                   )
                 ],
               ),
-              Spacer(),
-              Text("/", style: style),
-              NavButton2("/", "赞助"),
-              Text("/", style: style),
-              NavButton2("/", "源码"),
-              Text("/", style: style),
-              NavButton2("/", "贡献"),
-              Text("/  ", style: style),
+              const Spacer(),
+              Text(" / ", style: style),
+              SizedBox(width: height * 3, child: NavButton(route: "/404", text: "赞助", style: style, underlineColor: Colors.white)),
+              Text(" / ", style: style),
+              SizedBox(width: height * 3, child: NavButton(route: "/404", text: "源码", style: style, underlineColor: Colors.white)),
+              Text(" / ", style: style),
+              SizedBox(width: height * 3, child: NavButton(route: "/404", text: "贡献", style: style, underlineColor: Colors.white)),
+              Text(" / ", style: style),
+              Padding(padding: EdgeInsets.only(left: width * 0.02)),
             ],
           );
     });

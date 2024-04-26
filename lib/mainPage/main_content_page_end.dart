@@ -29,7 +29,7 @@ class MainContentPageEnd extends StatelessWidget {
 
   static const List<NavCategory> navData = [
     NavCategory("服务", [
-      NavItem("最新日报 / 往期", "/"),
+      NavItem("最新日报 / 往期", "/daily"),
       NavItem("最新周报 / 往期 (soon)", "/about"),
       NavItem("最新月刊 / 往期 / bilibili (soon)", "/contact"),
       NavItem("最新年刊 / 往期 / bilibili (soon)", "/contact"),
@@ -195,6 +195,7 @@ class MainContentPageEnd extends StatelessWidget {
                           style: itemTextStyle,
                           textAlign: TextAlign.left,
                           underlineAlign: Alignment.bottomLeft,
+                          underlineColor: RDColorSchemes.white.primaryContainer,
                         )))
                   ],
                 ),

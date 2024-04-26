@@ -5,7 +5,7 @@ import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../text_styles.dart';
+import 'typography.dart';
 
 // 此组件的高度由content-list提供的约束控制;  可传入scaling参数使内部的排名三角、标题内容的高度和字体进行缩放
 class ContentWidget extends StatefulWidget {
@@ -67,7 +67,7 @@ class _ContentWidgetState extends State<ContentWidget> {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       double height = min(maxHeight, constraints.maxHeight);
       double scaling = height / maxHeight;
-      var textStyles = TextStyles(height: 1,scaling: scaling);
+      var textStyles = ContentPageTypography(height: 1,scaling: scaling);
 
 
       TextSpan text1stRanking = TextSpan(

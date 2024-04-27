@@ -114,7 +114,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                         ),
                         // 左上角三角
                         CustomPaint(
-                          painter: TrapezoidPainter(topStart: 0, topEnd: 1.1, bottomStart: 1, bottomEnd: 1.1, color: RDColorSchemes.white.primaryContainer),
+                          painter: TrapezoidPainter(topStart: 0, topEnd: 1.1, bottomStart: 1, bottomEnd: 1.1, color: RDColors.white.primaryContainer),
                           size: Size.square(heightTitle),
                         ),
                         // 排名三角
@@ -124,7 +124,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                           child: type != newsType.content
                               ? CustomPaint(
                                   painter:
-                                      TrapezoidPainter(topStart: 0, topEnd: 0, bottomStart: 0, bottomEnd: 1, color: RDColorSchemes.white.primaryContainer),
+                                      TrapezoidPainter(topStart: 0, topEnd: 0, bottomStart: 0, bottomEnd: 1, color: RDColors.white.primaryContainer),
                                   size: type == newsType.header ? Size.square(heightHeaderRanking) : Size.square(heightSubHeaderRanking),
                                 )
                               : Container(), // 当条件不满足时，用一个空Container替代
@@ -151,7 +151,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                             child: Container(
                                 clipBehavior: Clip.none,
                                 alignment: Alignment.centerLeft,
-                                color: RDColorSchemes.white.primaryContainer,
+                                color: RDColors.white.primaryContainer,
                                 child: type == newsType.header
                                     // 如果是头条，显示Stack”今日头条“+”Headlines Today"+标题
                                     ? Stack(clipBehavior: Clip.none, children: [

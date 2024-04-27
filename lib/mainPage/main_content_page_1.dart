@@ -30,14 +30,14 @@ class MainContentPage1 extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: RDColorSchemes.white.background,
+      color: RDColors.white.background,
       child: Stack(children: [
         CustomPaint(
           painter: TrapezoidPainter(
             axis: Axis.horizontal,
             topEnd: 0.215,
             bottomEnd: 0.4,
-            color: RDColorSchemes.scarlet.surface,
+            color: RDColors.scarlet.surface,
           ),
           size: Size(width, height),
         ),
@@ -59,21 +59,21 @@ class MainContentPage1 extends StatelessWidget {
             left: width * 0.411,
             child: Text(
               "第一时间...",
-              style: textStyles.zhTextStyle1.copyWith(color: RDColorSchemes.white.onBackground),
+              style: textStyles.zhTextStyle1.copyWith(color: RDColors.white.onBackground),
             )),
         Positioned(
             top: height * 0.245,
             left: width * 0.462,
             child: Text(
               "获得第一手信息。",
-              style: textStyles.zhTextStyle1.copyWith(color: RDColorSchemes.white.onBackground),
+              style: textStyles.zhTextStyle1.copyWith(color: RDColors.white.onBackground),
             )),
         Positioned(
             top: height * 0.495,
             left: width * 0.451,
             child: Text(
               "我们每日都会排查并分析对你有帮助的\n红石视频,以便您研究时查看最新进展。",
-              style: textStyles.zhTextStyle2.copyWith(color: RDColorSchemes.white.onBackground),
+              style: textStyles.zhTextStyle2.copyWith(color: RDColors.white.onBackground),
               maxLines: 2,
             )),
         Positioned(
@@ -83,8 +83,8 @@ class MainContentPage1 extends StatelessWidget {
               width: 0.397 * width,
               height: 0.115 * height,
               text: ">>了解更多",
-              textStyle: textStyles.zhTextStyle3.copyWith(color: RDColorSchemes.scarlet.onSurface),
-              buttonColor: RDColorSchemes.scarlet.surface,
+              textStyle: textStyles.zhTextStyle3.copyWith(color: RDColors.scarlet.onSurface),
+              buttonColor: RDColors.scarlet.surface,
               callback: () {
                 print("clicked");
               },

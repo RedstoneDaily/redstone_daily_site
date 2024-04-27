@@ -24,7 +24,7 @@ class FootWidget extends StatelessWidget{
     return Container(
       height: 100 * scaling, // 设置容器的高度
       width: size.width,
-      color: RDColorSchemes.scarlet.surface,
+      color: RDColors.scarlet.surface,
       padding: EdgeInsets.all(4.0 * scaling),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

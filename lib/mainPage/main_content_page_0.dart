@@ -74,7 +74,7 @@ class MainContentPage0 extends StatelessWidget {
               left: 0.032 * height,
               child: Text(
                 "红石",
-                style: textStyle.redZhTextStyle1,
+                style: textStyle.redZhTextStyle1.copyWith(color: RDColors.glass.onSecondary),
               )),
 
           // 日报
@@ -83,18 +83,18 @@ class MainContentPage0 extends StatelessWidget {
             left: 0.64 * height,
             child: Text(
               "日报",
-              style: textStyle.whiteZhTextStyle1.copyWith(fontSize: 0.315 * height),
+              style: textStyle.whiteZhTextStyle1.copyWith(color: RDColors.glass.onPrimary, fontSize: 0.315 * height),
             ),
           ),
 
           // 俩斜杠
           Transform.translate(
             offset: Offset(height * 0.35, height * 0.32),
-            child: CustomPaint(painter: LinePainter(Colors.white, Offset(0, height * 0.3), Offset(height * 0.36, 0), 3)),
+            child: CustomPaint(painter: LinePainter(RDColors.glass.onPrimary, Offset(0, height * 0.3), Offset(height * 0.36, 0), 3)),
           ),
           Transform.translate(
             offset: Offset(height * 0.54, height * 0.21),
-            child: CustomPaint(painter: LinePainter(Colors.red, Offset(0, height * 0.3), Offset(height * 0.36, 0), 3)),
+            child: CustomPaint(painter: LinePainter(RDColors.glass.onSecondary, Offset(0, height * 0.3), Offset(height * 0.36, 0), 3)),
           ),
 
           // 日期
@@ -106,7 +106,7 @@ class MainContentPage0 extends StatelessWidget {
               left: 0.02 * height,
               child: Text(
                 "/发现,并创造自己的灵感/",
-                style: textStyle.whiteZhTextStyle2.copyWith(fontSize: 0.13 * height, letterSpacing: 3.4),
+                style: textStyle.whiteZhTextStyle2.copyWith(color: RDColors.glass.onPrimary, fontSize: 0.13 * height, letterSpacing: 3.4),
               )),
         ]));
   }

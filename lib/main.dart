@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
         title: '红石日报',
         theme: ThemeData(
-            colorScheme: RDColorSchemes.white,
+            colorScheme: RDColors.white,
             useMaterial3: true,
             fontFamily: 'FontquanXinYiGuanHeiTi'
         ),

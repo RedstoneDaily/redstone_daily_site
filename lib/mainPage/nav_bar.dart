@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:redstone_daily_site/color_schemes.dart';
 
 import '../media_type.dart';
 import 'nav_underlined_text.dart';
@@ -38,7 +39,7 @@ class NavBar extends StatelessWidget {
           text: text,
           isRoute: isRoute,
           style: style,
-          underlineColor: Colors.white,
+          underlineColor: RDColors.glass.onPrimary,
           underlineWidth: 1.5,
         ),
       );
@@ -80,13 +81,13 @@ class NavBar extends StatelessWidget {
                 hintStyle: style,
                 isDense: true,
                 contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-                enabledBorder: const UnderlineInputBorder(
+                enabledBorder: UnderlineInputBorder(
                   // 不是焦点的时候颜色
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: BorderSide(color: RDColors.glass.onPrimary),
                 ),
-                focusedBorder: const UnderlineInputBorder(
+                focusedBorder: UnderlineInputBorder(
                   // 焦点集中的时候颜色
-                  borderSide: BorderSide(color: Colors.red),
+                  borderSide: BorderSide(color: RDColors.glass.onSecondary),
                 ),
               ),
             );

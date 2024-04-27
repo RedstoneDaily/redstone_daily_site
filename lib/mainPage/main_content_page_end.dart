@@ -65,7 +65,7 @@ class MainContentPageEnd extends StatelessWidget {
     return Container(
         width: width,
         height: height,
-        color: RDColorSchemes.white.background,
+        color: RDColors.white.background,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -95,7 +95,7 @@ class MainContentPageEnd extends StatelessWidget {
                 child: Text(
                   "Redstone / Daily",
                   textAlign: TextAlign.center,
-                  style: textStyles.zhTextStyle5.copyWith(fontSize: 0.027 * height, color: RDColorSchemes.white.onBackground),
+                  style: textStyles.zhTextStyle5.copyWith(fontSize: 0.027 * height, color: RDColors.white.onBackground),
                 )),
             Align(
                 alignment: Alignment.bottomCenter,
@@ -106,8 +106,8 @@ class MainContentPageEnd extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 0.031 * width),
                       child: navList(
                           height: height,
-                          categoryTextStyle: textStyles.zhTextStyle4.copyWith(color: RDColorSchemes.white.onBackground),
-                          itemTextStyle: textStyles.zhTextStyle5.copyWith(color: RDColorSchemes.white.onBackground)),
+                          categoryTextStyle: textStyles.zhTextStyle4.copyWith(color: RDColors.white.onBackground),
+                          itemTextStyle: textStyles.zhTextStyle5.copyWith(color: RDColors.white.onBackground)),
                     ))),
 
             Positioned(
@@ -117,7 +117,7 @@ class MainContentPageEnd extends StatelessWidget {
                 child: Text(
                   "非 MINECRAFT 官方产品服务。未经 MOJANG 或 MICROSOFT 批准，也不与 MOJANG 或 MICROSOFT 关联",
                   textAlign: TextAlign.center,
-                  style: textStyles.zhTextStyle5.copyWith(color: RDColorSchemes.white.onBackground),
+                  style: textStyles.zhTextStyle5.copyWith(color: RDColors.white.onBackground),
                 )),
 
             // Debug Reference Image
@@ -187,7 +187,7 @@ class MainContentPageEnd extends StatelessWidget {
                       e.categoryName,
                       style: categoryTextStyle,
                     ),
-                    Container(height: 2, color: RDColorSchemes.white.primaryContainer),
+                    Container(height: 2, color: RDColors.white.primaryContainer),
                     ...e.items.map((e) => Padding(
                         padding: EdgeInsets.only(top: 0.012 * height),
                         child: NavUnderlinedText(
@@ -197,7 +197,7 @@ class MainContentPageEnd extends StatelessWidget {
                           style: itemTextStyle,
                           textAlign: TextAlign.left,
                           underlineAlign: Alignment.bottomLeft,
-                          underlineColor: RDColorSchemes.white.primaryContainer,
+                          underlineColor: RDColors.white.primaryContainer,
                         )))
                   ],
                 ),

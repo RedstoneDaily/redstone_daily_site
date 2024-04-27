@@ -74,7 +74,7 @@ class _HeadState extends State<HeadWidget> {
               bottomStart: 0,
               topEnd: cutFraction + 0.5 * height * inverseSlopeTrapezoid / size.width,
               bottomEnd: cutFraction - 0.5 * height * inverseSlopeTrapezoid / size.width,
-              color: RDColorSchemes.scarlet.surface,
+              color: RDColors.scarlet.surface,
             ),
             size: Size(size.width, height),
           ),

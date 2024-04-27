@@ -30,7 +30,7 @@ class MainContentPage4 extends StatelessWidget {
     return Container(
         width: width,
         height: height,
-        color: RDColorSchemes.white.background,
+        color: RDColors.white.background,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -41,7 +41,7 @@ class MainContentPage4 extends StatelessWidget {
                   topEnd: 1.025,
                   bottomStart: -0.016,  // 0.172 - 0.188
                   bottomEnd: 0.837, // 1.025 - 0.188
-                color: RDColorSchemes.scarlet.surface,
+                color: RDColors.scarlet.surface,
               ),
               size: Size(width, height),
             ),
@@ -63,12 +63,12 @@ class MainContentPage4 extends StatelessWidget {
                 alignment: const FractionalOffset(0.35, 0.1),
                 child: Text("除此之外...",
                     textAlign: TextAlign.end,
-                    style: textStyles.zhTextStyle1.copyWith(color: RDColorSchemes.scarlet.onSurface))),
+                    style: textStyles.zhTextStyle1.copyWith(color: RDColors.scarlet.onSurface))),
             Align(
                 alignment: const FractionalOffset(0.743, 0.37),
                 child: Text("这里也有其它功能",
                     textAlign: TextAlign.end,
-                  style: textStyles.zhTextStyle1.copyWith(color: RDColorSchemes.scarlet.onSurface),
+                  style: textStyles.zhTextStyle1.copyWith(color: RDColors.scarlet.onSurface),
                 )),
             Align(
                 alignment: const FractionalOffset(0.24, 0.655),
@@ -76,8 +76,8 @@ class MainContentPage4 extends StatelessWidget {
                   width: 0.397 * width,
                   height: 0.115 * height,
                   text: "<< 立刻探索   ",
-                  textStyle: textStyles.zhTextStyle3.copyWith(color: RDColorSchemes.white.onBackground),
-                  buttonColor: RDColorSchemes.scarlet.onSurface,
+                  textStyle: textStyles.zhTextStyle3.copyWith(color: RDColors.white.onBackground),
+                  buttonColor: RDColors.scarlet.onSurface,
                   callback: () {
                     print("clicked");
                   },

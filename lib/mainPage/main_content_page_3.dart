@@ -15,7 +15,7 @@ import '../media_type.dart';
 import '../contentPage/typography.dart';
 import 'typography.dart';
 import 'nav_bar.dart';
-import 'nav_button2.dart';
+import 'nav_button.dart';
 
 class MainContentPage3 extends StatelessWidget {
   const MainContentPage3({super.key});

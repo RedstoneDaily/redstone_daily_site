@@ -11,7 +11,7 @@ import 'main_content_page_2.dart';
 import 'main_content_page_3.dart';
 import 'main_content_page_4.dart';
 import 'nav_bar.dart';
-import 'nav_button2.dart';
+import 'nav_button.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

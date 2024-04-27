@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
 import 'package:redstone_daily_site/painter/line_painter.dart';
 
@@ -8,7 +9,7 @@ import '../media_type.dart';
 import '../contentPage/typography.dart';
 import 'typography.dart';
 import 'nav_bar.dart';
-import 'nav_button2.dart';
+import 'nav_button.dart';
 
 class MainContentPage0 extends StatelessWidget {
   const MainContentPage0({super.key});
@@ -39,7 +40,9 @@ class MainContentPage0 extends StatelessWidget {
                         "assets/images/backgrounds/Fparrot_CPU.png",
                         fit: BoxFit.cover,
                       )))),
-          Positioned(top: 0.033 * height, left: 0, right: 0, child: SizedBox(height: 0.044 * height, child: const NavBar())),
+          Positioned(top: 0.033 * height, left: 0, right: 0, child: SizedBox(
+              // height: 0.044 * height,
+              child: NavBar(style: MainPageTypography(height: height).zhTextStyle5.copyWith(color: Colors.white)))),
           Positioned(top: 0.15 * height, left: 0.1 * height, child: mainTexts(context, height)),
 
           // Debug Reference Image

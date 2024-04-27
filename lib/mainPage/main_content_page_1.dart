@@ -15,7 +15,7 @@ import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 import '../media_type.dart';
 import '../contentPage/typography.dart';
 import 'nav_bar.dart';
-import 'nav_button2.dart';
+import 'nav_button.dart';
 
 class MainContentPage1 extends StatelessWidget {
   const MainContentPage1({super.key});

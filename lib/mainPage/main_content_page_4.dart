@@ -15,7 +15,7 @@ import '../color_schemes.dart';
 import '../media_type.dart';
 import '../contentPage/typography.dart';
 import 'nav_bar.dart';
-import 'nav_button2.dart';
+import 'nav_button.dart';
 
 class MainContentPage4 extends StatelessWidget {
   const MainContentPage4({super.key});

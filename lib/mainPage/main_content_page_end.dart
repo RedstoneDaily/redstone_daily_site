@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redstone_daily_site/mainPage/nav_button.dart';
+import 'package:redstone_daily_site/mainPage/nav_underlined_text.dart';
 import 'package:redstone_daily_site/mainPage/typography.dart';
 
 import '../color_schemes.dart';
 
 class NavItem {
   final String name;
-  final String link;
+  final String dst;
+  final bool isRoute;
 
-  const NavItem(this.name, this.link);
+  const NavItem(this.name, this.dst, {this.isRoute = true});
 }
 
 class NavCategory {
@@ -189,9 +190,10 @@ class MainContentPageEnd extends StatelessWidget {
                     Container(height: 2, color: RDColorSchemes.white.primaryContainer),
                     ...e.items.map((e) => Padding(
                         padding: EdgeInsets.only(top: 0.012 * height),
-                        child: NavButton(
+                        child: NavUnderlinedText(
                           text: e.name,
-                          route: e.link,
+                          dst: e.dst,
+                          isRoute: e.isRoute,
                           style: itemTextStyle,
                           textAlign: TextAlign.left,
                           underlineAlign: Alignment.bottomLeft,

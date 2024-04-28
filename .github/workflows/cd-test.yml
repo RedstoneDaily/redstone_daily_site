@@ -1,16 +1,16 @@
-name: web pages build & deploy
+name: frontend cd release
 # 触发workflow的条件
 on:
     push:
-        # 只有release分支发生push事件时，才会触发workflow
-        branches: [release]
+        # 只有main分支发生push事件时，才会触发workflow
+        branches: [test]
     pull_request:
-        branches: [release]
+        branches: [test]
 
-env:
-    SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }} # 服务器私钥
-    SERVER_HOST: ${{ secrets.SERVER_HOST }} # 服务器IP地址
-    USER_NAME: ${{ secrets.USER_NAME }} # 服务器用户名
+#env:
+#    SERVER_PRIVATE_KEY: ${{ secrets.TEST_SERVER_PRIVATE_KEY }} # 服务器私钥
+#    SERVER_HOST: ${{ secrets.TEST_SERVER_HOST }} # 服务器IP地址
+#    USER_NAME: ${{ secrets.TEST_SERVER_USERNAME }} # 服务器用户名
 
 # jobs表示执行的一项或多项任务
 jobs:
@@ -18,6 +18,8 @@ jobs:
         runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
         steps:
             - uses: actions/checkout@master
+              with:
+                  ref: test
 
             - name: Print Texts
               run: cat < cyber_budhha.txt && cat < RD_text.txt
@@ -52,10 +54,10 @@ jobs:
             - name: Deploy
               uses: easingthemes/ssh-deploy@main
               with:
-                  SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
-                  REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-                  REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-                  REMOTE_USER: ${{ secrets.USER_NAME }}
+                  SSH_PRIVATE_KEY: ${{ secrets.TEST_SERVER_PRIVATE_KEY }}
+                  REMOTE_HOST: ${{ secrets.TEST_SERVER_HOST }}
+                  REMOTE_PORT: ${{ secrets.TEST_SERVER_PORT }}
+                  REMOTE_USER: ${{ secrets.TEST_SERVER_USERNAME }}
                   ARGS: '-avz --delete'
                   # https://ss64.com/bash/rsync_options.html
                   SOURCE: 'build/web/'

@@ -59,7 +59,7 @@ class MainContentPageEnd extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var txtHeight = size.height;
-    var textStyles = MainPageTypography(height: txtHeight);
+    var textStyles = MainPageTypography(pageHeight: txtHeight);
     var width = size.width;
     var height = size.height;
     return Container(
@@ -95,7 +95,7 @@ class MainContentPageEnd extends StatelessWidget {
                 child: Text(
                   "Redstone / Daily",
                   textAlign: TextAlign.center,
-                  style: textStyles.zhTextStyle5.copyWith(fontSize: 0.027 * height, color: RDColors.white.onBackground),
+                  style: textStyles.zh_p.copyWith(fontSize: 0.027 * height, color: RDColors.white.onBackground),
                 )),
             Align(
                 alignment: Alignment.bottomCenter,
@@ -106,8 +106,8 @@ class MainContentPageEnd extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 0.031 * width),
                       child: navList(
                           height: height,
-                          categoryTextStyle: textStyles.zhTextStyle4.copyWith(color: RDColors.white.onBackground),
-                          itemTextStyle: textStyles.zhTextStyle5.copyWith(color: RDColors.white.onBackground)),
+                          categoryTextStyle: textStyles.zhNavHeader.copyWith(color: RDColors.white.onBackground),
+                          itemTextStyle: textStyles.zh_p.copyWith(color: RDColors.white.onBackground)),
                     ))),
 
             Positioned(
@@ -117,7 +117,7 @@ class MainContentPageEnd extends StatelessWidget {
                 child: Text(
                   "非 MINECRAFT 官方产品服务。未经 MOJANG 或 MICROSOFT 批准，也不与 MOJANG 或 MICROSOFT 关联",
                   textAlign: TextAlign.center,
-                  style: textStyles.zhTextStyle5.copyWith(color: RDColors.white.onBackground),
+                  style: textStyles.zh_p.copyWith(color: RDColors.white.onBackground),
                 )),
 
             // Debug Reference Image

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hexcolor/hexcolor_web.dart';
 import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
@@ -24,7 +25,7 @@ class MainContentPage4 extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var txtHeight = size.height;
-    var textStyles = MainPageTypography(height: txtHeight);
+    var textStyles = MainPageTypography(pageHeight: txtHeight);
     var width = size.width;
     var height = size.height;
     return Container(
@@ -36,11 +37,13 @@ class MainContentPage4 extends StatelessWidget {
           children: [
             CustomPaint(
               painter: TrapezoidPainter(
-                  axis: Axis.horizontal,
-                  topStart: 0.172,
-                  topEnd: 1.025,
-                  bottomStart: -0.016,  // 0.172 - 0.188
-                  bottomEnd: 0.837, // 1.025 - 0.188
+                axis: Axis.horizontal,
+                topStart: 0.172,
+                topEnd: 1.025,
+                bottomStart: -0.016,
+                // 0.172 - 0.188
+                bottomEnd: 0.837,
+                // 1.025 - 0.188
                 color: RDColors.scarlet.surface,
               ),
               size: Size(width, height),
@@ -53,22 +56,21 @@ class MainContentPage4 extends StatelessWidget {
                   child: SizedBox.square(
                     dimension: 0.681 * height,
                     child: Image.asset(
-                        "assets/images/recovery_compass_07.png",
-                        filterQuality: FilterQuality.none,
-                        fit: BoxFit.cover,
+                      "assets/images/recovery_compass_07.png",
+                      filterQuality: FilterQuality.none,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )),
             Align(
                 alignment: const FractionalOffset(0.35, 0.1),
-                child: Text("除此之外...",
-                    textAlign: TextAlign.end,
-                    style: textStyles.zhTextStyle1.copyWith(color: RDColors.scarlet.onSurface))),
+                child: Text("除此之外...", textAlign: TextAlign.end, style: textStyles.zhHeroText.copyWith(color: RDColors.scarlet.onSurface))),
             Align(
                 alignment: const FractionalOffset(0.743, 0.37),
-                child: Text("这里也有其它功能",
-                    textAlign: TextAlign.end,
-                  style: textStyles.zhTextStyle1.copyWith(color: RDColors.scarlet.onSurface),
+                child: Text(
+                  "这里也有其它功能",
+                  textAlign: TextAlign.end,
+                  style: textStyles.zhHeroText.copyWith(color: RDColors.scarlet.onSurface),
                 )),
             Align(
                 alignment: const FractionalOffset(0.24, 0.655),
@@ -76,11 +78,11 @@ class MainContentPage4 extends StatelessWidget {
                   width: 0.397 * width,
                   height: 0.115 * height,
                   text: "<< 立刻探索   ",
-                  textStyle: textStyles.zhTextStyle3.copyWith(color: RDColors.white.onBackground),
+                  textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
                   buttonColor: RDColors.scarlet.onSurface,
-                  callback: () {
-                    print("clicked");
-                  },
+                  callback: () =>
+                      // TODO 立刻探索????
+                      context.go("/404"),
                 )),
 
             // Debug Reference Image

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hexcolor/hexcolor_web.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
@@ -23,8 +24,7 @@ class MainContentPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var txtHeight = size.height;
-    var textStyles = MainPageTypography(height: txtHeight);
+    var textStyles = MainPageTypography(pageHeight: size.height);
     var width = size.width;
     var height = size.height;
     return Container(
@@ -32,6 +32,7 @@ class MainContentPage1 extends StatelessWidget {
       height: height,
       color: RDColors.white.background,
       child: Stack(children: [
+        // 背景Sureface
         CustomPaint(
           painter: TrapezoidPainter(
             axis: Axis.horizontal,
@@ -39,8 +40,9 @@ class MainContentPage1 extends StatelessWidget {
             bottomEnd: 0.4,
             color: RDColors.scarlet.surface,
           ),
-          size: Size(width, height),
+          size: size,
         ),
+        // 时钟
         Positioned(
             top: height * 0.5,
             left: width * (0.215 + 0.4) / 2,
@@ -54,26 +56,27 @@ class MainContentPage1 extends StatelessWidget {
                     child: Image.asset("assets/images/clock.png"),
                   ),
                 ))),
+        // 标题 Hero-text
         Positioned(
             top: height * 0.075,
             left: width * 0.411,
             child: Text(
               "第一时间...",
-              style: textStyles.zhTextStyle1.copyWith(color: RDColors.white.onBackground),
+              style: textStyles.zhHeroText.copyWith(color: RDColors.white.onBackground),
             )),
         Positioned(
             top: height * 0.245,
             left: width * 0.462,
             child: Text(
               "获得第一手信息。",
-              style: textStyles.zhTextStyle1.copyWith(color: RDColors.white.onBackground),
+              style: textStyles.zhHeroText.copyWith(color: RDColors.white.onBackground),
             )),
         Positioned(
             top: height * 0.495,
             left: width * 0.451,
             child: Text(
               "我们每日都会排查并分析对你有帮助的\n红石视频,以便您研究时查看最新进展。",
-              style: textStyles.zhTextStyle2.copyWith(color: RDColors.white.onBackground),
+              style: textStyles.zhTeaser.copyWith(color: RDColors.white.onBackground),
               maxLines: 2,
             )),
         Positioned(
@@ -83,10 +86,11 @@ class MainContentPage1 extends StatelessWidget {
               width: 0.397 * width,
               height: 0.115 * height,
               text: ">>了解更多",
-              textStyle: textStyles.zhTextStyle3.copyWith(color: RDColors.scarlet.onSurface),
+              textStyle: textStyles.zhButton.copyWith(color: RDColors.scarlet.onSurface),
               buttonColor: RDColors.scarlet.surface,
               callback: () {
-                print("clicked");
+                // TODO: link
+                context.go("/404");
               },
             )
         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hexcolor/hexcolor_web.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
@@ -24,7 +25,7 @@ class MainContentPage2 extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var txtHeight = size.height;
-    var textStyles = MainPageTypography(height: txtHeight);
+    var textStyles = MainPageTypography(pageHeight: txtHeight);
     var width = size.width;
     var height = size.height;
     return Container(
@@ -32,6 +33,7 @@ class MainContentPage2 extends StatelessWidget {
       height: height,
       color: RDColors.white.background,
       child: Stack(children: [
+        // 背景
         CustomPaint(
           painter: TrapezoidPainter(
             axis: Axis.horizontal,
@@ -59,7 +61,7 @@ class MainContentPage2 extends StatelessWidget {
             child: Text(
               "励志打造全国最大的",
               textAlign: TextAlign.end,
-              style: textStyles.zhTextStyle1.copyWith(color: RDColors.scarlet.onSurface),
+              style: textStyles.zhHeroText.copyWith(color: RDColors.scarlet.onSurface),
               maxLines: 1,
             )),
         Positioned(
@@ -68,7 +70,7 @@ class MainContentPage2 extends StatelessWidget {
             child: Text(
               "红石信息库",
               textAlign: TextAlign.end,
-              style: textStyles.zhTextStyle1.copyWith(color: RDColors.scarlet.onSurface),
+              style: textStyles.zhHeroText.copyWith(color: RDColors.scarlet.onSurface),
               maxLines: 1,
             )),
         Positioned(
@@ -78,10 +80,11 @@ class MainContentPage2 extends StatelessWidget {
               width: 0.397 * width,
               height: 0.115 * height,
               text: "即刻搜索<<",
-              textStyle: textStyles.zhTextStyle3.copyWith(color: RDColors.white.onBackground),
+              textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
               buttonColor: RDColors.scarlet.onSurface,
               callback: () {
-                print("clicked");
+                // TODO: 跳转到搜索页面
+                context.go("/404");
               },
             )),
         Positioned(
@@ -90,7 +93,7 @@ class MainContentPage2 extends StatelessWidget {
             child: Text(
               "通过每日的日报数据,长年累月即可形成\n庞大的数据库供查询。",
               textAlign: TextAlign.end,
-              style: textStyles.zhTextStyle3.copyWith(color: RDColors.scarlet.onSurface),
+              style: textStyles.zhButton.copyWith(color: RDColors.scarlet.onSurface),
               maxLines: 2,
             )),
 

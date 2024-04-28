@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hexcolor/hexcolor_web.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
@@ -24,7 +25,7 @@ class MainContentPage3 extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var txtHeight = size.height;
-    var textStyles = MainPageTypography(height: txtHeight);
+    var textStyles = MainPageTypography(pageHeight: txtHeight);
     var width = size.width;
     var height = size.height;
     return Container(
@@ -62,7 +63,7 @@ class MainContentPage3 extends StatelessWidget {
                 child: Text(
                   "查看我们的成果...",
                   textAlign: TextAlign.end,
-                  style: textStyles.zhTextStyle1.copyWith(color: RDColors.scarlet.onSurface),
+                  style: textStyles.zhHeroText.copyWith(color: RDColors.scarlet.onSurface),
                 )),
             Positioned(
                 top: height * 0.502,
@@ -71,11 +72,9 @@ class MainContentPage3 extends StatelessWidget {
                   width: 0.397 * width,
                   height: 0.115 * height,
                   text: "查阅最新日报<<",
-                  textStyle: textStyles.zhTextStyle3.copyWith(color: RDColors.white.onBackground),
+                  textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
                   buttonColor: RDColors.scarlet.onSurface,
-                  callback: () {
-                    print("clicked");
-                  },
+                  callback: () => context.go("/daily"),
                 )),
             Positioned(
                 top: height * 0.686,
@@ -84,10 +83,11 @@ class MainContentPage3 extends StatelessWidget {
                   width: 0.397 * width,
                   height: 0.115 * height,
                   text: "或者看看往期...",
-                  textStyle: textStyles.zhTextStyle3.copyWith(color: RDColors.white.onBackground),
+                  textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
                   buttonColor: RDColors.scarlet.onSurface,
                   callback: () {
-                    print("clicked");
+                    // TODO 往期
+                    context.go("/404");
                   },
                 )),
 

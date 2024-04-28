@@ -26,7 +26,6 @@ class ContentList extends StatefulWidget {
 }
 
 class _ContentListState extends State<ContentList> {
-
   static const double contentListPaddingMedium = 300;
   static const double contentListPaddingSmall = 20;
 
@@ -37,9 +36,10 @@ class _ContentListState extends State<ContentList> {
 
   // 异步获取json字符串
   Future<String> fetchJson(BuildContext context) async {
+    // await Future.delayed(const Duration(minutes: 1));
     return DefaultAssetBundle.of(context).loadString("assets/demo.json");
   }
-  
+
   List<ContentWidget> buildItems(NewsPaper paper) {
     List<ContentWidget> items = [];
     paper.content.asMap().entries.forEach((entry) {
@@ -60,9 +60,7 @@ class _ContentListState extends State<ContentList> {
   void initState() {
     super.initState();
     // 获取内容信息json，并构建内容组件列表
-    _futureBuildItems = fetchJson(context)
-        .then((str) => newsPaperFromJson(str))
-        .then((paper) => buildItems(paper));
+    _futureBuildItems = fetchJson(context).then((str) => newsPaperFromJson(str)).then((paper) => buildItems(paper));
   }
 
   @override
@@ -70,7 +68,7 @@ class _ContentListState extends State<ContentList> {
     builder(BuildContext context, AsyncSnapshot<List<ContentWidget>> snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         // 当Future还未完成时，显示加载中的UI
-        return const CircularProgressIndicator();
+        return const SliverFillRemaining(child: Center(child: CircularProgressIndicator()));
       } else if (snapshot.hasError) {
         // 当Future发生错误时，显示错误提示的UI
         return Text('Error: ${snapshot.error}');
@@ -96,7 +94,8 @@ class _ContentListState extends State<ContentList> {
     anotherList.addAll(items);
     anotherList.removeRange(0, 3);
 
-    return Padding( // 设置两边平行同步
+    return Padding(
+        // 设置两边平行同步
         padding: EdgeInsets.symmetric(
           horizontal: switch (mediaType) {
             MediaType.small => contentListPaddingSmall,
@@ -107,7 +106,8 @@ class _ContentListState extends State<ContentList> {
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             var largeWidth = MediaType.large.width - contentListPaddingMedium;
-            return SizedBox( //区块大小, 如果是大区块的,就是最大宽度,否则铺满页面
+            return SizedBox(
+              //区块大小, 如果是大区块的,就是最大宽度,否则铺满页面
               width: mediaType != MediaType.large ? double.infinity : largeWidth,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

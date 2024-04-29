@@ -14,19 +14,15 @@ class ContentPage extends StatefulWidget {
 class _ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      scrollDirection: Axis.vertical,
-      slivers: [
-        SliverList(
-          delegate: SliverChildListDelegate([Material(
-                child: Column(
-                  children: [
-                    const HeadWidget(),
-                    const ContentList(),
-                    FootWidget(),
-                  ],
-                ),
-              )]))],
+    return Material(
+      child: CustomScrollView(
+        scrollDirection: Axis.vertical,
+        slivers: [
+          const SliverToBoxAdapter(child: HeadWidget()),
+          const ContentList(),
+          SliverToBoxAdapter(child: FootWidget()),
+        ],
+      ),
     );
   }
 }

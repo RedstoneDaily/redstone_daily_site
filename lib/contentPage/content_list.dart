@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/contentPage/content_widget.dart';
 import 'package:redstone_daily_site/jsonobject/NewsPaper.dart';
 import 'package:redstone_daily_site/media_type.dart';
@@ -32,12 +33,44 @@ class _ContentListState extends State<ContentList> {
   // for large device, it is free
   static const double itemPadding = 20;
 
-  late Future<List<ContentWidget>> _futureBuildItems;
+  late Future<NewsPaper> _futureBuildItems;
 
   // 异步获取json字符串
   Future<String> fetchJson(BuildContext context) async {
-    // await Future.delayed(const Duration(minutes: 1));
     return DefaultAssetBundle.of(context).loadString("assets/demo.json");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // 获取内容信息json，并构建内容组件列表
+    _futureBuildItems = fetchJson(context).then((str) => newsPaperFromJson(str));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    builder(BuildContext context, AsyncSnapshot<NewsPaper> snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        // 当Future还未完成时，显示加载中的UI
+        return SliverFillRemaining(
+            child: Container(
+              color: RDColors.white.surface,
+              child: const Center(child: CircularProgressIndicator()),
+            )
+        );
+      } else if (snapshot.hasError) {
+        // 当Future发生错误时，显示错误提示的UI
+        return Text('Error: ${snapshot.error}');
+      } else {
+        // 当Future成功完成时，显示数据
+        return buildWithNewsPaper(snapshot.data!, context);
+      }
+    }
+
+    return FutureBuilder(
+      future: _futureBuildItems,
+      builder: builder,
+    );
   }
 
   List<ContentWidget> buildItems(NewsPaper paper) {
@@ -56,43 +89,17 @@ class _ContentListState extends State<ContentList> {
     return items;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    // 获取内容信息json，并构建内容组件列表
-    _futureBuildItems = fetchJson(context).then((str) => newsPaperFromJson(str)).then((paper) => buildItems(paper));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    builder(BuildContext context, AsyncSnapshot<List<ContentWidget>> snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        // 当Future还未完成时，显示加载中的UI
-        return const SliverFillRemaining(child: Center(child: CircularProgressIndicator()));
-      } else if (snapshot.hasError) {
-        // 当Future发生错误时，显示错误提示的UI
-        return Text('Error: ${snapshot.error}');
-      } else {
-        // 当Future成功完成时，显示数据
-        return buildWithNewsPaper(snapshot.data!, context);
-      }
-    }
-
-    return FutureBuilder(
-      future: _futureBuildItems,
-      builder: builder,
-    );
-  }
-
   // 根据NewsPaper结构进行页面的构建
-  Widget buildWithNewsPaper(List<ContentWidget> items, BuildContext context) {
+  Widget buildWithNewsPaper(NewsPaper paper, BuildContext context) {
     var mediaType = getMediaType(context);
     var size = MediaQuery.of(context).size;
     var itemScaling = min(1.0, size.width / MediaType.medium.width);
 
-    var anotherList = <ContentWidget>[];
-    anotherList.addAll(items);
-    anotherList.removeRange(0, 3);
+    var items = buildItems(paper);
+
+    var ordinaries = <ContentWidget>[];
+    ordinaries.addAll(items);
+    ordinaries.removeRange(0, 3);
 
     return Padding(
         // 设置两边平行同步
@@ -148,7 +155,7 @@ class _ContentListState extends State<ContentList> {
                       mainAxisSpacing: itemPadding * itemScaling,
                     ),
                     physics: const NeverScrollableScrollPhysics(),
-                    children: [...anotherList],
+                    children: [...ordinaries],
                   ),
 
                   const Padding(padding: EdgeInsets.only(top: 30)),

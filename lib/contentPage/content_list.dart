@@ -9,6 +9,7 @@ import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/contentPage/content_widget.dart';
 import 'package:redstone_daily_site/jsonobject/NewsPaper.dart';
 import 'package:redstone_daily_site/media_type.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 double lerp(double a, double b, double t) {
   return a + (b - a) * t;
@@ -27,8 +28,9 @@ class ContentList extends StatefulWidget {
 }
 
 class _ContentListState extends State<ContentList> {
-  static const double contentListPaddingMedium = 300;
-  static const double contentListPaddingSmall = 20;
+  static const double listPaddingMedium = 280;
+  static const double listPaddingSmall = 0;
+  static const double listInnerPadding = 20;
 
   // for large device, it is free
   static const double itemPadding = 20;
@@ -54,10 +56,9 @@ class _ContentListState extends State<ContentList> {
         // 当Future还未完成时，显示加载中的UI
         return SliverFillRemaining(
             child: Container(
-              color: RDColors.white.surface,
-              child: const Center(child: CircularProgressIndicator()),
-            )
-        );
+          color: RDColors.white.surface,
+          child: const Center(child: CircularProgressIndicator()),
+        ));
       } else if (snapshot.hasError) {
         // 当Future发生错误时，显示错误提示的UI
         return Text('Error: ${snapshot.error}');
@@ -73,7 +74,7 @@ class _ContentListState extends State<ContentList> {
     );
   }
 
-  List<ContentWidget> buildItems(NewsPaper paper) {
+  List<ContentWidget> buildItemWidgets(NewsPaper paper) {
     List<ContentWidget> items = [];
     paper.content.asMap().entries.forEach((entry) {
       var index = entry.key;
@@ -95,74 +96,116 @@ class _ContentListState extends State<ContentList> {
     var size = MediaQuery.of(context).size;
     var itemScaling = min(1.0, size.width / MediaType.medium.width);
 
-    var items = buildItems(paper);
+    var items = buildItemWidgets(paper);
 
-    var ordinaries = <ContentWidget>[];
-    ordinaries.addAll(items);
-    ordinaries.removeRange(0, 3);
+    var commonItems = <ContentWidget>[];
+    commonItems.addAll(items);
+    commonItems.removeRange(0, 3);
 
-    return Padding(
+    var maxWidth = MediaType.large.width - 2 * listPaddingMedium;
+
+    return SliverPadding(
         // 设置两边平行同步
         padding: EdgeInsets.symmetric(
           horizontal: switch (mediaType) {
-            MediaType.small => contentListPaddingSmall,
-            MediaType.medium => lerp(contentListPaddingSmall, contentListPaddingMedium, inverseLerp(MediaType.medium.width, MediaType.large.width, size.width)),
-            _ => contentListPaddingMedium,
+            MediaType.small => listPaddingSmall,
+            MediaType.medium => lerp(listPaddingSmall, listPaddingMedium, inverseLerp(MediaType.medium.width, MediaType.large.width, size.width)),
+            MediaType.large => (size.width - maxWidth) / 2,
           },
         ),
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            var largeWidth = MediaType.large.width - contentListPaddingMedium;
-            return SizedBox(
-              //区块大小, 如果是大区块的,就是最大宽度,否则铺满页面
-              width: mediaType != MediaType.large ? double.infinity : largeWidth,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(padding: EdgeInsets.only(top: 35 * itemScaling)),
-
-                  // 头条
-                  SizedBox(
-                    height: ContentWidget.maxHeightHeader * itemScaling,
-                    child: items[0],
-                  ),
-
-                  Padding(padding: EdgeInsets.only(top: 25 * itemScaling)),
-                  // 副头条(2和3)
-                  GridView(
-                    shrinkWrap: true,
+        sliver: DecoratedSliver(
+          decoration: BoxDecoration(
+            color: RDColors.white.surface,
+          ),
+          sliver: SliverPadding(
+            padding: EdgeInsets.fromLTRB(listInnerPadding, itemPadding * itemScaling, listInnerPadding, 0),
+            sliver: MultiSliver(
+              children: [
+                SliverPadding(
+                    padding: EdgeInsets.only(bottom: 25 * itemScaling),
+                    sliver: SliverToBoxAdapter(
+                        child: SizedBox(
+                      height: ContentWidget.maxHeightHeader * itemScaling,
+                      child: items[0],
+                    ))),
+                SliverPadding(
+                  padding: EdgeInsets.only(bottom: itemPadding * itemScaling),
+                  sliver: SliverGrid(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: mediaType == MediaType.small ? 1 : 2,
                       mainAxisExtent: (mediaType == MediaType.small ? 1.5 : 1) * ContentWidget.maxHeightSubHeader * itemScaling,
                       crossAxisSpacing: itemPadding * itemScaling,
                       mainAxisSpacing: itemPadding * itemScaling,
                     ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [items[1], items[2]],
+                    delegate: SliverChildListDelegate([items[1], items[2]]),
                   ),
-
-                  Padding(padding: EdgeInsets.only(top: itemPadding * itemScaling)),
-
-                  // 其余内容
-                  GridView(
-                    shrinkWrap: true,
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 30),
+                  sliver: SliverGrid(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: mediaType == MediaType.small ? 1 : 2,
                       mainAxisExtent: (mediaType == MediaType.small ? 1.5 : 1) * ContentWidget.maxHeightContent * itemScaling,
                       crossAxisSpacing: itemPadding * itemScaling,
                       mainAxisSpacing: itemPadding * itemScaling,
                     ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [...ordinaries],
+                    delegate: SliverChildListDelegate(commonItems),
                   ),
-
-                  const Padding(padding: EdgeInsets.only(top: 30)),
-                ],
-              ),
-            );
-          },
+                )
+              ],
+            ),
+          ),
         ));
   }
 }
+
+// SizedBox(
+// //区块大小, 如果是大区块的,就是最大宽度,否则铺满页面
+// width: mediaType != MediaType.large ? double.infinity : widthLarge,
+// child: Column(
+// mainAxisAlignment: MainAxisAlignment.start,
+// crossAxisAlignment: CrossAxisAlignment.stretch,
+// mainAxisSize: MainAxisSize.min,
+// children: [
+// Padding(padding: EdgeInsets.only(top: 35 * itemScaling)),
+//
+// // 头条
+// SizedBox(
+// height: ContentWidget.maxHeightHeader * itemScaling,
+// child: items[0],
+// ),
+//
+// Padding(padding: EdgeInsets.only(top: 25 * itemScaling)),
+// // 副头条(2和3)
+// GridView(
+// shrinkWrap: true,
+// gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+// crossAxisCount: mediaType == MediaType.small ? 1 : 2,
+// mainAxisExtent: (mediaType == MediaType.small ? 1.5 : 1) * ContentWidget.maxHeightSubHeader * itemScaling,
+// crossAxisSpacing: itemPadding * itemScaling,
+// mainAxisSpacing: itemPadding * itemScaling,
+// ),
+// physics: const NeverScrollableScrollPhysics(),
+// children: [items[1], items[2]],
+// ),
+//
+// Padding(padding: EdgeInsets.only(top: itemPadding * itemScaling)),
+//
+// // 其余内容
+// GridView(
+// shrinkWrap: true,
+// gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+// crossAxisCount: mediaType == MediaType.small ? 1 : 2,
+// mainAxisExtent: (mediaType == MediaType.small ? 1.5 : 1) * ContentWidget.maxHeightContent * itemScaling,
+// crossAxisSpacing: itemPadding * itemScaling,
+// mainAxisSpacing: itemPadding * itemScaling,
+// ),
+// physics: const NeverScrollableScrollPhysics(),
+// children: [...commonItems],
+// ),
+//
+// const Padding(padding: EdgeInsets.only(top: 30)),
+// ],
+// ),
+// );
+// },

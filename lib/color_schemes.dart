@@ -8,7 +8,8 @@ class RDColors{
 
     background: const Color(0xFFd9d9d9),
     surface: const Color(0xFFFFFFFF),
-    // primary: idk
+    primary: const Color(0xFFFFFFFF),
+    onPrimary: const Color(0xDD000000),
     primaryContainer: const Color(0xFF740000),
     onPrimaryContainer: const Color(0xFFFFFFFF),
 

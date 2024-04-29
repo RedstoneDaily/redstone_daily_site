@@ -116,14 +116,14 @@ class _HeadState extends State<HeadWidget> {
                     Positioned(
                       right: 0.375 * height,
                       top: 0.054 * height,
-                      child: Text("红", style: typography.whiteZhTextStyle1),
+                      child: Text("红", style: typography.mastheadZh1),
                     ),
                     Positioned(
                       right: 0.135 * height,
                       top: 0.13 * height,
-                      child: Text("石", style: typography.whiteZhTextStyle1),
+                      child: Text("石", style: typography.mastheadZh1),
                     ),
-                    Positioned(right: 0.272 * height, top: 0.5 * height, child: Text("Redstone", style: typography.whiteEnTextStyle1))
+                    Positioned(right: 0.272 * height, top: 0.5 * height, child: Text("Redstone", style: typography.mastheadEn1))
                   ],
                 ))));
   }
@@ -142,17 +142,17 @@ class _HeadState extends State<HeadWidget> {
                   Positioned(
                     left: 0.46 * height,
                     top: 0.245 * height,
-                    child: Text("Daily", style: typography.whiteEnTextStyle2),
+                    child: Text("Daily", style: typography.mastheadEn2),
                   ),
                   Positioned(
                     left: 0.08 * height,
                     top: 0.405 * height,
-                    child: Text("日", style: typography.whiteZhTextStyle2),
+                    child: Text("日", style: typography.mastheadZh2),
                   ),
                   Positioned(
                     left: 0.34 * height,
                     top: 0.405 * height,
-                    child: Text("报", style: typography.whiteZhTextStyle2),
+                    child: Text("报", style: typography.mastheadZh2),
                   )
                 ]))));
   }

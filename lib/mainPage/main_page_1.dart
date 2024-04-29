@@ -18,8 +18,8 @@ import '../contentPage/typography.dart';
 import 'nav_bar.dart';
 import 'nav_button.dart';
 
-class MainContentPage1 extends StatelessWidget {
-  const MainContentPage1({super.key});
+class MainPage1 extends StatelessWidget {
+  const MainPage1({super.key});
 
   @override
   Widget build(BuildContext context) {

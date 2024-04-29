@@ -6,20 +6,20 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hexcolor/hexcolor_web.dart';
-import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
 import 'package:redstone_daily_site/mainPage/parallelogram_button.dart';
+import 'package:redstone_daily_site/mainPage/typography.dart';
 import 'package:redstone_daily_site/painter/line_painter.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
+import '../color_schemes.dart';
 import '../media_type.dart';
 import '../contentPage/typography.dart';
-import 'typography.dart';
 import 'nav_bar.dart';
 import 'nav_button.dart';
 
-class MainContentPage3 extends StatelessWidget {
-  const MainContentPage3({super.key});
+class MainPage4 extends StatelessWidget {
+  const MainPage4({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,62 +33,56 @@ class MainContentPage3 extends StatelessWidget {
         height: height,
         color: RDColors.white.background,
         child: Stack(
+          clipBehavior: Clip.none,
           children: [
             CustomPaint(
               painter: TrapezoidPainter(
                 axis: Axis.horizontal,
-                topStart: 0.36,
-                topEnd: 1,
-                bottomStart: 0.172,
-                bottomEnd: 1,
+                topStart: 0.172,
+                topEnd: 1.025,
+                bottomStart: -0.016,
+                // 0.172 - 0.188
+                bottomEnd: 0.837,
+                // 1.025 - 0.188
                 color: RDColors.scarlet.surface,
               ),
               size: Size(width, height),
             ),
             Positioned(
-                top: height * 0.5,
-                left: width * (0.36 + 0.172) / 2,
-                child: FractionalTranslation(
-                    translation: const Offset(-0.57, -0.475),
-                    child: SizedBox.square(
-                        dimension: 0.7 * height,
-                        child: Image.asset(
-                          "assets/images/mojang_banner_pattern.png",
-                          filterQuality: FilterQuality.none,
-                          fit: BoxFit.cover,
-                        )))),
-            Positioned(
-                top: height * 0.207,
-                left: width * 0.456,
+                bottom: height * -0.195,
+                right: width * -0.019,
+                child: Transform.rotate(
+                  angle: 21 * 3.14 / 180,
+                  child: SizedBox.square(
+                    dimension: 0.681 * height,
+                    child: Image.asset(
+                      "assets/images/recovery_compass_07.png",
+                      filterQuality: FilterQuality.none,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )),
+            Align(
+                alignment: const FractionalOffset(0.35, 0.1),
+                child: Text("除此之外...", textAlign: TextAlign.end, style: textStyles.zhHeroText.copyWith(color: RDColors.scarlet.onSurface))),
+            Align(
+                alignment: const FractionalOffset(0.743, 0.37),
                 child: Text(
-                  "查看我们的成果...",
+                  "这里也有其它功能",
                   textAlign: TextAlign.end,
                   style: textStyles.zhHeroText.copyWith(color: RDColors.scarlet.onSurface),
                 )),
-            Positioned(
-                top: height * 0.502,
-                left: width * 0.4,
+            Align(
+                alignment: const FractionalOffset(0.24, 0.655),
                 child: ParallelogramButton(
                   width: 0.397 * width,
                   height: 0.115 * height,
-                  text: "查阅最新日报<<",
+                  text: "<< 立刻探索   ",
                   textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
                   buttonColor: RDColors.scarlet.onSurface,
-                  callback: () => context.go("/daily"),
-                )),
-            Positioned(
-                top: height * 0.686,
-                left: width * 0.545,
-                child: ParallelogramButton(
-                  width: 0.397 * width,
-                  height: 0.115 * height,
-                  text: "或者看看往期...",
-                  textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
-                  buttonColor: RDColors.scarlet.onSurface,
-                  callback: () {
-                    // TODO 往期
-                    context.go("/404");
-                  },
+                  callback: () =>
+                      // TODO 立刻探索????
+                      context.go("/404"),
                 )),
 
             // Debug Reference Image
@@ -98,7 +92,7 @@ class MainContentPage3 extends StatelessWidget {
             //     child: Opacity(
             //         opacity: 0.3,
             //         child: Image.asset(
-            //           "assets/test-ref-images/mainPage/3.png",
+            //           "assets/test-ref-images/mainPage/4.png",
             //           width: size.width,
             //           fit: BoxFit.cover,
             //         )))

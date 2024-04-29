@@ -25,8 +25,8 @@ class NavCategory {
   const NavCategory(this.categoryName, this.items);
 }
 
-class MainContentPageEnd extends StatelessWidget {
-  const MainContentPageEnd({super.key});
+class MainPageEnd extends StatelessWidget {
+  const MainPageEnd({super.key});
 
   static const List<NavCategory> navData = [
     NavCategory("服务", [

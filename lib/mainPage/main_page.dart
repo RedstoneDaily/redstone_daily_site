@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
-import 'package:redstone_daily_site/mainPage/main_content_page_end.dart';
+import 'package:redstone_daily_site/mainPage/main_page_end.dart';
 import 'package:redstone_daily_site/painter/line_painter.dart';
 
 import '../media_type.dart';
-import 'main_content_page_0.dart';
-import 'main_content_page_1.dart';
-import 'main_content_page_2.dart';
-import 'main_content_page_3.dart';
-import 'main_content_page_4.dart';
+import 'main_page_0.dart';
+import 'main_page_1.dart';
+import 'main_page_2.dart';
+import 'main_page_3.dart';
+import 'main_page_4.dart';
 import 'nav_bar.dart';
 import 'nav_button.dart';
 
@@ -24,12 +24,12 @@ class MainPage extends StatelessWidget {
         SliverList(delegate: SliverChildListDelegate([const Material(
           child: Column(
             children: [
-              MainContentPage0(),
-              MainContentPage1(),
-              MainContentPage2(),
-              MainContentPage3(),
-              MainContentPage4(),
-              MainContentPageEnd(),
+              MainPage0(),
+              MainPage1(),
+              MainPage2(),
+              MainPage3(),
+              MainPage4(),
+              MainPageEnd(),
             ],
           ),
         )]))

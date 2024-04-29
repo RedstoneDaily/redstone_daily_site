@@ -1,22 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:hexcolor/hexcolor_web.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
-import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
 import 'package:redstone_daily_site/mainPage/parallelogram_button.dart';
-import 'package:redstone_daily_site/painter/line_painter.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
-import '../media_type.dart';
-import '../contentPage/typography.dart';
 import 'typography.dart';
-import 'nav_bar.dart';
-import 'nav_button.dart';
 
 class MainPage3 extends StatelessWidget {
   const MainPage3({super.key});

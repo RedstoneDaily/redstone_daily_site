@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:redstone_daily_site/jsonobject/NewsPaper.dart';
 
 import '../color_schemes.dart';
 

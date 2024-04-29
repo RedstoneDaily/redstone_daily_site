@@ -5,11 +5,8 @@ import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
 import 'package:redstone_daily_site/painter/line_painter.dart';
 
-import '../media_type.dart';
-import '../contentPage/typography.dart';
-import 'typography.dart';
 import 'nav_bar.dart';
-import 'nav_button.dart';
+import 'typography.dart';
 
 class MainPage0 extends StatelessWidget {
   const MainPage0({super.key});

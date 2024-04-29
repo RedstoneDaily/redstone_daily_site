@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class DateTextWidget extends StatelessWidget {
-  TextStyle textStyle;
+  final TextStyle textStyle;
 
-  DateTextWidget(this.textStyle);
+  const DateTextWidget(this.textStyle, {super.key});
 
   @override
   Widget build(BuildContext context) {

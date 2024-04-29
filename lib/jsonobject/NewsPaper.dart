@@ -141,11 +141,11 @@ class Data {
 }
 
 enum Type {
-  VIDEO
+  video
 }
 
 final typeValues = EnumValues({
-  "video": Type.VIDEO
+  "video": Type.video
 });
 
 class EnumValues<T> {

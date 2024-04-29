@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'typography.dart';
@@ -14,18 +13,22 @@ class ContentWidget extends StatefulWidget {
   static const double maxHeightSubHeader = 130;
   static const double maxHeightContent = 100;
 
-  String title;
-  String description;
-  String url;
-  String imageUrl;
-  int ranking;
+  final String title;
+  late final String description;
+  final String url;
+  final String imageUrl;
+  final int ranking;
   late final NewsType type;
   late final double maxHeight;
 
-  ContentWidget({required this.url, required this.imageUrl, required this.title, this.description = "", this.ranking = -1, super.key}) {
-    if (description == "" || description == "-") {
-      description = "这个人很懒，什么都没有写~";
-    }
+  ContentWidget({required this.url, required this.imageUrl, required this.title, String description = "", this.ranking = -1, super.key}) {
+    this.description = (description == "" || description == "-") ? "这个人很懒，什么都没有写~" : description;
+    type = switch (ranking) {
+      1 => NewsType.headline,
+      2 => NewsType.subheadline,
+      3 => NewsType.subheadline,
+      _ => NewsType.content,
+    };
     maxHeight = switch (type) {
       NewsType.headline => ContentWidget.maxHeightHeader,
       NewsType.subheadline => ContentWidget.maxHeightSubHeader,

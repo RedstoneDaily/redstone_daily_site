@@ -28,8 +28,24 @@ class MyApp extends StatelessWidget {
         builder: (context, state) => const MainPage(),
       ),
       GoRoute(
+        path: '/daily/:year/:month/:day',
+        builder: (context, state) {
+          final year = state.pathParameters['year']!;
+          final month = state.pathParameters['month']!;
+          final day = state.pathParameters['day']!;
+          // ... logic to fetch and display newspaper for the specified date
+          return ContentPage(year: year, month: month, day: day); // Pass date to ContentPage
+        },
+      ),
+      GoRoute(
         path: '/daily',
-        builder: (context, state) => const ContentPage(),
+        redirect: (_, state) {
+          final now = DateTime.now();
+          final year = now.year.toString();
+          final month = now.month.toString().padLeft(2, '0');
+          final day = now.day.toString().padLeft(2, '0');
+          return '/daily/$year/$month/$day';
+        },
       ),
     ],
   );

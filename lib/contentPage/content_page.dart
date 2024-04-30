@@ -5,7 +5,11 @@ import 'foot_widget.dart';
 import 'head_widget.dart';
 
 class ContentPage extends StatefulWidget {
-  const ContentPage({super.key});
+  const ContentPage({super.key, required this.year, required this.month, required this.day});
+
+  final String year;
+  final String month;
+  final String day;
 
   @override
   State<ContentPage> createState() => _ContentPageState();
@@ -19,7 +23,7 @@ class _ContentPageState extends State<ContentPage> {
         scrollDirection: Axis.vertical,
         slivers: [
           const SliverToBoxAdapter(child: HeadWidget()),
-          const ContentList(),
+          ContentList(year: widget.year, month: widget.month, day: widget.day),
           SliverToBoxAdapter(child: FootWidget()),
         ],
       ),

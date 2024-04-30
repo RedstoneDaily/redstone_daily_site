@@ -10,6 +10,7 @@ import 'package:redstone_daily_site/contentPage/content_widget.dart';
 import 'package:redstone_daily_site/jsonobject/NewsPaper.dart';
 import 'package:redstone_daily_site/media_type.dart';
 import 'package:sliver_tools/sliver_tools.dart';
+import 'package:http/http.dart' as http;
 
 double lerp(double a, double b, double t) {
   return a + (b - a) * t;
@@ -21,7 +22,10 @@ double inverseLerp(double a, double b, double x) {
 
 // 网站内容列表
 class ContentList extends StatefulWidget {
-  const ContentList({super.key});
+  const ContentList({super.key, required this.year, required this.month, required this.day});
+  final String year;
+  final String month;
+  final String day;
 
   @override
   State<ContentList> createState() => _ContentListState();
@@ -39,7 +43,30 @@ class _ContentListState extends State<ContentList> {
 
   // 异步获取json字符串
   Future<String> fetchJson(BuildContext context) async {
-    return DefaultAssetBundle.of(context).loadString("assets/demo.json");
+    // return DefaultAssetBundle.of(context).loadString("assets/demo.json");
+    // fetch data from url api
+    const String apiHost = String.fromEnvironment('API_BASE_URL', defaultValue: 'localhost');
+    Uri uri = Uri.http(apiHost, '/daily', {
+      'yy': widget.year,
+      'mm': widget.month,
+      'dd': widget.day,
+    });
+
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        // 如果请求成功，返回JSON字符串
+        return response.body;
+      } else {
+        // 如果请求失败，抛出一个错误
+        throw Exception('Failed to load JSON. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      // 处理任何其他类型的错误
+      print('Error occurred: $error');
+      rethrow; // 你可以选择在这里重新抛出错误或返回一个错误消息
+    }
   }
 
   @override

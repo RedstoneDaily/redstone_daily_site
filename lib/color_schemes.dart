@@ -33,6 +33,8 @@ class RDColors{
   static ColorScheme glass = ColorScheme.fromSeed(
     seedColor: const Color(0xFFFFFFFF),
 
+    background: const Color(0x00000000),
+    onBackground: const Color(0xFFFFFFFF),
     surface: const Color(0x00000000),
     onSurface: const Color(0xFFFFFFFF),
     primary: const Color(0x00000000),

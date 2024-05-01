@@ -35,7 +35,7 @@ class RDColors{
 
     background: const Color(0x00000000),
     onBackground: const Color(0xFFFFFFFF),
-    surface: const Color(0x00000000),
+    surface: const Color(0xa8000000),
     onSurface: const Color(0xFFFFFFFF),
     primary: const Color(0x00000000),
     onPrimary: const Color(0xFFFFFFFF),

@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:redstone_daily_site/underlined_text.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class NavUnderlinedText extends StatefulWidget {
@@ -62,35 +61,14 @@ class _NavUnderlinedTextState extends State<NavUnderlinedText> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-        onEnter: (_) => setState(() => hover = true),
-        onExit: (_) => setState(() => hover = false),
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () => {widget.isRoute ? context.go(widget.dst) : launchUrlString(widget.dst)},
-          child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints1) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(key: innerKey, widget.text, style: widget.style, textAlign: widget.textAlign, maxLines: 1),
-                // Postpone the layout so that it can get the size of the text. Magic.()
-                LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints2) {
-                  return SizedBox(
-                      width: max(constraints1.minWidth, (innerKey.currentContext!.findRenderObject() as RenderBox).size.width),
-                      height: widget.underlineWidth,
-                      child: Align(
-                          alignment: widget.underlineAlign,
-                          child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.easeInOut,
-                              width: hover ? max(constraints1.minWidth, (innerKey.currentContext!.findRenderObject() as RenderBox).size.width) : 0,
-                              height: widget.underlineWidth,
-                              color: widget.underlineColor ?? widget.style?.color)));
-                }),
-              ],
-            );
-          }),
-        ));
+    return UnderlinedText(
+        onTap: () => {widget.isRoute ? context.go(widget.dst) : launchUrlString(widget.dst)},
+        text: widget.text,
+        style: widget.style,
+        textAlign: widget.textAlign,
+        underlineWidth: widget.underlineWidth,
+        underlineAlign: widget.underlineAlign,
+        underlineColor: widget.underlineColor ?? widget.style?.color
+    );
   }
 }

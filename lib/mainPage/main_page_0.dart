@@ -7,7 +7,7 @@ import 'package:redstone_daily_site/painter/line_painter.dart';
 
 import 'nav_bar.dart';
 import 'typography.dart';
-
+// TODO: wrap with Theme
 class MainPage0 extends StatelessWidget {
   const MainPage0({super.key});
 

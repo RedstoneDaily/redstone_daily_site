@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:redstone_daily_site/404_page.dart';
 import 'package:redstone_daily_site/contentPage/foot_widget.dart';
 import 'package:redstone_daily_site/contentPage/head_widget.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
@@ -46,6 +47,10 @@ class MyApp extends StatelessWidget {
           final day = now.day.toString().padLeft(2, '0');
           return '/daily/$year/$month/$day';
         },
+      ),
+      GoRoute(
+        path: '/404',
+        builder: (context, state) => const Status404Page(),
       ),
     ],
   );

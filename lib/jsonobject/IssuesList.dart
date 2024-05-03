@@ -17,6 +17,10 @@ class IssuesList {
     required this.daily,
   });
 
+  List<int> get dailyAvailableYears => daily.map((e) => e.year).toSet().toList()..sort();
+  List<int> dailyAvailableMonths(int year) => daily.where((e) => e.year == year).map((e) => e.month).toSet().toList()..sort();
+  List<int> dailyAvailableDays(int year, int month) => daily.where((e) => e.year == year && e.month == month).map((e) => e.day).toSet().toList()..sort();
+
   factory IssuesList.fromJsonObject(List<String> jsonObject) => IssuesList(
       daily: jsonObject.map((e) => DateFormat("yyyy-MM-dd").parse(e)).toList()
           ..sort((a, b) => a.compareTo(b)),

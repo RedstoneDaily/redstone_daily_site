@@ -72,6 +72,7 @@ flutter:
     - assets/images/backgrounds/rd-nn.png
     - assets/images/backgrounds/Fparrot_CPU.png
     - assets/images/backgrounds/redstone_line.png
+    - assets/images/backgrounds/404pagebg.png
     # icons
     - assets/images/knowledge_book.png
     - assets/images/clock.png

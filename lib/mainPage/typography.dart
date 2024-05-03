@@ -57,6 +57,7 @@ class MainPageTypography {
         ),
         zhButton = TextStyle(
             // fontFamily: 'FontquanXinYiGuanHeiTi',
+            color: Colors.white,
             fontSize: 0.05945 * pageHeight,
             letterSpacing: 5),
         zhNavHeader = TextStyle(

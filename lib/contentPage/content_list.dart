@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/contentPage/content_widget.dart';
 import 'package:redstone_daily_site/jsonobject/NewsPaper.dart';
 import 'package:redstone_daily_site/media_type.dart';
 import 'package:sliver_tools/sliver_tools.dart';
-import 'package:http/http.dart' as http;
 
 double lerp(double a, double b, double t) {
   return a + (b - a) * t;

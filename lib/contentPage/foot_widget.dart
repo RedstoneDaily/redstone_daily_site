@@ -1,28 +1,26 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 
 import '../media_type.dart';
 
-class FootWidget extends StatelessWidget{
+class FootWidget extends StatelessWidget {
+  const FootWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
     var scaling = min(1.0, size.width / MediaType.medium.width);
-
     var footerTextStyle = TextStyle(
-        color: Theme.of(context).colorScheme.onSecondary,
-        fontSize: 20 * scaling,
-        letterSpacing: 3 * scaling
+      color: Theme.of(context).colorScheme.onSecondary,
+      fontSize: 20 * scaling,
+      letterSpacing: 3 * scaling,
     );
-
     // 底部
     return Container(
-      height: 100 * scaling, // 设置容器的高度
+      height: 100 * scaling,
+      // 设置容器的高度
       width: size.width,
       color: RDColors.scarlet.surface,
       padding: EdgeInsets.all(4.0 * scaling),
@@ -51,5 +49,4 @@ class FootWidget extends StatelessWidget{
       ),
     );
   }
-
 }

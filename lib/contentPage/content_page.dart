@@ -24,7 +24,7 @@ class _ContentPageState extends State<ContentPage> {
         slivers: [
           const SliverToBoxAdapter(child: HeadWidget()),
           ContentList(year: widget.year, month: widget.month, day: widget.day),
-          SliverToBoxAdapter(child: FootWidget()),
+          const SliverToBoxAdapter(child: FootWidget()),
         ],
       ),
     );

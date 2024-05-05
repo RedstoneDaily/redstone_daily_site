@@ -2,14 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/hover_clickable_container.dart';
-import 'package:redstone_daily_site/jsonobject/IssuesList.dart';
+import 'package:redstone_daily_site/jsonobject/issues_list.dart';
 import 'package:redstone_daily_site/underlined_text.dart';
-import 'package:http/http.dart' as http;
 
 // onTap: () => showDialog(context: context, builder: chooserDialogBuilderBuilder(RDColors.glass)),
 Future showSelectorDialog({required BuildContext context, required ColorScheme colors}) {
@@ -28,7 +27,7 @@ Future showSelectorDialog({required BuildContext context, required ColorScheme c
                   data: ThemeData(
                     colorScheme: colors,
                   ),
-                  child: SizedBox(
+                  child: const SizedBox(
                     width: 700,
                     height: 550,
                     child: SelectorDialogContent(),

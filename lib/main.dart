@@ -1,19 +1,12 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:redstone_daily_site/404_page.dart';
-import 'package:redstone_daily_site/contentPage/foot_widget.dart';
-import 'package:redstone_daily_site/contentPage/head_widget.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 
-import 'mainPage/main_page.dart';
-import 'media_type.dart';
-import 'contentPage/content_list.dart';
 import 'contentPage/content_page.dart';
+import 'mainPage/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,8 +42,12 @@ class MyApp extends StatelessWidget {
         },
       ),
       GoRoute(
+        path: '/404/:random',
+        builder: (context, state) => Status404Page(key: Key(state.pathParameters['random']!)),
+      ),
+      GoRoute(
         path: '/404',
-        builder: (context, state) => const Status404Page(),
+        redirect: (_, state) => '/404/${Random().nextInt(100000)}',
       ),
     ],
   );

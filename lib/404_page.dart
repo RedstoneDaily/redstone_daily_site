@@ -1,10 +1,9 @@
 import 'dart:ui';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:redstone_daily_site/color_schemes.dart';
+
 import '../mainPage/nav_bar.dart';
 import '../mainPage/typography.dart';
 
@@ -73,7 +72,7 @@ class Status404Page extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Positioned(
-            top: 0.22 * height,
+            top: 0.19 * height,
             left: 0.032 * height,
             child: Text("404", style: textStyle.heroTextRed),
           ),

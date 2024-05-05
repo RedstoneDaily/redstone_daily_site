@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:redstone_daily_site/chooserDialog.dart';
+import 'package:redstone_daily_site/selector_dialog.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 
 // TODO: 或许此处应当显示最新一期日报的日期，而非当天（比如在当日早8之前新一期日报还没出来）那就需要将刊期列表的获取和状态存储给提升至整个主页页面了 =又需要一次小重构
@@ -21,7 +21,7 @@ class DateTextWidget extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         // onTap: () => showDialog(context: context, builder: chooserDialogBuilderBuilder(RDColors.glass)),
-        onTap: () => showChooserDialog(context: context, colors: RDColors.glass),
+        onTap: () => showSelectorDialog(context: context, colors: RDColors.glass),
         child: Text(
           "[$formattedDate]",
           style: textStyle,

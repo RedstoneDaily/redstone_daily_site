@@ -7,36 +7,33 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:memoize/memoize.dart';
 
-IssuesList issuesListFromJson(String str) => IssuesList.fromJsonObject(json.decode(str));
+IssuesList parseIssuesList(String str) => IssuesList.fromJson((jsonDecode(str) as List).cast<Map<String, dynamic>>());
 
 // String issuesListToJson(IssuesList data) => json.encode(data.toJsonObject());
 
 class IssuesList {
   /// Guaranteed to be sorted, and not null
-  final SplayTreeMap<int, SplayTreeMap<int, List<DateTime>>> daily;
+  final SplayTreeMap<int, SplayTreeMap<int, SplayTreeMap<DateTime, String>>> daily;
 
   IssuesList({required this.daily});
 
-  late final dailyLatest = memo0(() => daily.values.last.values.last.last);
+  late final dailyLatest = memo0(() => daily.values.last.values.last.entries.last);
 
-  factory IssuesList.fromJsonObject(List<String> jsonObject) => IssuesList(
-        daily: _classify(jsonObject.map((e) => DateFormat("yyyy-MM-dd").parse(e)).toList()..sort((a, b) => a.compareTo(b))),
+  factory IssuesList.fromJson(List<Map<String, dynamic>> jsonObject) => IssuesList(
+        daily: (jsonObject.map((e) => MapEntry(DateFormat("yyyy-MM-dd").parse(e["date"]!), e["title"]! as String)).toList()
+              ..sort((a, b) => a.key.compareTo(b.key)))
+            .fold<SplayTreeMap<int, SplayTreeMap<int, SplayTreeMap<DateTime, String>>>>(
+          SplayTreeMap(),
+          (SplayTreeMap<int, SplayTreeMap<int, SplayTreeMap<DateTime, String>>> map, MapEntry<DateTime, String> item) {
+            final year = item.key.year;
+            final month = item.key.month;
+            map.putIfAbsent(year, () => SplayTreeMap());
+            map[year]!.putIfAbsent(month, () => SplayTreeMap());
+            map[year]![month]!.putIfAbsent(item.key, () => item.value);
+            return map;
+          },
+        ),
       );
-
-  static _classify(List<DateTime> list) {
-    return list.fold<SplayTreeMap<int, SplayTreeMap<int, List<DateTime>>>>(
-      SplayTreeMap(),
-      (SplayTreeMap<int, SplayTreeMap<int, List<DateTime>>> map, DateTime date) {
-        final year = date.year;
-        final month = date.month;
-        final day = date.day;
-        map.putIfAbsent(year, () => SplayTreeMap());
-        map[year]!.putIfAbsent(month, () => []);
-        map[year]![month]!.add(date);
-        return map;
-      },
-    );
-  }
 
 // Map<int, Map<int, List<String>>> toJsonObject() => daily.map<int, Map<int, List<String>>>(
 //     (yearKey, year) => MapEntry(

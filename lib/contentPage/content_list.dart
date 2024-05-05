@@ -47,10 +47,10 @@ class _ContentListState extends State<ContentList> {
     // return DefaultAssetBundle.of(context).loadString("assets/demo.json");
     // fetch data from url api
     const String apiHost = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-    Uri uri = Uri.http(apiHost, '/daily', {
-      'yy': widget.year,
-      'mm': widget.month,
-      'dd': widget.day,
+    Uri uri = Uri.http(apiHost, '/api/daily', {
+      'yy': widget.year.toString(),
+      'mm': widget.month.toString().padLeft(2, '0'),
+      'dd': widget.day.toString().padLeft(2, '0'),
     });
 
     try {

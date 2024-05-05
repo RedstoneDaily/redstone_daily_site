@@ -1,10 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:redstone_daily_site/mainPage/typography.dart';
 
-import '../color_schemes.dart';
 import '../painter/trapezoid_painter.dart';
-import '../contentPage/typography.dart';
 
 class ParallelogramButton extends StatelessWidget {
   const ParallelogramButton({

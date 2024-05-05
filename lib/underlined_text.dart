@@ -44,6 +44,7 @@ class UnderlinedText extends StatefulWidget {
 class _UnderlinedTextState extends State<UnderlinedText> {
   bool hover = false;
   GlobalKey innerKey = GlobalKey();
+  GlobalKey animationBoxKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +68,7 @@ class _UnderlinedTextState extends State<UnderlinedText> {
                       child: Align(
                           alignment: widget.underlineAlign,
                           child: AnimatedContainer(
+                            key: animationBoxKey,
                               duration: const Duration(milliseconds: 200),
                               curve: Curves.easeInOut,
                               width: (widget.isUnderlined || hover)

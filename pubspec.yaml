@@ -43,6 +43,7 @@ dependencies:
   provider: ^6.1.2
   sliver_tools: ^0.2.12
   http: ^1.2.1
+  memoize: ^3.0.0
 
 dev_dependencies:
   flutter_test:

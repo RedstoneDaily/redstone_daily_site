@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 
-import '../media_type.dart';
 import 'nav_underlined_text.dart';
-import 'nav_button.dart';
 
 class NavBar extends StatelessWidget {
   ///

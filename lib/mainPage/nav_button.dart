@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../media_type.dart';
-
 class NavButton extends StatefulWidget {
-  String text;
-  String route = "/";
+  final String text;
+  final String route;
 
-  NavButton(this.route, this.text);
+  const NavButton({this.route = "/", required this.text, super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _NavButtonState(route, text);
+    return _NavButtonState();
   }
 }
 
 class _NavButtonState extends State<NavButton> {
-  String text;
-  String route;
   bool hover = true;
 
-  _NavButtonState(this.route, this.text);
+  _NavButtonState();
 
   @override
   Widget build(BuildContext context) {
@@ -35,24 +31,24 @@ class _NavButtonState extends State<NavButton> {
       return SizedBox(
         height: height,
         child: TextButton(
-            onPressed: () => {context.go(route)},
+            onPressed: () => {context.go(widget.route)},
             onHover: (b) => {
-              setState(() {
-                hover = !b;
-              })
-            },
+                  setState(() {
+                    hover = !b;
+                  })
+                },
             child: Container(
                 decoration: hover
                     ? null
                     : const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 0.5, //宽度
-                        color: Colors.red, //边框颜色
-                      ),
-                    )),
+                        border: Border(
+                        bottom: BorderSide(
+                          width: 0.5, //宽度
+                          color: Colors.red, //边框颜色
+                        ),
+                      )),
                 child: Text(
-                  "    $text    ",
+                  "    ${widget.text}    ",
                   style: style,
                 ))),
       );

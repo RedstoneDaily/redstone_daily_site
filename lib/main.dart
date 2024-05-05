@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:redstone_daily_site/404_page.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 
-import 'contentPage/content_page.dart';
 import 'mainPage/main_page.dart';
+import 'contentPage/content_page.dart';
 
 void main() {
   runApp(MyApp());

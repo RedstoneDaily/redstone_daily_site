@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           final month = state.pathParameters['month']!;
           final day = state.pathParameters['day']!;
           // ... logic to fetch and display newspaper for the specified date
-          return ContentPage(year: year, month: month, day: day); // Pass date to ContentPage
+          return ContentPage(date: DateTime(int.parse(year), int.parse(month), int.parse(day))); // Pass date to ContentPage
         },
       ),
       GoRoute(

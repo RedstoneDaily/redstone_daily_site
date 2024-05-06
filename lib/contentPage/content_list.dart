@@ -18,18 +18,21 @@ double inverseLerp(double a, double b, double x) {
 }
 
 // 网站内容列表
-class ContentList extends StatefulWidget {
-  const ContentList({super.key, required this.year, required this.month, required this.day});
+class SilverContentList extends StatefulWidget {
+  SilverContentList({super.key, required DateTime date})
+      : year = date.year.toString(),
+        month = date.month.toString().padLeft(2, '0'),
+        day = date.day.toString().padLeft(2, '0');
 
   final String year;
   final String month;
   final String day;
 
   @override
-  State<ContentList> createState() => _ContentListState();
+  State<SilverContentList> createState() => _SilverContentListState();
 }
 
-class _ContentListState extends State<ContentList> {
+class _SilverContentListState extends State<SilverContentList> {
   static const double listPaddingMedium = 280;
   static const double listPaddingSmall = 0;
   static const double listInnerPadding = 20;
@@ -45,9 +48,9 @@ class _ContentListState extends State<ContentList> {
     // fetch data from url api
     const String apiHost = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
     Uri uri = Uri.http(apiHost, '/api/daily', {
-      'yy': widget.year.toString(),
-      'mm': widget.month.toString().padLeft(2, '0'),
-      'dd': widget.day.toString().padLeft(2, '0'),
+      'yy': widget.year,
+      'mm': widget.month,
+      'dd': widget.day,
     });
 
     try {
@@ -110,6 +113,7 @@ class _ContentListState extends State<ContentList> {
       var index = entry.key;
       var content = entry.value;
       items.add(ContentWidget(
+        key: Key('content-${content.url}'),
         url: content.url,
         imageUrl: content.coverUrl,
         title: content.title,

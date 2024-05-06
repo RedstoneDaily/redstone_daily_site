@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum LocationType{
+enum LocationType {
   relative,
   absolute
 }
@@ -21,7 +21,7 @@ class TrapezoidPainter extends CustomPainter {
     this.bottomEnd = 1,
     this.color = Colors.cyan
   });
-  
+
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
@@ -29,7 +29,7 @@ class TrapezoidPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final path = Path();
-    if(locationType == LocationType.relative) {
+    if (locationType == LocationType.relative) {
       if (axis == Axis.horizontal) {
         path.moveTo(size.width * topStart, 0);
         path.lineTo(size.width * topEnd, 0);
@@ -41,7 +41,7 @@ class TrapezoidPainter extends CustomPainter {
         path.lineTo(size.width, size.height * topEnd);
         path.lineTo(size.width, size.height * topStart);
       }
-    }else{
+    } else {
       if (axis == Axis.horizontal) {
         path.moveTo(topStart, 0);
         path.lineTo(topEnd, 0);
@@ -60,7 +60,7 @@ class TrapezoidPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+  bool shouldRepaint(TrapezoidPainter oldDelegate) {
+    return color != oldDelegate.color;
   }
 }

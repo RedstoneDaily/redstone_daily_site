@@ -1,4 +1,4 @@
-name: frontend cd release
+name: Frontend CD (release)
 # 触发workflow的条件
 on:
     push:

@@ -4,17 +4,17 @@ void _defaultOnTap() {}
 
 // A custom widget that makes its child clickable and highlights on hover.
 class HoverClickableContainer extends StatefulWidget {
-  final Widget child;            // Child widget to wrap.
+  final Widget child; // Child widget to wrap.
   final void Function() onTap;
-  final Color highlightColor;   // Color to use for highlighting on hover.
-  final Duration duration;       // Duration of the hover animation.
-  final Curve curve;             // Animation curve for the hover effect.
+  final Color? highlightColor; // Color to use for highlighting on hover.
+  final Duration duration; // Duration of the hover animation.
+  final Curve curve; // Animation curve for the hover effect.
 
   const HoverClickableContainer({
     super.key,
     required this.child,
     this.onTap = _defaultOnTap,
-    this.highlightColor = Colors.transparent,
+    this.highlightColor,
     this.duration = const Duration(milliseconds: 200),
     this.curve = Curves.ease,
   });
@@ -33,11 +33,12 @@ class HoverClickableContainerState extends State<HoverClickableContainer> {
       onExit: (_) => setState(() => hover = false), // Sets hover state to false when mouse exits.
       child: GestureDetector(
         onTap: widget.onTap,
-        child: AnimatedContainer( // An animated container that changes color based on hover state.
+        child: AnimatedContainer(
+          // An animated container that changes color based on hover state.
           duration: widget.duration,
           curve: widget.curve,
           decoration: BoxDecoration(
-            color: hover ? widget.highlightColor : null, // Applies highlight color only when hovering.
+            color: hover ? (widget.highlightColor ?? Theme.of(context).hoverColor) : null, // Applies highlight color only when hovering.
           ),
           child: widget.child, // Displays the wrapped child widget.
         ),

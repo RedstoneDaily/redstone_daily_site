@@ -8,6 +8,7 @@ class ContentPageTypography{
   late TextStyle mastheadZh2;
   late TextStyle mastheadEn1;
   late TextStyle mastheadEn2;
+  late TextStyle issueNum;
   late TextStyle title;
   late TextStyle headlineDescription;
   late TextStyle subheadlineDescription;
@@ -31,27 +32,32 @@ class ContentPageTypography{
       fontSize: 0.155 * height,
       letterSpacing: 3,
     );
+    issueNum = TextStyle(
+      color: RDColors.glass.onPrimary,
+      fontSize: 0.10 * height,
+      // letterSpacing: -3,
+    );
     title = TextStyle(
-      fontFamily: 'Kingsoft_Cloud',
-      fontSize: 22 * scaling,
+      fontFamily: 'FontquanXinYiGuanHeiTi',
+      fontSize: 20 * scaling,
       letterSpacing: 0, //3 * scaling,
       color: RDColors.white.onPrimaryContainer,
     );
     headlineDescription = TextStyle(
       fontFamily: '黑体',
-      fontSize: 25 * scaling,
+      fontSize: 20 * scaling,
       // letterSpacing: 3,
       color: RDColors.white.onPrimary,
     );
     subheadlineDescription = TextStyle(
       fontFamily: '黑体',
-      fontSize: 12 * scaling,
+      fontSize: 15 * scaling,
       // letterSpacing: 3,
       color: RDColors.white.onPrimary,
     );
     description = TextStyle(
       fontFamily: '黑体',
-      fontSize: 12 * scaling,
+      fontSize: 15 * scaling,
       // letterSpacing: 3,
       height: 1.4,
       color: RDColors.white.onPrimary,

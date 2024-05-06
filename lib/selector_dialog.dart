@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/hover_clickable_container.dart';
 import 'package:redstone_daily_site/jsonobject/issues_list.dart';
 import 'package:redstone_daily_site/underlined_text.dart';
 
-// onTap: () => showDialog(context: context, builder: chooserDialogBuilderBuilder(RDColors.glass)),
-Future showSelectorDialog({required BuildContext context, required ColorScheme colors}) {
+/// 对话框颜色按 background / onBackground 处理; 另外头部栏颜色为 surface / onSurface
+Future showSelectorDialog({required BuildContext context, required ColorScheme colors, DateTime? initialDate}) {
   return showDialog(
       context: context,
       barrierColor: const Color(0x45000000),
@@ -21,29 +20,33 @@ Future showSelectorDialog({required BuildContext context, required ColorScheme c
             child: Dialog(
               shape: const RoundedRectangleBorder(), // actually not rounded at all
               // shadowColor: const Color(0x22FFFFFF),
-              backgroundColor: colors.surface,
+              backgroundColor: colors.background,
               surfaceTintColor: const Color(0x00000000), // sb
               child: Theme(
-                  data: ThemeData(
-                    colorScheme: colors,
-                  ),
-                  child: const SizedBox(
+                  data: ThemeData(colorScheme: colors),
+                  child: SizedBox(
                     width: 700,
                     height: 550,
-                    child: SelectorDialogContent(),
+                    child: DialogContent(
+                      colors: colors,
+                      initialDate: initialDate,
+                    ),
                   )),
             ));
       });
 }
 
-class SelectorDialogContent extends StatefulWidget {
-  const SelectorDialogContent({super.key});
+class DialogContent extends StatefulWidget {
+  const DialogContent({super.key, required this.colors, this.initialDate});
+
+  final ColorScheme colors;
+  final DateTime? initialDate;
 
   @override
-  State<StatefulWidget> createState() => _SelectorDialogContentState();
+  State<StatefulWidget> createState() => _DialogContentState();
 }
 
-class _SelectorDialogContentState extends State<SelectorDialogContent> {
+class _DialogContentState extends State<DialogContent> {
   late final Future<IssuesList> _fetchListFuture;
 
   Future<String> fetchData(BuildContext context) async {
@@ -84,13 +87,13 @@ class _SelectorDialogContentState extends State<SelectorDialogContent> {
     builder(BuildContext context, AsyncSnapshot<IssuesList> snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         // 当Future还未完成时，显示加载中的UI
-        return const Center(child: CircularProgressIndicator());
+        return Center(child: CircularProgressIndicator(color: widget.colors.onBackground));
       } else if (snapshot.hasError) {
         // 当Future发生错误时，显示错误提示的UI
-        return Center(child: Text('获取数据失败，请重试', style: TextStyle(fontSize: 16, color: RDColors.glass.onSurface)));
+        return Center(child: Text('获取数据失败，请重试', style: TextStyle(fontSize: 16, color: widget.colors.onBackground)));
       } else {
         // 当Future成功完成时，显示数据
-        return IssueSelector(issuesList: snapshot.data!);
+        return IssueSelector(issuesList: snapshot.data!, colors: widget.colors, initialDate: widget.initialDate);
       }
     }
 
@@ -99,9 +102,11 @@ class _SelectorDialogContentState extends State<SelectorDialogContent> {
 }
 
 class IssueSelector extends StatefulWidget {
-  const IssueSelector({super.key, required this.issuesList});
+  const IssueSelector({super.key, required this.issuesList, required this.colors, this.initialDate});
 
   final IssuesList issuesList;
+  final ColorScheme colors;
+  final DateTime? initialDate;
 
   @override
   State<IssueSelector> createState() => _IssueSelectorState();
@@ -129,7 +134,10 @@ class YearMonth {
 
 class _IssueSelectorState extends State<IssueSelector> with SingleTickerProviderStateMixin {
   IssueTypes issueType = IssueTypes.daily;
-  late YearMonth yearMonth = YearMonth.fromDateTime(widget.issuesList.dailyLatest().key);
+
+  // 蓟县.jpg
+  late YearMonth yearMonth =
+      YearMonth.fromDateTime(widget.issuesList.daily[widget.initialDate?.year]?[widget.initialDate?.month]?.keys.last ?? widget.issuesList.dailyLatest().key);
 
   int get pageCount => switch (issueType) {
         IssueTypes.daily => 3,
@@ -140,13 +148,13 @@ class _IssueSelectorState extends State<IssueSelector> with SingleTickerProvider
 
   late int page = pageCount - 1;
 
-  var typeSelectorTextStyle = TextStyle(fontSize: 21, color: RDColors.glass.onSurface);
-  var navigatorTextStyle = TextStyle(fontSize: 16, color: RDColors.glass.onSurface);
-  var yearMonthTextStyle = TextStyle(fontSize: 18, color: RDColors.glass.onSurface);
-  var issueTextStyle = TextStyle(fontSize: 16, color: RDColors.glass.onSurface);
+  late var typeSelectorTextStyle = TextStyle(fontSize: 25, color: widget.colors.onSurface);
+  late var navigatorTextStyle = TextStyle(fontSize: 16, color: widget.colors.onBackground);
+  late var yearMonthItemTextStyle = TextStyle(fontSize: 18, color: widget.colors.onBackground);
+  late var issueItemTextStyle = TextStyle(fontSize: 16, color: widget.colors.onBackground);
 
   Widget typeSelector() => Container(
-      color: const Color(0x80740000),
+      color: widget.colors.surface,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -185,77 +193,79 @@ class _IssueSelectorState extends State<IssueSelector> with SingleTickerProvider
         ],
       ));
 
-  Widget navigator() => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Visibility(
-              maintainSize: true,
-              maintainAnimation: true,
-              maintainState: true,
-              // sb怎么维护个size还搞这么多连环要求
-              visible: switch (page) {
-                1 => yearMonth.year > widget.issuesList.daily.keys.first,
-                2 => yearMonth.month > widget.issuesList.daily[yearMonth.year]!.keys.first || yearMonth.year > widget.issuesList.daily.keys.first,
-                _ => false,
-              },
-              child: IconButton(
-                onPressed: () => setState(() => switch (page) {
-                      1 => yearMonth = prevYear(yearMonth, widget.issuesList, issueType),
-                      2 => yearMonth = prevYearMonth(yearMonth, widget.issuesList, issueType),
-                      _ => {},
-                    }),
-                icon: const Icon(Icons.arrow_back),
-                color: RDColors.glass.onSurface,
-              )),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                UnderlinedText(
-                  text: yearMonth.yearStr,
-                  style: navigatorTextStyle,
-                  isUnderlined: page == 0,
-                  onTap: () => gotoPage(0),
-                ),
-                Visibility(visible: issueType == IssueTypes.daily, child: Text(" / ", style: navigatorTextStyle)),
-                Visibility(
-                  visible: issueType == IssueTypes.daily,
-                  child: UnderlinedText(
-                    text: yearMonth.monthStr,
+  Widget navigator() => Container(
+        color: Theme.of(context).hoverColor.withOpacity(0.2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Visibility(
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                // sb怎么维护个size还搞这么多连环要求
+                visible: switch (page) {
+                  1 => yearMonth.year > widget.issuesList.daily.keys.first,
+                  2 => yearMonth.month > widget.issuesList.daily[yearMonth.year]!.keys.first || yearMonth.year > widget.issuesList.daily.keys.first,
+                  _ => false,
+                },
+                child: IconButton(
+                  onPressed: () => setState(() => switch (page) {
+                        1 => yearMonth = prevYear(yearMonth, widget.issuesList, issueType),
+                        2 => yearMonth = prevYearMonth(yearMonth, widget.issuesList, issueType),
+                        _ => {},
+                      }),
+                  icon: const Icon(Icons.arrow_back),
+                  color: widget.colors.onBackground,
+                )),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  UnderlinedText(
+                    text: yearMonth.yearStr,
                     style: navigatorTextStyle,
-                    isUnderlined: page == 1,
-                    onTap: () => gotoPage(1),
+                    isUnderlined: page == 0,
+                    onTap: () => gotoPage(0),
                   ),
-                ),
-              ],
+                  Visibility(visible: issueType == IssueTypes.daily, child: Text(" / ", style: navigatorTextStyle)),
+                  Visibility(
+                    visible: issueType == IssueTypes.daily,
+                    child: UnderlinedText(
+                      text: yearMonth.monthStr,
+                      style: navigatorTextStyle,
+                      isUnderlined: page == 1,
+                      onTap: () => gotoPage(1),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Visibility(
-              maintainSize: true,
-              maintainAnimation: true,
-              maintainState: true,
-              // sb怎么维护个size还搞这么多连环要求*2
-              visible: switch (page) {
-                1 => yearMonth.year < widget.issuesList.daily.keys.last,
-                2 => yearMonth.month < widget.issuesList.daily[yearMonth.year]!.keys.last || yearMonth.year < widget.issuesList.daily.keys.last,
-                _ => false,
-              },
-              child: IconButton(
-                onPressed: () => setState(() => switch (page) {
-                      1 => yearMonth = nextYear(yearMonth, widget.issuesList, issueType),
-                      2 => yearMonth = nextYearMonth(yearMonth, widget.issuesList, issueType),
-                      _ => {},
-                    }),
-                icon: const Icon(Icons.arrow_forward),
-                color: RDColors.glass.onSurface,
-              )),
-        ],
+            Visibility(
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                // sb怎么维护个size还搞这么多连环要求*2
+                visible: switch (page) {
+                  1 => yearMonth.year < widget.issuesList.daily.keys.last,
+                  2 => yearMonth.month < widget.issuesList.daily[yearMonth.year]!.keys.last || yearMonth.year < widget.issuesList.daily.keys.last,
+                  _ => false,
+                },
+                child: IconButton(
+                  onPressed: () => setState(() => switch (page) {
+                        1 => yearMonth = nextYear(yearMonth, widget.issuesList, issueType),
+                        2 => yearMonth = nextYearMonth(yearMonth, widget.issuesList, issueType),
+                        _ => {},
+                      }),
+                  icon: const Icon(Icons.arrow_forward),
+                  color: widget.colors.onBackground,
+                )),
+          ],
+        ),
       );
 
-  Widget item({required void Function() onTap, required Widget child}) =>
-      HoverClickableContainer(onTap: onTap, highlightColor: const Color(0x22FFFFFF), child: child);
+  Widget item({required void Function() onTap, required Widget child}) => HoverClickableContainer(onTap: onTap, child: child);
 
   Widget yearSelectPage() => GridView(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 100),
@@ -265,7 +275,7 @@ class _IssueSelectorState extends State<IssueSelector> with SingleTickerProvider
                   setState(() => yearMonth = YearMonth(year: year, month: widget.issuesList.daily[year]!.keys.first));
                   gotoPage(page + 1);
                 },
-                child: Center(child: Text("$year", style: yearMonthTextStyle))))
+                child: Center(child: Text("$year", style: yearMonthItemTextStyle))))
             .toList(),
       );
 
@@ -278,7 +288,7 @@ class _IssueSelectorState extends State<IssueSelector> with SingleTickerProvider
                     setState(() => yearMonth = YearMonth(year: year, month: month));
                     gotoPage(page + 1);
                   },
-                  child: Center(child: Text("$month月", style: yearMonthTextStyle))))
+                  child: Center(child: Text("$month月", style: yearMonthItemTextStyle))))
               .toList(),
         )
       : Container();
@@ -290,14 +300,28 @@ class _IssueSelectorState extends State<IssueSelector> with SingleTickerProvider
               .map((date, title) => MapEntry(
                   date,
                   item(
-                      onTap: () => context.go("/daily/${date.year}/${date.month}/${date.day}"),
+                      onTap: () {
+                        context.go("/daily/${date.year}/${date.month}/${date.day}");
+                        Navigator.pop(context);
+                      },
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
                               child: Row(children: [
-                                SizedBox(width: 60, child: Text(DateFormat("MM.dd").format(date), maxLines: 1, style: issueTextStyle)),
-                                Expanded(child: Text(title, maxLines: 1, style: issueTextStyle)),
+                                SizedBox(
+                                    width: 60,
+                                    child: Text(
+                                      DateFormat("MM.dd").format(date),
+                                      maxLines: 1,
+                                      style: issueItemTextStyle.copyWith(fontWeight: FontWeight.w400),
+                                    )),
+                                Expanded(
+                                    child: Text(
+                                  title,
+                                  maxLines: 1,
+                                  style: issueItemTextStyle.copyWith(color: widget.colors.onBackground.withAlpha(0xcc)),
+                                )),
                               ]))))))
               .values
               .toList(),
@@ -353,7 +377,7 @@ class _IssueSelectorState extends State<IssueSelector> with SingleTickerProvider
       mainAxisSize: MainAxisSize.max,
       children: [
         // First, a selector for types: daily, weekly, monthly, annual
-        Flexible(flex: 1, fit: FlexFit.tight, child: typeSelector()),
+        Flexible(flex: 3, fit: FlexFit.tight, child: typeSelector()),
 
         // Second, a navigation bar
         // daily: "yyyy / MM" with nav arrows
@@ -362,12 +386,12 @@ class _IssueSelectorState extends State<IssueSelector> with SingleTickerProvider
         // annual: no navigation bar
         Visibility(
           visible: issueType != IssueTypes.annual,
-          child: Flexible(flex: 1, fit: FlexFit.tight, child: navigator()),
+          child: Flexible(flex: 2, fit: FlexFit.tight, child: navigator()),
         ),
 
         // Third, page view
         Flexible(
-          flex: 7 + (issueType == IssueTypes.annual ? 1 : 0),
+          flex: 18 + (issueType == IssueTypes.annual ? 2 : 0),
           fit: FlexFit.tight,
           child: AnimatedBuilder(
               animation: _fadeController,

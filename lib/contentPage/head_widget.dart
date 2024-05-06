@@ -2,16 +2,19 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/media_type.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
 
+import '../selector_dialog.dart';
 import 'typography.dart';
 
 class HeadWidget extends StatefulWidget {
-  const HeadWidget({super.key});
+  const HeadWidget({super.key, required this.date});
 
   final routeHome = "/";
+  final DateTime date;
 
   @override
   State<StatefulWidget> createState() {
@@ -79,22 +82,32 @@ class _HeadState extends State<HeadWidget> {
             size: Size(size.width, height),
           ),
           Positioned.fill(
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Flexible(
-                      child: FractionallySizedBox(
-                          widthFactor: cutFraction * 2.0, // Who can explain why it needs * 2.0?????
-                          heightFactor: 1.0,
-                          child: Align(
-                              alignment: Alignment.centerRight,
-                              child: leftTexts(height, typography)))),
-                  Expanded(
+              child: Row(mainAxisSize: MainAxisSize.max, children: [
+            Flexible(
+                child: FractionallySizedBox(
+                    widthFactor: cutFraction * 2.0, // Who can explain why it needs * 2.0?????
+                    heightFactor: 1.0,
                     child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: rightTexts(height, typography))),
-            ],
-          ))
+                      alignment: Alignment.centerRight,
+                      child: leftTexts(height, typography),
+                    ))),
+            Expanded(
+                child: Align(
+              alignment: Alignment.centerLeft,
+              child: rightTexts(height, typography),
+            )),
+          ])),
+          Positioned(
+              bottom: 0.04 * height,
+              right: 0.04 * height,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  // onTap: () => showDialog(context: context, builder: chooserDialogBuilderBuilder(RDColors.glass)),
+                  onTap: () => showSelectorDialog(context: context, colors: RDColors.glass),
+                  child: Transform.scale(scaleY: 1.2, child: Text("[${DateFormat("yyyy-MM-dd").format(widget.date)}]", style: typography.issueNum)),
+                ),
+              )),
         ],
       ),
     );

@@ -10,7 +10,7 @@ class RDColors {
     onPrimary: const Color(0xDD000000),
     primaryContainer: const Color(0xFF740000),
     onPrimaryContainer: const Color(0xFFFFFFFF),
-    secondaryContainer: const Color(0xFFE10000),
+    secondaryContainer: const Color(0xFFC00000),
     onSecondaryContainer: const Color(0xFFFFFFFF),
   );
 

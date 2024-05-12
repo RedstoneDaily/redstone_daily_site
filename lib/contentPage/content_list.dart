@@ -47,7 +47,7 @@ class _SilverContentListState extends State<SilverContentList> {
     // return DefaultAssetBundle.of(context).loadString("assets/demo.json");
     // fetch data from url api
     const String apiHost = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-    Uri uri = Uri.http(apiHost, '/api/daily', {
+    Uri uri = Uri.https(apiHost, '/api/daily', {
       'yy': widget.year,
       'mm': widget.month,
       'dd': widget.day,

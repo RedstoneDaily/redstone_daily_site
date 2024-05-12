@@ -51,7 +51,7 @@ class _DialogContentState extends State<DialogContent> {
 
   Future<String> fetchData(BuildContext context) async {
     const String apiHost = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-    Uri uri = Uri.http(apiHost, '/api/list');
+    Uri uri = Uri.https(apiHost, '/api/list');
     try {
       final response = await http.get(uri);
       if (response.statusCode == 200) {

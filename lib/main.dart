@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
         redirect: (_, state) => '/404/${Random().nextInt(100000)}',
       ),
     ],
+    errorBuilder: (context, state) => Status404Page(key: Key(state.error.toString())),
   );
 
   // This widget is the root of your application.

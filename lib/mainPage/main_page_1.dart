@@ -77,7 +77,7 @@ class MainPage1 extends StatelessWidget {
               text: ">>了解更多",
               textStyle: textStyles.zhButton.copyWith(color: RDColors.scarlet.onSurface),
               buttonColor: RDColors.scarlet.surface,
-              callback: () {
+              onTap: () {
                 // TODO: link
                 context.go("/404");
               },

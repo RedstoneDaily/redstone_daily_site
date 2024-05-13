@@ -12,11 +12,11 @@ class ParallelogramButton extends StatelessWidget {
     required this.text,
     required this.textStyle,
     required this.buttonColor,
-    required this.callback,
+    required this.onTap,
   });
 
   final String text;
-  final GestureTapCallback callback;
+  final GestureTapCallback onTap;
   final double width;
   final double height;
   final double cutInFraction;
@@ -26,7 +26,7 @@ class ParallelogramButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: callback,
+      onTap: onTap,
       child: SizedBox(
         width: width,
         height: height,

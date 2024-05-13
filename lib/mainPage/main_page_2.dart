@@ -72,9 +72,9 @@ class MainPage2 extends StatelessWidget {
               text: "即刻搜索<<",
               textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
               buttonColor: RDColors.scarlet.onSurface,
-              callback: () {
+              onTap: () {
                 // TODO: 跳转到搜索页面
-                context.go("/404");
+                context.go("/coming-soon");
               },
             )),
         Positioned(

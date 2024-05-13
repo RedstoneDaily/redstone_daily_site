@@ -70,7 +70,7 @@ class MainPage4 extends StatelessWidget {
                   text: "<< 立刻探索   ",
                   textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
                   buttonColor: RDColors.scarlet.onSurface,
-                  callback: () =>
+                  onTap: () =>
                       // TODO 立刻探索????
                       context.go("/404"),
                 )),

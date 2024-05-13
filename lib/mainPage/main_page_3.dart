@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/mainPage/parallelogram_button.dart';
 import 'package:redstone_daily_site/painter/trapezoid_painter.dart';
+import 'package:redstone_daily_site/selector_dialog.dart';
 
 import 'typography.dart';
 
@@ -64,7 +65,7 @@ class MainPage3 extends StatelessWidget {
                   text: "查阅最新日报<<",
                   textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
                   buttonColor: RDColors.scarlet.onSurface,
-                  callback: () => context.go("/daily"),
+                  onTap: () => context.go("/daily"),
                 )),
             Positioned(
                 top: height * 0.686,
@@ -75,10 +76,7 @@ class MainPage3 extends StatelessWidget {
                   text: "或者看看往期...",
                   textStyle: textStyles.zhButton.copyWith(color: RDColors.white.onBackground),
                   buttonColor: RDColors.scarlet.onSurface,
-                  callback: () {
-                    // TODO 往期
-                    context.go("/404");
-                  },
+                  onTap: () => showSelectorDialog(context: context, colors: RDColors.glass),
                 )),
 
             // Debug Reference Image

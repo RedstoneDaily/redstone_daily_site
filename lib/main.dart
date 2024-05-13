@@ -3,14 +3,15 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:redstone_daily_site/404_page.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/jsonobject/issues_list.dart';
-import 'package:http/http.dart' as http;
 
-import 'mainPage/main_page.dart';
 import 'contentPage/content_page.dart';
+import 'mainPage/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -65,12 +66,8 @@ class MyApp extends StatelessWidget {
       ),
       GoRoute(
         path: '/daily',
-        redirect: (_, state) {
-          final now = DateTime.now();
-          final year = now.year.toString();
-          final month = now.month.toString().padLeft(2, '0');
-          final day = now.day.toString().padLeft(2, '0');
-          return '/daily/$year/$month/$day';
+        redirect: (context, state) {
+          return '/daily/${DateFormat("yyyy/MM/dd").format(Provider.of<IssuesListProvider>(context, listen: false).issuesList!.dailyLatest().key)}';
         },
       ),
       GoRoute(

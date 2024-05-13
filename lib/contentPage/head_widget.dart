@@ -99,13 +99,22 @@ class _HeadState extends State<HeadWidget> {
           ])),
           Positioned(
               bottom: 0.04 * height,
-              right: 0.04 * height,
+              right: 0.01 * height,
               child: MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   // onTap: () => showDialog(context: context, builder: chooserDialogBuilderBuilder(RDColors.glass)),
                   onTap: () => showSelectorDialog(context: context, colors: RDColors.glass),
-                  child: Transform.scale(scaleY: 1.2, child: Text("[${DateFormat("yyyy-MM-dd").format(widget.date)}]", style: typography.issueNum)),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Transform.scale(scaleY: 1.2, child: Text("[${DateFormat("yyyy-MM-dd").format(widget.date)}]", style: typography.issueNum)),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Icon(Icons.arrow_drop_down, color: Colors.white, size: 36),
+                      ),
+                    ],
+                  ),
                 ),
               )),
         ],

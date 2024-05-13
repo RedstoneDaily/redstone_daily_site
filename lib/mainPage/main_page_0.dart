@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
+import 'package:redstone_daily_site/mainPage/drag_handle.dart';
 import 'package:redstone_daily_site/painter/line_painter.dart';
 
 import 'nav_bar.dart';
@@ -23,47 +25,57 @@ class MainPage0 extends StatelessWidget {
     // };
     double height = size.height;
 
-    return Theme(
-        data: ThemeData(colorScheme: RDColors.glass, fontFamily: "FontquanXinYiGuanHeiTi"),
-        child: SizedBox(
-            width: size.width,
-            height: height,
-            child: Stack(children: [
+    return Material(
+        child: Theme(
+            data: ThemeData(colorScheme: RDColors.glass, fontFamily: "FontquanXinYiGuanHeiTi"),
+            child: SizedBox(
+                width: size.width,
+                height: height,
+                child: Stack(children: [
+                  Positioned.fill(
+                      child: ImageFiltered(
+                          imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                          child: ColorFiltered(
+                              // lower the brightness
+                              colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.multiply),
+                              child: Image.asset(
+                                "assets/images/backgrounds/Fparrot_CPU.png",
+                                fit: BoxFit.cover,
+                              )))),
 
-              Positioned.fill(
-                  child: ImageFiltered(
-                      imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                      child: ColorFiltered(
-                          // lower the brightness
-                          colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.multiply),
-                          child: Image.asset(
-                            "assets/images/backgrounds/Fparrot_CPU.png",
-                            fit: BoxFit.cover,
-                          )))),
-              Align(
-                alignment: Alignment.topCenter,
-                child: SizedBox(
-                  height: 0.0982 * height,
-                  child: NavBar(
-                    style: MainPageTypography(pageHeight: height).zh_p.copyWith(color: RDColors.glass.onBackground),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: SizedBox(
+                      height: 0.0982 * height,
+                      child: NavBar(
+                        style: MainPageTypography(pageHeight: height).zh_p.copyWith(color: RDColors.glass.onBackground),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Positioned(top: 0.15 * height, left: 0.1 * height, child: mainTexts(context, height)),
+                  Positioned(top: 0.15 * height, left: 0.1 * height, child: mainTexts(context, height)),
 
-              // Debug Reference Image
-              // Positioned(
-              //     top: 0,
-              //     left: 0,
-              //     child: Opacity(
-              //         opacity: 0.3,
-              //         child: Image.asset(
-              //           "assets/images/test-ref-mainPage0.png",
-              //           width: size.width,
-              //           fit: BoxFit.cover,
-              //         )))
+                  // Drag Up handle
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                      width: 0.07 * height,
+                      height: 0.04 * height,
+                      child: DragHandle(strokeWidth: 0.008 * height)
+                    ),
+                  ),
 
-            ])));
+                  // Debug Reference Image
+                  // Positioned(
+                  //     top: 0,
+                  //     left: 0,
+                  //     child: Opacity(
+                  //         opacity: 0.3,
+                  //         child: Image.asset(
+                  //           "assets/images/test-ref-mainPage0.png",
+                  //           width: size.width,
+                  //           fit: BoxFit.cover,
+                  //         )))
+                ]))));
   }
 
   // Masthead

@@ -98,85 +98,86 @@ class MainPageEnd extends StatelessWidget {
     var textStyles = MainPageTypography(pageHeight: txtHeight);
     var width = size.width;
     var height = size.height;
-    return Container(
-        width: width,
-        height: height,
-        color: RDColors.white.background,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            // 上一页的compass
-            Positioned(
-                top: height * (-0.681 + 0.195),
-                right: width * -0.019,
-                child: Transform.rotate(
-                  angle: 21 * 3.14 / 180,
+    return Material(
+        child: Container(
+            width: width,
+            height: height,
+            color: RDColors.white.background,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                // 上一页的compass
+                Positioned(
+                    top: height * (-0.681 + 0.195),
+                    right: width * -0.019,
+                    child: Transform.rotate(
+                      angle: 21 * 3.14 / 180,
+                      child: SizedBox.square(
+                        dimension: 0.681 * height,
+                        child: Image.asset(
+                          "assets/images/recovery_compass_07.png",
+                          filterQuality: FilterQuality.none,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )),
+
+                // 复合icon
+                Align(
+                  alignment: const FractionalOffset(0.5, 0.11),
                   child: SizedBox.square(
-                    dimension: 0.681 * height,
-                    child: Image.asset(
-                      "assets/images/recovery_compass_07.png",
-                      filterQuality: FilterQuality.none,
-                      fit: BoxFit.cover,
-                    ),
+                    dimension: 0.39 * height,
+                    child: compoundIcon(),
                   ),
-                )),
+                ),
 
-            // 复合icon
-            Align(
-              alignment: const FractionalOffset(0.5, 0.11),
-              child: SizedBox.square(
-                dimension: 0.39 * height,
-                child: compoundIcon(),
-              ),
-            ),
+                // "Redstone / Daily"
+                Align(
+                    alignment: const FractionalOffset(0.5, 0.52),
+                    child: Text(
+                      "Redstone / Daily",
+                      textAlign: TextAlign.center,
+                      style: textStyles.zh_p.copyWith(fontSize: 0.027 * height, color: RDColors.white.onBackground),
+                    )),
 
-            // "Redstone / Daily"
-            Align(
-                alignment: const FractionalOffset(0.5, 0.52),
-                child: Text(
-                  "Redstone / Daily",
-                  textAlign: TextAlign.center,
-                  style: textStyles.zh_p.copyWith(fontSize: 0.027 * height, color: RDColors.white.onBackground),
-                )),
+                // 链接/导航
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                        width: min(1.778 * height, width),
+                        height: 0.375 * height,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 0.031 * width),
+                          child: navList(
+                              context: context,
+                              height: height,
+                              categoryTextStyle: textStyles.zhNavHeader.copyWith(color: RDColors.white.onBackground),
+                              itemTextStyle: textStyles.zh_p.copyWith(color: RDColors.white.onBackground)),
+                        ))),
 
-            // 链接/导航
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                    width: min(1.778 * height, width),
-                    height: 0.375 * height,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0.031 * width),
-                      child: navList(
-                          context: context,
-                          height: height,
-                          categoryTextStyle: textStyles.zhNavHeader.copyWith(color: RDColors.white.onBackground),
-                          itemTextStyle: textStyles.zh_p.copyWith(color: RDColors.white.onBackground)),
-                    ))),
+                Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0.015 * height,
+                    child: Text(
+                      "非 MINECRAFT 官方产品服务。未经 MOJANG 或 MICROSOFT 批准，也不与 MOJANG 或 MICROSOFT 关联",
+                      textAlign: TextAlign.center,
+                      style: textStyles.zh_p.copyWith(color: RDColors.white.onBackground),
+                    )),
 
-            Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0.015 * height,
-                child: Text(
-                  "非 MINECRAFT 官方产品服务。未经 MOJANG 或 MICROSOFT 批准，也不与 MOJANG 或 MICROSOFT 关联",
-                  textAlign: TextAlign.center,
-                  style: textStyles.zh_p.copyWith(color: RDColors.white.onBackground),
-                )),
-
-            // Debug Reference Image
-            // Positioned(
-            //     top: 0,
-            //     left: 0,
-            //     child: Opacity(
-            //         opacity: 0.3,
-            //         child: Image.asset(
-            //           "assets/test-ref-images/mainPage/end.png",
-            //           width: size.width,
-            //           fit: BoxFit.cover,
-            //         )))
-          ],
-        ));
+                // Debug Reference Image
+                // Positioned(
+                //     top: 0,
+                //     left: 0,
+                //     child: Opacity(
+                //         opacity: 0.3,
+                //         child: Image.asset(
+                //           "assets/test-ref-images/mainPage/end.png",
+                //           width: size.width,
+                //           fit: BoxFit.cover,
+                //         )))
+              ],
+            )));
   }
 
   Widget compoundIcon() {

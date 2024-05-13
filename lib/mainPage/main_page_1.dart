@@ -16,7 +16,8 @@ class MainPage1 extends StatelessWidget {
     var textStyles = MainPageTypography(pageHeight: size.height);
     var width = size.width;
     var height = size.height;
-    return Container(
+    return Material(
+        child: Container(
       width: width,
       height: height,
       color: RDColors.white.background,
@@ -81,8 +82,7 @@ class MainPage1 extends StatelessWidget {
                 // TODO: link
                 context.go("/404");
               },
-            )
-        ),
+            )),
 
         // Debug Reference Image
         // Positioned(
@@ -96,6 +96,6 @@ class MainPage1 extends StatelessWidget {
         //           fit: BoxFit.cover,
         //         )))
       ]),
-    );
+    ));
   }
 }

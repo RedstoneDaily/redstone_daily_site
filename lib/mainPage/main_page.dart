@@ -25,19 +25,16 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(scrollDirection: Axis.vertical, slivers: [
-      SliverList(
-          delegate: SliverChildListDelegate([
-        Material(
-            child: Column(children: [
-          const MainPage0(),
-          const MainPage1(),
-          const MainPage2(),
-          const MainPage3(),
-          const MainPage4(),
-          MainPageEnd(),
-        ]))
-      ]))
-    ]);
+    return PageView(
+      scrollDirection: Axis.vertical,
+      children: [
+        const MainPage0(),
+        const MainPage1(),
+        const MainPage2(),
+        const MainPage3(),
+        const MainPage4(),
+        MainPageEnd(),
+      ],
+    );
   }
 }

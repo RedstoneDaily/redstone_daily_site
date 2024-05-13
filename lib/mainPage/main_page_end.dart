@@ -3,17 +3,41 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redstone_daily_site/mainPage/nav_underlined_text.dart';
+import 'package:go_router/go_router.dart';
 import 'package:redstone_daily_site/mainPage/typography.dart';
+import 'package:redstone_daily_site/underlined_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../color_schemes.dart';
+import '../selector_dialog.dart';
+
+///
+/// Data Structs
+///
+/// (sbDart怎么又双叒叕const不了
+
+class NavItemFragment {
+  final String name;
+  final void Function(BuildContext)? onTap;
+
+  const NavItemFragment(this.name, {this.onTap});
+
+  NavItemFragment.link(this.name, String dst, {bool isRoute = true})
+      : onTap = ((BuildContext context) {
+          if (isRoute) {
+            context.go(dst);
+          } else {
+            launchUrl(Uri.parse(dst));
+          }
+        });
+}
 
 class NavItem {
-  final String name;
-  final String dst;
-  final bool isRoute;
+  final List<NavItemFragment> fragments;
 
-  const NavItem(this.name, this.dst, {this.isRoute = true});
+  NavItem(String name, String dst, {bool isRoute = true}) : fragments = [NavItemFragment.link(name, dst, isRoute: isRoute)];
+
+  const NavItem.multiFrags(this.fragments);
 }
 
 class NavCategory {
@@ -24,32 +48,46 @@ class NavCategory {
 }
 
 class MainPageEnd extends StatelessWidget {
-  const MainPageEnd({super.key});
+  MainPageEnd({super.key});
 
-  static const List<NavCategory> navData = [
+  final List<NavCategory> navData = [
     NavCategory("服务", [
-      NavItem("最新日报 / 往期", "/daily"),
-      NavItem("最新周报 / 往期 (soon)", "/404"),
-      NavItem("最新月刊 / 往期 / bilibili (soon)", "/404"),
-      NavItem("最新年刊 / 往期 / bilibili (soon)", "/404"),
-      NavItem("搜索内容", "/404"),
+      NavItem.multiFrags([
+        NavItemFragment.link("最新日报", "/daily"),
+        NavItemFragment("往期", onTap: (context) => showSelectorDialog(context: context, colors: RDColors.glass)),
+      ]),
+      NavItem.multiFrags([
+        NavItemFragment.link("最新周报", "/coming-soon"),
+        NavItemFragment.link("往期 (soon)", "/coming-soon"),
+      ]),
+      NavItem.multiFrags([
+        NavItemFragment.link("最新月刊", "/coming-soon"),
+        NavItemFragment.link("往期", "/coming-soon"),
+        NavItemFragment.link("bilibili (soon)", "/coming-soon"),
+      ]),
+      NavItem.multiFrags([
+        NavItemFragment.link("最新年刊", "/coming-soon"),
+        NavItemFragment.link("往期", "/coming-soon"),
+        NavItemFragment.link("bilibili (soon)", "/coming-soon"),
+      ]),
+      NavItem("搜索内容", "/coming-soon"),
     ]),
     NavCategory("交流", [
-      NavItem("咨询开发团队 / Github", "/404"),
-      NavItem("加入交流群", "/404"),
-      NavItem("与开发者交流合作 / Github", "/404"),
+      NavItem("咨询开发团队 (Github)", "https://github.com/RedstoneDaily/redstone_daily/issues", isRoute: false),
+      NavItem("加入交流群", "https://qm.qq.com/q/AAUEeKKrok", isRoute: false),
+      NavItem("与开发者交流合作", "/articles/contribution.md"),
     ]),
     NavCategory("开发", [
-      NavItem("项目开源", "/404"),
-      NavItem("加入开发", "/404"),
-      NavItem("开发者团队 / Github", "/404"),
-      NavItem("API接口 (soon)", "/404"),
+      NavItem("项目开源", "https://github.com/RedstoneDaily/redstone_daily", isRoute: false),
+      NavItem("加入开发", "/articles/join-us.md"),
+      NavItem("开发者团队 (Github)", "https://github.com/RedstoneDaily", isRoute: false),
+      NavItem("API接口 (soon)", "/coming-soon"),
     ]),
     NavCategory("其他", [
-      NavItem("随机页面", "/404"),
-      NavItem("支持我们", "/404"),
-      NavItem("致谢", "/404"),
-      NavItem("友情链接", "/404"),
+      NavItem("随机页面", "/random"),
+      NavItem("支持我们", "https://afdian.net/a/crebet", isRoute: false),
+      NavItem("致谢", "/articles/credits.md"),
+      NavItem("友情链接", "/articles/links.md"),
     ]),
   ];
 
@@ -67,6 +105,7 @@ class MainPageEnd extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
+            // 上一页的compass
             Positioned(
                 top: height * (-0.681 + 0.195),
                 right: width * -0.019,
@@ -81,6 +120,8 @@ class MainPageEnd extends StatelessWidget {
                     ),
                   ),
                 )),
+
+            // 复合icon
             Align(
               alignment: const FractionalOffset(0.5, 0.11),
               child: SizedBox.square(
@@ -88,6 +129,8 @@ class MainPageEnd extends StatelessWidget {
                 child: compoundIcon(),
               ),
             ),
+
+            // "Redstone / Daily"
             Align(
                 alignment: const FractionalOffset(0.5, 0.52),
                 child: Text(
@@ -95,6 +138,8 @@ class MainPageEnd extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: textStyles.zh_p.copyWith(fontSize: 0.027 * height, color: RDColors.white.onBackground),
                 )),
+
+            // 链接/导航
             Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
@@ -103,6 +148,7 @@ class MainPageEnd extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 0.031 * width),
                       child: navList(
+                          context: context,
                           height: height,
                           categoryTextStyle: textStyles.zhNavHeader.copyWith(color: RDColors.white.onBackground),
                           itemTextStyle: textStyles.zh_p.copyWith(color: RDColors.white.onBackground)),
@@ -169,10 +215,12 @@ class MainPageEnd extends StatelessWidget {
   }
 
   Widget navList({
+    required BuildContext context,
     required double height,
     required TextStyle categoryTextStyle,
     required TextStyle itemTextStyle,
   }) {
+    Widget padding = Padding(padding: EdgeInsets.only(left: 0.04 * height));
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: navData
@@ -188,20 +236,38 @@ class MainPageEnd extends StatelessWidget {
                     Container(height: 2, color: RDColors.white.primaryContainer),
                     ...e.items.map((e) => Padding(
                         padding: EdgeInsets.only(top: 0.012 * height),
-                        child: NavUnderlinedText(
-                          text: e.name,
-                          dst: e.dst,
-                          isRoute: e.isRoute,
-                          style: itemTextStyle,
-                          textAlign: TextAlign.left,
-                          underlineAlign: Alignment.bottomLeft,
-                          underlineColor: RDColors.white.primaryContainer,
+                        child:
+                            // NavUnderlinedText(
+                            //   text: e.name,
+                            //   dst: e.dst,
+                            //   isRoute: e.isRoute,
+                            //   style: itemTextStyle,
+                            //   textAlign: TextAlign.left,
+                            //   underlineAlign: Alignment.bottomLeft,
+                            //   underlineColor: RDColors.white.primaryContainer,
+                            // )
+                            Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ...e.fragments
+                                .map((e) => UnderlinedText(
+                                      onTap: () => e.onTap?.call(context),
+                                      text: e.name,
+                                      style: itemTextStyle,
+                                      textAlign: TextAlign.left,
+                                      underlineAlign: Alignment.bottomLeft,
+                                      underlineColor: RDColors.white.primaryContainer,
+                                    ))
+                                .expand((fragWidget) => [Text(" / ", style: itemTextStyle), fragWidget])
+                                .skip(1)
+                          ],
                         )))
                   ],
                 ),
               ))
-          .expand((e) => [Padding(padding: EdgeInsets.only(left: 0.04 * height)), e])
-          .followedBy([Padding(padding: EdgeInsets.only(left: 0.04 * height))]).toList(),
+          .expand((e) => [padding, e])
+          .followedBy([padding]).toList(),
     );
   }
 }

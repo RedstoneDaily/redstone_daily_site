@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
           return ContentPage(date: DateTime(int.parse(year), int.parse(month), int.parse(day))); // Pass date to ContentPage
         },
       ),
+      // TODO: 状态提升后实现/random路径访问随机日报
       GoRoute(
         path: '/daily',
         redirect: (_, state) {

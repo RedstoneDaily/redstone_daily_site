@@ -15,14 +15,14 @@ class MainPage extends StatelessWidget {
     return CustomScrollView(
       scrollDirection: Axis.vertical,
       slivers: [
-        SliverList(delegate: SliverChildListDelegate([const Material(
+        SliverList(delegate: SliverChildListDelegate([Material(
           child: Column(
             children: [
-              MainPage0(),
-              MainPage1(),
-              MainPage2(),
-              MainPage3(),
-              MainPage4(),
+              const MainPage0(),
+              const MainPage1(),
+              const MainPage2(),
+              const MainPage3(),
+              const MainPage4(),
               MainPageEnd(),
             ],
           ),

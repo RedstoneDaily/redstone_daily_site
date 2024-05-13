@@ -26,12 +26,9 @@ class DateTextWidget extends StatelessWidget {
                   style: textStyle,
                 ),
                 const Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                      size: 40,
-                    ))
+                  padding: EdgeInsets.only(top: 10),
+                  child: Icon(Icons.arrow_drop_down, color: Colors.white, size: 40),
+                )
               ])));
     });
   }

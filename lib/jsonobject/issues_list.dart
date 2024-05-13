@@ -18,6 +18,7 @@ class IssuesList {
   IssuesList({required this.daily});
 
   late final dailyLatest = memo0(() => daily.values.last.values.last.entries.last);
+  late final dailyFlattened = memo0(() => daily.values.expand((e) => e.values).expand((e) => e.entries).toList());
 
   factory IssuesList.fromJson(List<Map<String, dynamic>> jsonObject) => IssuesList(
         daily: (jsonObject.map((e) => MapEntry(DateFormat("yyyy-MM-dd").parse(e["date"]!), e["title"]! as String)).toList()

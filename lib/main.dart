@@ -50,10 +50,18 @@ class MyApp extends StatelessWidget {
 
   final _router = GoRouter(
     routes: [
+      ///
+      /// 主页
+      ///
       GoRoute(
         path: '/',
         builder: (context, state) => const MainPage(),
       ),
+
+      ///
+      /// 内容页-日报
+      /// params: year, month, day
+      ///
       GoRoute(
         path: '/daily/:year/:month/:day',
         builder: (context, state) {
@@ -64,13 +72,27 @@ class MyApp extends StatelessWidget {
           return ContentPage(date: DateTime(int.parse(year), int.parse(month), int.parse(day))); // Pass date to ContentPage
         },
       ),
-      // TODO: 状态提升后实现/random路径访问随机日报
+
+      /// 最新日报
       GoRoute(
         path: '/daily',
-        redirect: (context, state) {
-          return '/daily/${DateFormat("yyyy/MM/dd").format(Provider.of<IssuesListProvider>(context, listen: false).issuesList!.dailyLatest().key)}';
-        },
+        redirect: (context, state) =>
+            '/daily/${DateFormat("yyyy/MM/dd").format(Provider.of<IssuesListProvider>(context, listen: false).issuesList!.dailyLatest().key)}',
       ),
+
+      ///
+      /// 随机页面 （目前是随机日报）
+      ///
+      GoRoute(
+          path: "/random",
+          redirect: (context, state) {
+            var list = Provider.of<IssuesListProvider>(context, listen: false).issuesList!.dailyFlattened();
+            return '/daily/${DateFormat("yyyy/MM/dd").format(list[Random().nextInt(list.length)].key)}';
+          }),
+
+      ///
+      /// 404 页面
+      ///
       GoRoute(
         path: '/404/:random',
         builder: (context, state) => Status404Page(key: Key(state.pathParameters['random']!)),

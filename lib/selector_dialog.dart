@@ -1,12 +1,12 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:redstone_daily_site/hover_clickable_container.dart';
 import 'package:redstone_daily_site/jsonobject/issues_list.dart';
+import 'package:redstone_daily_site/main.dart';
 import 'package:redstone_daily_site/underlined_text.dart';
 
 /// 对话框颜色按 background / onBackground 处理; 另外头部栏颜色为 surface / onSurface
@@ -49,22 +49,6 @@ class DialogContent extends StatefulWidget {
 class _DialogContentState extends State<DialogContent> {
   late final Future<IssuesList> _fetchListFuture;
 
-  Future<String> fetchData(BuildContext context) async {
-    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-    Uri uri = Uri.https(apiHost, '/api/list');
-    try {
-      final response = await http.get(uri);
-      if (response.statusCode == 200) {
-        return response.body;
-      } else {
-        throw Exception('Failed to load the newspaper content. Status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error occurred: $error');
-      rethrow;
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -79,7 +63,7 @@ class _DialogContentState extends State<DialogContent> {
     //   {"date": "2024-04-11", "title": "在做痔疮的同时"},
     //   {"date": "2024-04-12", "title": "给你做一个钢门紧缩术"}
     // ]));
-    _fetchListFuture = fetchData(context).then((data) => compute(parseIssuesList, data));
+    _fetchListFuture = Provider.of<IssuesListProvider>(context, listen: false).loadIssuesList();
   }
 
   @override

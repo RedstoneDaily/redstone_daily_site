@@ -1,15 +1,47 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:redstone_daily_site/404_page.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
+import 'package:redstone_daily_site/jsonobject/issues_list.dart';
+import 'package:http/http.dart' as http;
 
 import 'mainPage/main_page.dart';
 import 'contentPage/content_page.dart';
 
 void main() {
   runApp(MyApp());
+}
+
+class IssuesListProvider extends ChangeNotifier {
+  IssuesList? _issuesList;
+
+  IssuesList? get issuesList => _issuesList;
+
+  Future<IssuesList> loadIssuesList() async {
+    _issuesList = await _fetchData().then((data) => compute(parseIssuesList, data));
+    notifyListeners();
+    return issuesList!;
+  }
+
+  Future<String> _fetchData() async {
+    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
+    Uri uri = Uri.https(apiHost, '/api/list');
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception('Failed to load the newspaper content. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error occurred: $error');
+      rethrow;
+    }
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -56,14 +88,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-        title: '红石日报',
-        theme: ThemeData(
-            colorScheme: RDColors.white,
-            useMaterial3: true,
-            fontFamily: 'FontquanXinYiGuanHeiTi'
-        ),
-        routerConfig: _router,
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => IssuesListProvider()),
+        ],
+        child: MaterialApp.router(
+          title: '红石日报',
+          theme: ThemeData(colorScheme: RDColors.white, useMaterial3: true, fontFamily: 'FontquanXinYiGuanHeiTi'),
+          routerConfig: _router,
+        ));
   }
 }

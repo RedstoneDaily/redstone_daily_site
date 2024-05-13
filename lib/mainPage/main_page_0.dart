@@ -29,7 +29,7 @@ class MainPage0 extends StatelessWidget {
             width: size.width,
             height: height,
             child: Stack(children: [
-              // Here
+
               Positioned.fill(
                   child: ImageFiltered(
                       imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
@@ -62,8 +62,6 @@ class MainPage0 extends StatelessWidget {
               //           width: size.width,
               //           fit: BoxFit.cover,
               //         )))
-
-              // To here
 
             ])));
   }

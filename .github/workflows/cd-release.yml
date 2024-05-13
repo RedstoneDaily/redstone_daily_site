@@ -3,9 +3,9 @@ name: Frontend CD (release)
 on:
     push:
         # 只有main分支发生push事件时，才会触发workflow
-        branches: [main]
+        branches: [develop]
     pull_request:
-        branches: [main]
+        branches: [develop]
 
 #env:
 #    SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }} # 服务器私钥
@@ -19,7 +19,7 @@ jobs:
         steps:
             - uses: actions/checkout@master
               with:
-                  ref: main
+                  ref: develop
 
             - name: Print Texts
               run: cat < cyber_budhha.txt && cat < RD_text.txt

@@ -71,7 +71,7 @@ class MainPage4 extends StatelessWidget {
                       buttonColor: RDColors.scarlet.onSurface,
                       onTap: () =>
                           // TODO 立刻探索????
-                          context.go("/404"),
+                          context.go("/coming-soon"),
                     )),
 
                 // Debug Reference Image

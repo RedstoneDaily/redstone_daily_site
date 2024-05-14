@@ -49,9 +49,10 @@ class NavBar extends StatelessWidget {
         Text(" / ", style: style),
         navItem(dst: "/daily", text: "日报"),
         Text(" / ", style: style),
+        // TODO: 探索更多功能
         navItem(dst: "/coming-soon", text: "探索"),
         Text(" / ", style: style),
-        navItem(dst: "/coming-soon", text: "更多"),
+        navItem(dst: "/articles/more-info.md", text: "更多"),
         Text(" / ", style: style),
         const Spacer(flex: flexSearchBarMargin),
         Flexible(flex: flexSearchBar, child: searchBar()),

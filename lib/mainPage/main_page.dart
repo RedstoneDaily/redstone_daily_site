@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:redstone_daily_site/mainPage/main_page_end.dart';
+import 'package:redstone_daily_site/utils/dyn_mouse_scroll_for_page.dart';
 
 import '../main.dart';
 import 'main_page_0.dart';
@@ -25,16 +26,21 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      scrollDirection: Axis.vertical,
-      children: [
-        const MainPage0(),
-        const MainPage1(),
-        const MainPage2(),
-        const MainPage3(),
-        const MainPage4(),
-        MainPageEnd(),
-      ],
+    return DynMouseScrollForPage(
+      builder: (BuildContext context, PageController controller, ScrollPhysics physics) => PageView(
+        scrollDirection: Axis.vertical,
+        controller: controller,
+        physics: physics,
+        // pageSnapping: false,
+        children: [
+          const MainPage0(),
+          const MainPage1(),
+          const MainPage2(),
+          const MainPage3(),
+          const MainPage4(),
+          MainPageEnd(),
+        ],
+      ),
     );
   }
 }

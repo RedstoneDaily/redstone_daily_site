@@ -45,6 +45,7 @@ dependencies:
   http: ^1.2.1
   memoize: ^3.0.0
   html_unescape: ^2.0.0
+  dyn_mouse_scroll: ^1.0.7  # 仅作纪念
 
 dev_dependencies:
   flutter_test:

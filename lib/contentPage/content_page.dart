@@ -1,3 +1,4 @@
+import 'package:dyn_mouse_scroll/dyn_mouse_scroll.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -30,14 +31,19 @@ class _ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: CustomScrollView(
-        scrollDirection: Axis.vertical,
-        slivers: [
-          SliverToBoxAdapter(child: HeadWidget(date: widget.date)),
-          SilverContentList(date: widget.date, key: Key("daily ${DateFormat("yyyy-MM-dd").format(widget.date)}")),
-          const SliverToBoxAdapter(child: FootWidget()),
-        ]
-      )
+      child: DynMouseScroll(
+        builder: (context, controller, physics) {
+          return CustomScrollView(
+              scrollDirection: Axis.vertical,
+              controller: controller,
+              physics: physics,
+              slivers: [
+                SliverToBoxAdapter(child: HeadWidget(date: widget.date)),
+                SilverContentList(date: widget.date, key: Key("daily ${DateFormat("yyyy-MM-dd").format(widget.date)}")),
+                const SliverToBoxAdapter(child: FootWidget()),
+              ]
+          );
+        })
     );
   }
 }

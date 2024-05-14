@@ -3,13 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
+
+import 'package:redstone_daily_site/mainPage/nav_bar.dart';
+import 'package:redstone_daily_site/mainPage/typography.dart';
 import 'package:redstone_daily_site/underlined_text.dart';
 
-import '../mainPage/nav_bar.dart';
-import '../mainPage/typography.dart';
-
-class Status404Page extends StatelessWidget {
-  const Status404Page({super.key});
+class ComingSoonPage extends StatelessWidget {
+  const ComingSoonPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,6 @@ class Status404Page extends StatelessWidget {
     return Material(
       // 添加Material外观，以获得标准的Material风格
       elevation: 4, // 设置阴影
-      borderRadius: BorderRadius.circular(8), // 设置边框圆角
       child: Theme(
         data: ThemeData(
           fontFamily: "FontquanXinYiGuanHeiTi",
@@ -33,7 +32,7 @@ class Status404Page extends StatelessWidget {
                 child: ColorFiltered(
                   colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.multiply),
                   child: Image.asset(
-                    "assets/images/backgrounds/404pagebg.png",
+                    "assets/images/backgrounds/comingPageBg.png",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -73,29 +72,26 @@ class Status404Page extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Positioned(
-            top: 0.19 * height,
-            left: 0.032 * height,
-            child: Text("404", style: textStyle.heroTextRed),
-          ),
-          Positioned(
             top: 0.48 * height,
             left: 0.02 * height,
-            child: Text("恭喜！您要找的页面不存在", style: textStyle.teaser),
+            child: Text("该页面建设中!", style: textStyle.teaser),
           ),
           // 返回主页
           Positioned(
             top: 0.62 * height,
             left: 0.02 * height,
-            child: UnderlinedText(
-              onTap: () {
-                GoRouter.of(context).go('/');
-              },
-              text: '返回主页 <<',
+            child:    UnderlinedText(
+               onTap: () {
+                 GoRouter.of(context).go('/');
+               },
+               text: '返回主页 <<',
               style: TextStyle(fontSize: 16, color: Colors.white,),
-              underlineWidth: 2.0, // 下划线的宽度
-              underlineColor: Colors.red, // 下划线颜色
-            ),
-          )
+               underlineWidth: 2.0, // 下划线的宽度
+               underlineColor: Colors.red, // 下划线颜色
+             ),
+
+          ),
+
         ],
       ),
     );

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:redstone_daily_site/404_page.dart';
+import 'package:redstone_daily_site/coming_soon_page.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/jsonobject/issues_list.dart';
 
@@ -100,6 +101,13 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/404',
         redirect: (_, state) => '/404/${Random().nextInt(100000)}',
+      ),
+      ///
+      /// 待开发页面
+      ///
+      GoRoute(
+        path: '/coming-soon',
+        builder: (context, state) => const ComingSoonPage(), // 在路由中包含 ComingSoonPage
       ),
     ],
     errorBuilder: (context, state) => Status404Page(key: Key(state.error.toString())),

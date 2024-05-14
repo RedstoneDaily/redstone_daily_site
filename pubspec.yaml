@@ -75,6 +75,7 @@ flutter:
     - assets/images/backgrounds/Fparrot_CPU.png
     - assets/images/backgrounds/redstone_line.png
     - assets/images/backgrounds/404pagebg.png
+    - assets/images/backgrounds/comingPageBg.png
     # icons
     - assets/images/knowledge_book.png
     - assets/images/clock.png

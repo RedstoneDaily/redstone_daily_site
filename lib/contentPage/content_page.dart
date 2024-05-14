@@ -32,6 +32,7 @@ class _ContentPageState extends State<ContentPage> {
   Widget build(BuildContext context) {
     return Material(
       child: DynMouseScroll(
+        durationMS: 50,
         builder: (context, controller, physics) {
           return CustomScrollView(
               scrollDirection: Axis.vertical,

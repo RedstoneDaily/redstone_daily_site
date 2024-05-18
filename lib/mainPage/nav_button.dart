@@ -26,7 +26,6 @@ class _NavButtonState extends State<NavButton> {
         color: Colors.white,
         // fontStyle: FontStyle.italic,
         fontSize: 0.5 * height,
-        // fontFamily: "HuXiaoBo",
       );
       return SizedBox(
         height: height,

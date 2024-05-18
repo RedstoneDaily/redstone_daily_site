@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:redstone_daily_site/mainPage/typography.dart';
 import 'package:redstone_daily_site/underlined_text.dart';

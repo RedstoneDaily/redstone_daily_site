@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:redstone_daily_site/selector_dialog.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
+import 'package:redstone_daily_site/selector_dialog.dart';
 
 import '../main.dart';
 

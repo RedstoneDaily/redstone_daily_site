@@ -1,8 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/gestures.dart';
 
 /// 解释一下这个东西是怎么来的
 /// 首先Flutter的鼠标滚轮滑动不仅没法检测速度，而且还他妈的不连续 （诶有没有可能检测不了速度就是因为它不连续）

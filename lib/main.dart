@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:redstone_daily_site/404_page.dart';
-import 'package:redstone_daily_site/coming_soon_page.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
+import 'package:redstone_daily_site/coming_soon_page.dart';
 import 'package:redstone_daily_site/jsonobject/issues_list.dart';
 
 import 'contentPage/content_page.dart';

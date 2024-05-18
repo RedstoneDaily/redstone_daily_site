@@ -66,7 +66,7 @@ class _HeadState extends State<HeadWidget> {
                       // lower the brightness
                       colorFilter: const ColorFilter.mode(Colors.black45, BlendMode.multiply),
                       child: Image.asset(
-                        'assets/images/backgrounds/rd-nn.png',
+                        'assets/images/backgrounds/rd-nn.webp',
                         fit: BoxFit.cover,
                       )))),
           // 梯形

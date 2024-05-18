@@ -33,7 +33,7 @@ class Status404Page extends StatelessWidget {
                 child: ColorFiltered(
                   colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.multiply),
                   child: Image.asset(
-                    "assets/images/backgrounds/404pagebg.png",
+                    "assets/images/backgrounds/404pagebg.webp",
                     fit: BoxFit.cover,
                   ),
                 ),

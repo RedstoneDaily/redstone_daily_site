@@ -77,8 +77,11 @@ class MyApp extends StatelessWidget {
       /// 最新日报
       GoRoute(
         path: '/daily',
-        redirect: (context, state) =>
-            '/daily/${DateFormat("yyyy/MM/dd").format(Provider.of<IssuesListProvider>(context, listen: false).issuesList!.dailyLatest().key)}',
+        redirect: (context, state) async {
+          IssuesListProvider issuesListProvider = Provider.of<IssuesListProvider>(context, listen: false);
+          await issuesListProvider.loadIssuesList();
+          return '/daily/${DateFormat("yyyy/MM/dd").format(issuesListProvider.issuesList!.dailyLatest().key)}';
+        },
       ),
 
       ///
@@ -102,6 +105,7 @@ class MyApp extends StatelessWidget {
         path: '/404',
         redirect: (_, state) => '/404/${Random().nextInt(100000)}',
       ),
+
       ///
       /// 待开发页面
       ///

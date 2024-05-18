@@ -197,7 +197,6 @@ class _ContentWidgetState extends State<ContentWidget> with SingleTickerProvider
                                                             child: Text("今日头条",
                                                                 overflow: TextOverflow.ellipsis,
                                                                 style: TextStyle(
-                                                                  // fontFamily: 'HuXiaoBo',
                                                                   fontSize: 42 * scaling,
                                                                   letterSpacing: -2 * scaling,
                                                                   color: RDColors.white.onPrimaryContainer,
@@ -211,7 +210,6 @@ class _ContentWidgetState extends State<ContentWidget> with SingleTickerProvider
                                                             child: Text("Headlines Today",
                                                                 overflow: TextOverflow.ellipsis,
                                                                 style: TextStyle(
-                                                                  // fontFamily: 'HuXiaoBo',
                                                                   fontSize: 24 * scaling,
                                                                   letterSpacing: 0 * scaling,
                                                                   color: RDColors.white.onPrimaryContainer,
@@ -225,7 +223,6 @@ class _ContentWidgetState extends State<ContentWidget> with SingleTickerProvider
                                                             maxLines: 1,
                                                             overflow: TextOverflow.ellipsis,
                                                             style: TextStyle(
-                                                              // fontFamily: 'Kingsoft_Cloud',
                                                               fontSize: 24 * scaling,
                                                               letterSpacing: 0, //3 * scaling,
                                                               color: RDColors.white.onPrimaryContainer,

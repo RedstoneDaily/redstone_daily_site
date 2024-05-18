@@ -46,6 +46,7 @@ dependencies:
   memoize: ^3.0.0
   html_unescape: ^2.0.0
   dyn_mouse_scroll: ^1.0.7  # 仅作纪念
+  flutter_image_compress: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -72,11 +73,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     # backgrounds
-    - assets/images/backgrounds/rd-nn.png
-    - assets/images/backgrounds/Fparrot_CPU.png
-    - assets/images/backgrounds/redstone_line.png
-    - assets/images/backgrounds/404pagebg.png
-    - assets/images/backgrounds/comingPageBg.png
+    - assets/images/backgrounds/rd-nn.webp
+    - assets/images/backgrounds/Fparrot_CPU.webp
+    - assets/images/backgrounds/Fparrot_CPU2.webp
+    - assets/images/backgrounds/redstone_line.webp
+    - assets/images/backgrounds/404pagebg.webp
+    - assets/images/backgrounds/comingPageBg.webp
     # icons
     - assets/images/knowledge_book.png
     - assets/images/clock.png
@@ -107,12 +109,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: HuXiaoBo
-      fonts:
-        - asset: assets/fonts/HuXiaoBoZhenShuaiTi.otf
-    - family: Kingsoft_Cloud
-      fonts:
-        - asset: assets/fonts/Kingsoft_Cloud_Font.ttf
+#    - family: HuXiaoBo
+#      fonts:
+#        - asset: assets/fonts/HuXiaoBoZhenShuaiTi.otf
+#    - family: Kingsoft_Cloud
+#      fonts:
+#        - asset: assets/fonts/Kingsoft_Cloud_Font.ttf
     - family: FontquanXinYiGuanHeiTi
       fonts:
         - asset: assets/fonts/FontquanXinYiGuanHeiTi-Regular.ttf

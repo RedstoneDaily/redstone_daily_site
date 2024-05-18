@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../color_schemes.dart';
 
 class DragHandle extends StatelessWidget {
   final Axis axis;

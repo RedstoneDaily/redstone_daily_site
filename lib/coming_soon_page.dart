@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
-
 import 'package:redstone_daily_site/mainPage/nav_bar.dart';
 import 'package:redstone_daily_site/mainPage/typography.dart';
 import 'package:redstone_daily_site/underlined_text.dart';
@@ -32,7 +31,7 @@ class ComingSoonPage extends StatelessWidget {
                 child: ColorFiltered(
                   colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.multiply),
                   child: Image.asset(
-                    "assets/images/backgrounds/comingPageBg.png",
+                    "assets/images/backgrounds/comingPageBg.webp",
                     fit: BoxFit.cover,
                   ),
                 ),

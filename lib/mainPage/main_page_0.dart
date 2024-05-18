@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:redstone_daily_site/color_schemes.dart';
 import 'package:redstone_daily_site/mainPage/date_text_widget.dart';
@@ -39,7 +38,7 @@ class MainPage0 extends StatelessWidget {
                               // lower the brightness
                               colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.multiply),
                               child: Image.asset(
-                                "assets/images/backgrounds/Fparrot_CPU.png",
+                                "assets/images/backgrounds/Fparrot_CPU.webp",
                                 fit: BoxFit.cover,
                               )))),
 

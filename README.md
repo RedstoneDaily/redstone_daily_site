@@ -24,3 +24,5 @@ content_list.dart:
 - run: flutter build web --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
 ```
 测试和生产环境的CD都会把它定义成redstonedaily.top
+
+另：渲染引擎设置为canvaskit才能清晰显示低清像素画mc物品图片，否则会模糊

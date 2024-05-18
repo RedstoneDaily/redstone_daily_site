@@ -3,9 +3,9 @@ name: Frontend CD (release)
 on:
     push:
         # 只有main分支发生push事件时，才会触发workflow
-        branches: [release]
+        branches: [main]
     pull_request:
-        branches: [release]
+        branches: [main]
 
 #env:
 #    SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }} # 服务器私钥

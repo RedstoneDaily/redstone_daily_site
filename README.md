@@ -7,11 +7,11 @@
 
 flutter build之前执行一下prebuild.sh谢谢喵
 ```
-prebuild.sh && flutter build web --web-renderer canvaskit
+./prebuild.sh && flutter build web --web-renderer canvaskit
 ```
 给`--aegis-enabled`参数可以启用aegis观测
 ```
-prebuild.sh --aegis-enabled && flutter build web --web-renderer canvaskit
+./prebuild.sh --aegis-enabled && flutter build web --web-renderer canvaskit
 ```
 
 content_list.dart:

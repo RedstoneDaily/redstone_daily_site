@@ -14,7 +14,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+  <base href="">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -56,5 +56,40 @@
       });
     });
   </script>
+  <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.f.min.js"></script>
+<script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js"></script>
+<script>
+  if (typeof Aegis === 'function') {
+    var aegis = new Aegis({
+      // Report ID
+      id: 'W7xQ1TaX4vejLx3kgP',
+
+      // User Single ID
+      uin: '',
+
+      // API Speed Report
+      reportApiSpeed: true,
+
+      // Static Resource Speed Report
+      reportAssetSpeed: true,
+
+      // SPA Application Page PV Report
+      spa: true,
+
+      // API Info Report
+      api: {
+        apiDetail:true,
+        reportRequest:true,
+        usePerformanceTiming:true
+      },
+
+      // WebSocket Report
+      websocketHack: true,
+
+      // Report Endpoint
+      hostUrl: 'https://rumt-zh.com',
+    });
+  }
+</script>
 </body>
 </html>

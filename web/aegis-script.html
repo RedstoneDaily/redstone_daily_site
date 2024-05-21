@@ -1,0 +1,43 @@
+<script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.f.min.js"></script>
+<script>
+  const uin = Date.now() + "-" + Math.random().toString(36).substr(2, 9);
+  if (typeof Aegis === 'function') {
+    var aegis = new Aegis({
+      // Report ID
+      id: 'GlkjjuEgWp6e160mV7',
+
+      // Worker Environment
+      env: Aegis.environment.production,
+
+      // User Single ID
+      uin: uin,
+
+      // API Speed Report
+      reportApiSpeed: true,
+
+      // Static Resource Speed Report
+      reportAssetSpeed: true,
+
+      // SPA Application Page PV Report
+      spa: true,
+
+      // API Info Report
+      api: {
+        // API Req + Res Report
+        apiDetail:true,
+
+        // Full Report
+        reportRequest:true,
+
+        // Performance Report
+        usePerformanceTiming:true
+      },
+
+      // WebSocket Report
+      websocketHack: true,
+
+      // Report Endpoint
+      hostUrl: 'https://rumt-zh.com',
+    });
+  }
+</script>

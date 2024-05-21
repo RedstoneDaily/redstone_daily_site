@@ -30,8 +30,8 @@ class IssuesListProvider extends ChangeNotifier {
   }
 
   Future<String> _fetchData() async {
-    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: 'redstonedaily.top');
-    Uri uri = Uri.https(apiHost, '/api/list');
+    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: '');
+    Uri uri = apiHost != '' ? Uri.https(apiHost, '/api/list') : Uri.parse('/api/list');
     try {
       final response = await http.get(uri);
       if (response.statusCode == 200) {

@@ -46,12 +46,14 @@ class _SilverContentListState extends State<SilverContentList> {
   Future<String> fetchJson(BuildContext context) async {
     // return DefaultAssetBundle.of(context).loadString("assets/demo.json");
     // fetch data from url api
-    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: 'redstonedaily.top');
-    Uri uri = Uri.https(apiHost, '/api/daily', {
-      'yy': widget.year,
-      'mm': widget.month,
-      'dd': widget.day,
-    });
+    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: '');
+    Uri uri = apiHost != ''
+        ? Uri.https(apiHost, '/api/daily', {
+            'yy': widget.year,
+            'mm': widget.month,
+            'dd': widget.day,
+          })
+        : Uri.parse('/api/daily?yy=${widget.year}&mm=${widget.month}&dd=${widget.day}');
 
     try {
       final response = await http.get(uri);

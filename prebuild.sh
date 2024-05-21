@@ -20,8 +20,11 @@ if [ $AEGIS_ENABLED == true ]; then
   # Insert the script snippet into index.html
   echo "AEGIS is enabled, inserting script snippet into index.html"
   AEGIS_SCRIPT=$(cat web/aegis-script.html)
-  export AEGIS_SCRIPT
-  envsubst < web/template.html > web/index.html
+else
+  AEGIS_SCRIPT=""
 fi
+
+export AEGIS_SCRIPT
+envsubst < web/template.html > web/index.html
 
 exit 0

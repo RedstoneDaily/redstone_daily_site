@@ -46,6 +46,7 @@ jobs:
                   # The architecture of Flutter SDK executable (x64 or arm64)
                   # architecture: # optional, default is ${{ runner.arch }}
             - run: cd ./flutter
+            - run: pwd
             - run: flutter pub get
             # - run: flutter test
 #            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart

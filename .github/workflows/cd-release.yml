@@ -65,5 +65,5 @@ jobs:
                   REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
                   ARGS: '-avz --delete'
                   # https://ss64.com/bash/rsync_options.html
-                  SOURCE: 'build/web/'
+                  SOURCE: 'flutter/build/web/'
                   TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径

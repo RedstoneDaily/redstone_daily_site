@@ -22,7 +22,7 @@ jobs:
                   ref: develop
 
             - name: Print Texts
-              run: cat < cyber_budhha.txt && cat < RD_text.txt
+              run: cat < ./.github/cyber_budhha.txt && cat < ./.github/RD_text.txt
 
             - name: Flutter action
               # You may pin to the exact commit or the version.
@@ -45,10 +45,12 @@ jobs:
                   # pub-cache-path: # optional, default is default
                   # The architecture of Flutter SDK executable (x64 or arm64)
                   # architecture: # optional, default is ${{ runner.arch }}
+            - run: cd ./flutter
             - run: flutter pub get
             # - run: flutter test
 #            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart
-            - run: ./prebuild.sh --aegis-enabled && flutter build web --web-renderer canvaskit
+            - run: . prebuild.sh --aegis-enabled
+            - run: flutter build web --web-renderer canvaskit
 
             # 上传打包资源
             - name: Deploy

@@ -52,7 +52,7 @@ jobs:
             - run: flutter pub get
             # - run: flutter test
 #            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart
-            - run: . prebuild.sh --aegis-enabled
+            - run: ./prebuild.sh --aegis-enabled
             - run: flutter build web --web-renderer canvaskit
 
             # 上传打包资源

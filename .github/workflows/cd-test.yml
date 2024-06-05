@@ -16,13 +16,17 @@ on:
 jobs:
     build: # 任务的job_id，具体名称自定义，这里build代表打包
         runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
+        defaults:
+            run:
+                shell: bash
+                working-directory: ./flutter
         steps:
             - uses: actions/checkout@master
               with:
                   ref: develop
 
             - name: Print Texts
-              run: cat < ./.github/cyber_budhha.txt && cat < ./.github/RD_text.txt
+              run: cat < ../.github/cyber_budhha.txt && cat < ../.github/RD_text.txt
 
             - name: Flutter action
               # You may pin to the exact commit or the version.
@@ -45,8 +49,6 @@ jobs:
                   # pub-cache-path: # optional, default is default
                   # The architecture of Flutter SDK executable (x64 or arm64)
                   # architecture: # optional, default is ${{ runner.arch }}
-            - run: cd ./flutter
-            - run: pwd
             - run: flutter pub get
             # - run: flutter test
 #            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart

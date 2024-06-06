@@ -53,8 +53,7 @@ jobs:
             # - run: flutter test
 #            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart
             - run: ./prebuild.sh
-            - run: flutter build web --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
-            - run: ls ./build/web
+            - run: flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
 
             # 上传打包资源
             - name: Deploy

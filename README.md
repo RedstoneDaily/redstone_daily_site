@@ -75,10 +75,12 @@
 
 新建一个运行配置，类型是Shell Script（不知道中文咋翻的），如图
 
-![](img_as_2.png)
+![](flutter/img_as_2.png)
 
 Execute类型选择Script Text
 
-然后Script text里填`bash ./flutter/prebuild.sh`（或者`bash ./flutter/prebuild.sh --aegis-enabled`）（或者windows的话改成对应ps脚本）（或者再其他的自己看看咋改把）
+工作目录在Flutter文件夹下
+
+然后Script text里填`bash ./prebuild.sh`（或者`bash ./flutter/prebuild.sh --aegis-enabled`）（或者windows的话改成对应ps脚本）（或者再其他的自己看看咋改把）
 
 然后Working directory填入项目根目录即可

@@ -25,6 +25,8 @@ else
 fi
 
 export AEGIS_SCRIPT
+# effectly whitelisted it, prevented it to be replaced by envsubst
+export FLUTTER_BASE_HREF="\$FLUTTER_BASE_HREF"
 envsubst < web/template.html > web/index.html
 
 exit 0

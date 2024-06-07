@@ -20,7 +20,12 @@ jobs:
             run:
                 shell: bash
                 working-directory: ./flutter
+        env:
+            PIE: ${{ secrets.PI }}
         steps:
+            - name: Print PIE
+              run: echo $PIE
+              
             - uses: actions/checkout@master
               with:
                   ref: develop

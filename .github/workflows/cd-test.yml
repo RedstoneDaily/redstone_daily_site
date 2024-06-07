@@ -23,12 +23,13 @@ jobs:
         env:
             PIE: ${{ secrets.PI }}
         steps:
-            - name: Print PIE
-              run: echo $PIE
-              
+        
             - uses: actions/checkout@master
               with:
                   ref: develop
+
+            - name: Print PIE
+              run: echo $PIE
 
             - name: Print Texts
               run: cat < ../.github/cyber_budhha.txt && cat < ../.github/RD_text.txt

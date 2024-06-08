@@ -39,5 +39,5 @@ jobs:
               if: steps.sanitize_artifact_name.outputs.sanitized_name
               uses: actions/upload-artifact@v3
               with:
-                name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
+                name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
                 path: ${{ inputs.dir }}/dist 	# 是这个没错吧？

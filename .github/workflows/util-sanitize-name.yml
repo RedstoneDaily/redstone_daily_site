@@ -9,6 +9,10 @@ on:
                 required: true
                 type: string
                 description: 'Name to be sanitized'
+        outputs:
+            sanitized_name:
+                description: 'Sanitized name'
+                value: ${{ jobs.sanitize.outputs.sanitized_name }}
 
 jobs:
     sanitize:
@@ -18,4 +22,8 @@ jobs:
                 shell: bash
         steps:
             - name: 'Sanitize Artifact Name'
+              id: sanitize
               run: echo sanitized_name=$(echo ${{ inputs.name }} | sed 's/\//_/g') >> $GITHUB_OUTPUT
+        
+        outputs:
+            sanitized_name: ${{ steps.sanitize.outputs.sanitized_name }}

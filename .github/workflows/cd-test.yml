@@ -59,7 +59,7 @@ jobs:
               run: flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
             
             - name: 'Upload Build Artifacts (name: flutter-web-build)'
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: flutter-web-build
                   path: flutter/build/web
@@ -84,10 +84,10 @@ jobs:
         steps:
             # 下载构建产物
             - name: 'Download Build Artifacts (name: flutter-web-build)'
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: flutter-web-build
-                  path: build/web/
+                  path: flutter/build/web/
             
             # 部署到测试服务器
             - name: Deploy

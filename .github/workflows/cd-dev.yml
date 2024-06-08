@@ -36,14 +36,14 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                   name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
-                  path: flutter/build/web/
+                  path: dist/flutter/
             
             # 下载Vue构建产物
             - name: 'Download Build Artifacts - ${{ github.ref_name }} Vue'
               uses: actions/download-artifact@v3
               with:
                   name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
-                  path: vue/dist/
+                  path: dist/vue/
             
             # 部署到测试服务器
             - name: Incremental Deploy
@@ -55,7 +55,7 @@ jobs:
                 REMOTE_USER: ${{ secrets.TEST_SERVER_USERNAME }}
                 ARGS: '-avz --delete'
                 # https://ss64.com/bash/rsync_options.html
-                SOURCE: './'
+                SOURCE: 'dist/'
                 TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
 
     # 刷新CDN

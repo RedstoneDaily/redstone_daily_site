@@ -59,11 +59,26 @@ jobs:
             - name: Deploy
               uses: easingthemes/ssh-deploy@main
               with:
-                  SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
-                  REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-                  REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-                  REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
-                  ARGS: '-avz --delete'
-                  # https://ss64.com/bash/rsync_options.html
-                  SOURCE: 'flutter/build/web/'
-                  TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
+                SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+                REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+                REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+                REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+                ARGS: '-avz --delete'
+                # https://ss64.com/bash/rsync_options.html
+                SOURCE: 'flutter/build/web/'
+                TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
+
+            # 上传完刷新cdn
+            - name: Setup Python
+              uses: actions/setup-python@v5.1.0
+              with:
+                # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+                python-version: ^3.12
+                # Used to specify the path to dependency files. Supports wildcards or a list of file names for caching multiple dependencies.
+                # cache-dependency-path: # optional
+                # update-environment: false
+    
+            - name: GA test - Print PIE
+              run: echo $PIE
+                
+            - run: 'python3 ../.github/atrf.py'

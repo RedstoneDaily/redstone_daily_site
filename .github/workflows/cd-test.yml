@@ -21,8 +21,8 @@ jobs:
                 shell: bash
                 working-directory: ./flutter
         env:
-            5es9i5cada: ${{ secrets.CDN_REFRESH_API_SID }}
-            s58ka7eycc: ${{ secrets.CDN_REFRESH_API_SKEY }}
+            CDN_REFRESH_API_SID: ${{ secrets.CDN_REFRESH_API_SID }}
+            CDN_REFRESH_API_SKEY: ${{ secrets.CDN_REFRESH_API_SKEY }}
         steps:
         
             - uses: actions/checkout@master

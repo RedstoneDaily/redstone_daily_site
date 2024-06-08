@@ -25,7 +25,7 @@ jobs:
                   ref: develop
 
             - name: Print Texts
-              run: cat < ../.github/cyber_budhha.txt && cat < ../.gitshub/RD_text.txt
+              run: cat < ../.github/cyber_budhha.txt && cat < ../.github/RD_text.txt
 
             - name: Flutter Setup
               # You may pin to the exact commit or the version.

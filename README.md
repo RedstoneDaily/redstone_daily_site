@@ -75,7 +75,7 @@
 
 新建一个运行配置，类型是Shell Script（不知道中文咋翻的），如图
 
-![](flutter/img_as_2.png)
+![](img_as_2.png)
 
 Execute类型选择Script Text
 

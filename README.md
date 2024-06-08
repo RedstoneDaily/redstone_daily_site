@@ -18,16 +18,21 @@
 
 要修改index.html内容的话请在template.html里修改
 
-然后 flutter build 之前记得执行一下prebuild.sh谢谢喵
-```
+然后 flutter build 之前记得执行一下`prebuild.sh` (linux) 或 `prebuild.bat` (windows) 谢谢喵
+**Linux**:
+```bash
 ./prebuild.sh && flutter build web --web-renderer canvaskit
 ```
-传递`--aegis-enabled`参数，页面将启用aegis观测
-```
-./prebuild.sh --aegis-enabled && flutter build web --web-renderer canvaskit
+**Windows**:
+```bash
+prebuild.bat && flutter build web --web-renderer canvaskit
 ```
 
-另：prebuild.sh是linux脚本（因为是Static写的他只熟linux脚本）所以要在windows上运行的话能不能帮忙写个powershell脚本（？
+
+传递`--aegis-enabled`参数，页面将启用aegis观测
+```bash
+./prebuild.sh --aegis-enabled && flutter build web --web-renderer canvaskit
+```
 
 ### `API_HOST` dart-define变量
 
@@ -81,6 +86,6 @@ Execute类型选择Script Text
 
 工作目录在Flutter文件夹下
 
-然后Script text里填`bash ./prebuild.sh`（或者`bash ./flutter/prebuild.sh --aegis-enabled`）（或者windows的话改成对应ps脚本）（或者再其他的自己看看咋改把）
+然后Script text里填`bash ./prebuild.sh`（或者`bash ./flutter/prebuild.sh --aegis-enabled`）（或者windows的话改成对应bat脚本）（或者再其他的自己看看咋改把）
 
 然后Working directory填入项目根目录即可

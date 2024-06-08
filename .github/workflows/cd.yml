@@ -1,0 +1,13 @@
+name: Frontend CD
+
+on:
+    workflow_call:
+
+jobs:
+    cd-dev:
+        uses: ./.github/workflows/cd-dev.yml
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
+
+    cd-prod:
+        uses: ./.github/workflows/cd-prod.yml
+        if: github.ref == 'refs/heads/main'

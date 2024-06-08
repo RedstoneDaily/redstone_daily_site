@@ -1,0 +1,63 @@
+name: Build Flutter Project
+
+# 触发workflow的条件
+on:
+    workflow_call:
+        inputs:
+            dir:
+                required: true
+                type: string
+                description: 'Flutter Project Directory'
+
+jobs:
+    # 构建flutter项目任务
+    build-flutter:
+        runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
+        
+        defaults:
+            run:
+                shell: bash
+                working-directory: ${{ inputs.dir }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@master
+              with:
+                  ref: ${{ github.ref }}
+
+            - name: Flutter Setup
+              # You may pin to the exact commit or the version.
+              # uses: subosito/flutter-action@1c5eb12d812966ca84680edc38353a0851c8fd56
+              uses: subosito/flutter-action@v2
+              with:
+                  # The Flutter version to make available on the path
+                  # flutter-version: '3.19.5'
+                  # The Flutter build release channel
+                  channel: 'stable'
+                  # Cache the Flutter SDK
+                  cache: true
+                  # Identifier for the Flutter SDK cache
+                  # cache-key: # optional, default is flutter-:os:-:channel:-:version:-:arch:-:hash:
+                  # Identifier for the Dart .pub-cache cache
+                  # pub-cache-key: # optional, default is flutter-pub:os:-:channel:-:version:-:arch:-:hash:
+                  # Flutter SDK cache path
+                  # cache-path: # optional, default is ${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:
+                  # Flutter pub cache path
+                  # pub-cache-path: # optional, default is default
+                  # The architecture of Flutter SDK executable (x64 or arm64)
+                  # architecture: # optional, default is ${{ runner.arch }}
+            
+            - name: Get Flutter dependencies
+              run: flutter pub get
+            
+            - name: Prebuild
+              run: ./prebuild.sh
+            
+            - name: Build Web
+              run: flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
+            
+            - name: 'Upload Build Artifacts (name: flutter-web-build)'
+              uses: actions/upload-artifact@v3
+              with:
+                  name: ${{ github.ref }}-build-flutter
+                  path: ${{ inputs.dir }}/build/web

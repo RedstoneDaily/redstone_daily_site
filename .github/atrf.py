@@ -16,9 +16,11 @@ def sign(key, msg):
 
 # secret_id = sys.argv[1]
 secret_id = os.getenv("5es9i5cada")
+print(secret_id)
 
 # secret_key = sys.argv[2]
 secret_key = os.getenv("s58ka7eycc")
+print(secret_key)
 
 token = ""
 

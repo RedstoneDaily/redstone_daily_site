@@ -28,7 +28,7 @@ jobs:
             # Todo...
 
             - id: sanitize_artifact_name
-              uses: ./.github/workflows/util-sanitize-name.yml
+              uses: ./.github/actions/sanitize-name
               with:
                 name: ${{ github.ref_name }}
                   

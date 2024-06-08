@@ -62,7 +62,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: flutter-web-build
-                  path: build/web/
+                  path: flutter/build/web
 
             
     # 部署任务

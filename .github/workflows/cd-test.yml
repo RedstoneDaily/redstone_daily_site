@@ -1,39 +1,33 @@
-name: Frontend CD (test)
+name: Frontend CD (dev env)
 # 触发workflow的条件
 on:
     push:
-        # 只有main分支发生push事件时，才会触发workflow
-        branches: [develop]
+        # 只有develop/dev-cd分支发生push事件时，才会触发workflow
+        # dev-cd分支是用于调试Github actions文件本身的分支
+        branches: [develop, dev-cd]
     pull_request:
-        branches: [develop]
+        branches: [develop, dev-cd]
 
-#env:
-#    SERVER_PRIVATE_KEY: ${{ secrets.TEST_SERVER_PRIVATE_KEY }} # 服务器私钥
-#    SERVER_HOST: ${{ secrets.TEST_SERVER_HOST }} # 服务器IP地址
-#    USER_NAME: ${{ secrets.TEST_SERVER_USERNAME }} # 服务器用户名
-
-# jobs表示执行的一项或多项任务
 jobs:
-    build: # 任务的job_id，具体名称自定义，这里build代表打包
+    # 构建任务
+    build:
         runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
+        
         defaults:
             run:
                 shell: bash
                 working-directory: ./flutter
-        env:
-            CDN_REFRESH_API_SID: ${{ secrets.CDN_REFRESH_API_SID }}
-            CDN_REFRESH_API_SKEY: ${{ secrets.CDN_REFRESH_API_SKEY }}
-            PIE: ${{ secrets.PI }}
+
         steps:
-        
-            - uses: actions/checkout@master
+            - name: Checkout code
+              uses: actions/checkout@master
               with:
                   ref: develop
 
             - name: Print Texts
-              run: cat < ../.github/cyber_budhha.txt && cat < ../.github/RD_text.txt
+              run: cat < ../.github/cyber_budhha.txt && cat < ../.gitshub/RD_text.txt
 
-            - name: Flutter action
+            - name: Flutter Setup
               # You may pin to the exact commit or the version.
               # uses: subosito/flutter-action@1c5eb12d812966ca84680edc38353a0851c8fd56
               uses: subosito/flutter-action@v2
@@ -54,13 +48,48 @@ jobs:
                   # pub-cache-path: # optional, default is default
                   # The architecture of Flutter SDK executable (x64 or arm64)
                   # architecture: # optional, default is ${{ runner.arch }}
-            - run: flutter pub get
-            # - run: flutter test
-#            - run: flutter build web --web-renderer html --base-href '/daily/' -t ./lib/contentPage/main.dart
-            - run: ./prebuild.sh
-            - run: flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
+            
+            - name: Get Flutter dependencies
+              run: flutter pub get
+            
+            - name: Prebuild
+              run: ./prebuild.sh
+            
+            - name: Build Web
+              run: flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
+            
+            - name: 'Upload Build Artifacts (name: flutter-web-build)'
+              uses: actions/upload-artifact@v2
+              with:
+                  name: flutter-web-build
+                  path: build/web/
 
-            # 上传打包资源
+            
+    # 部署任务
+    deploy: 
+        runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
+        needs: build
+        if: github.event_name == 'push'
+
+        defaults:
+            run:
+                shell: bash
+                working-directory: ./flutter
+
+        env:
+            CDN_REFRESH_API_SID: ${{ secrets.CDN_REFRESH_API_SID }}
+            CDN_REFRESH_API_SKEY: ${{ secrets.CDN_REFRESH_API_SKEY }}
+            PIE: ${{ secrets.PI }}
+
+        steps:
+            # 下载构建产物
+            - name: 'Download Build Artifacts (name: flutter-web-build)'
+              uses: actions/download-artifact@v2
+              with:
+                  name: flutter-web-build
+                  path: build/web/
+            
+            # 部署到测试服务器
             - name: Deploy
               uses: easingthemes/ssh-deploy@main
               with:
@@ -73,7 +102,7 @@ jobs:
                   SOURCE: 'flutter/build/web/'
                   TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
             
-            # 上传完刷新cdn
+            # 上传完运行atrf.py 调用API刷新cdn
             - name: Setup Python
               uses: actions/setup-python@v5.1.0
               with:
@@ -83,7 +112,9 @@ jobs:
                   # cache-dependency-path: # optional
                   # update-environment: false
 
-            - name: Print PIE
-              run: echo $PIE
+            # 测试()
+            # - name: Print PIE
+            #   run: echo $PIE
             
-            - run: 'python3 ../.github/atrf.py'
+            - name: Run Python Script to Refresh CDN
+              run: 'python3 ../.github/atrf.py'

@@ -7,7 +7,9 @@ jobs:
     cd-dev:
         uses: ./.github/workflows/cd-dev.yml
         if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
+        secrets: inherit
 
     cd-prod:
         uses: ./.github/workflows/cd-prod.yml
         if: github.ref == 'refs/heads/main'
+        secrets: inherit

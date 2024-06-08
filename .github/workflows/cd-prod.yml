@@ -16,7 +16,7 @@ jobs:
               uses: actions/checkout@master
               with:
                   ref: ${{ github.ref }}
-            
+
             - id: sanitize_artifact_name
               uses: ./.github/actions/sanitize-name
               with:

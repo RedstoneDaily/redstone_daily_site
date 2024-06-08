@@ -2,11 +2,10 @@ name: Frontend CD (dev env)
 # 触发workflow的条件
 on:
     push:
-        # 只有develop/dev-cd分支发生push事件时，才会触发workflow
-        # dev-cd分支是用于调试Github actions文件本身的分支
-        branches: [develop, dev-cd]
+        # 只有develop分支发生push事件时，才会触发workflow
+        branches: [develop]
     pull_request:
-        branches: [develop, dev-cd]
+        branches: [develop]
 
 jobs:
     # 构建任务
@@ -82,6 +81,11 @@ jobs:
             PIE: ${{ secrets.PI }}
 
         steps:
+            - name: Checkout code
+              uses: actions/checkout@master
+              with:
+                  ref: develop
+            
             # 下载构建产物
             - name: 'Download Build Artifacts (name: flutter-web-build)'
               uses: actions/download-artifact@v3

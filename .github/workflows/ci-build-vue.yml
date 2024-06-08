@@ -27,8 +27,8 @@ jobs:
 
             # Todo...
 
-            - run: 'mkdir -p ${{ inputs.dir }}/dist'
-            - run: 'touch ${{ inputs.dir }}/dist/index.html'
+            - run: 'mkdir dist'
+            - run: 'touch ./dist/index.html'
 
             - id: sanitize_artifact_name
               uses: ./.github/actions/sanitize-name

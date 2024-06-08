@@ -29,9 +29,6 @@ jobs:
               with:
                   ref: develop
 
-            - name: Print PIE
-              run: echo $PIE
-
             - name: Print Texts
               run: cat < ../.github/cyber_budhha.txt && cat < ../.github/RD_text.txt
 
@@ -83,4 +80,8 @@ jobs:
                   python-version: ^3.12
                   # Used to specify the path to dependency files. Supports wildcards or a list of file names for caching multiple dependencies.
                   # cache-dependency-path: # optional
+
+            - name: Print PIE
+              run: echo $PIE
+            
             - run: 'python3 ../.github/atrf.py'

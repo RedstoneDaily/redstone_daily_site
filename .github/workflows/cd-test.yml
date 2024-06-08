@@ -20,7 +20,12 @@ jobs:
             run:
                 shell: bash
                 working-directory: ./flutter
+        env:
+            CDN_REFRESH_API_SID: ${{ secrets.CDN_REFRESH_API_SID }}
+            CDN_REFRESH_API_SKEY: ${{ secrets.CDN_REFRESH_API_SKEY }}
+            PIE: ${{ secrets.PI }}
         steps:
+        
             - uses: actions/checkout@master
               with:
                   ref: develop
@@ -67,3 +72,18 @@ jobs:
                   # https://ss64.com/bash/rsync_options.html
                   SOURCE: 'flutter/build/web/'
                   TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
+            
+            # 上传完刷新cdn
+            - name: Setup Python
+              uses: actions/setup-python@v5.1.0
+              with:
+                  # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+                  python-version: ^3.12
+                  # Used to specify the path to dependency files. Supports wildcards or a list of file names for caching multiple dependencies.
+                  # cache-dependency-path: # optional
+                  # update-environment: false
+
+            - name: Print PIE
+              run: echo $PIE
+            
+            - run: 'python3 ../.github/atrf.py'

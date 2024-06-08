@@ -1,43 +1,69 @@
 <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.f.min.js"></script>
 <script>
-  const uin = Date.now() + "-" + Math.random().toString(36).substr(2, 9);
+  // Aegis 观测上报环境
+  const AegisENV = Object.freeze({
+    // 生产环境
+    pro: 'Aegis.environment.production',
+    // 开发环境
+    dev: 'Aegis.environment.development',
+    // 灰度环境
+    gray: 'Aegis.environment.gray',
+    // 预发布环境
+    pre: 'Aegis.environment.pre',
+    // 日发布环境
+    daily: 'Aegis.environment.daily',
+    // 本地环境
+    local: 'Aegis.environment.local',
+    // 测试环境
+    test: 'Aegis.environment.test',
+    // 其他环境
+    others: 'Aegis.environment.others'
+  });
+
+  const uin = Date.now() + "-" + window.btoa(Math.random().toString(36));
   if (typeof Aegis === 'function') {
     var aegis = new Aegis({
-      // Report ID
-      id: 'GlkjjuEgWp6e160mV7',
-
-      // Worker Environment
-      env: Aegis.environment.production,
-
-      // User Single ID
+      // Env
+      id: 'xEjDYTQvJ6JbYQ771W',
       uin: uin,
+      env: AegisENV.local,
+      hostUrl: 'https://rumt-zh.com',
 
-      // API Speed Report
+      // Speed Report
       reportApiSpeed: true,
-
-      // Static Resource Speed Report
+      pagePerformance: true,
       reportAssetSpeed: true,
+      speedSample: false,
 
-      // SPA Application Page PV Report
+      // Error Report
+      onError: true,
+
+      // SPA Set
       spa: true,
 
-      // API Info Report
+      // API
       api: {
-        // API Req + Res Report
-        apiDetail:true,
+        // Report
+        apiDetail: true,
+        reportRequest: true,
+        websocketHack: true,
+        usePerformanceTiming: true,
 
-        // Full Report
-        reportRequest:true,
+        // Trace Header
+        injectTraceHeader: 'traceparent',
 
-        // Performance Report
-        usePerformanceTiming:true
-      },
+        // Header Report
+        reqHeaders: ['traceparent'],
+        resHeaders: ['content-type', 'server'],
 
-      // WebSocket Report
-      websocketHack: true,
+        // Ignore URL
+        injectTraceIgnoreUrls: ['/gstatic.com/', '/bilibili.com/'],
 
-      // Report Endpoint
-      hostUrl: 'https://rumt-zh.com',
+        // RC Report
+        // retCodeHandler(data, url, xhr) {
+          
+        // }
+      }
     });
   }
 </script>

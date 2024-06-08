@@ -3,6 +3,15 @@ name: Frontend CD (dev env)
 # 触发workflow的条件
 on:
     workflow_call:
+        secrets:
+            TEST_SERVER_PRIVATE_KEY:
+                required: true
+            TEST_SERVER_HOST:
+                required: true
+            TEST_SERVER_PORT:
+                required: true
+            TEST_SERVER_USERNAME:
+                required: true
 
 jobs:
     deploy: 

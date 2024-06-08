@@ -12,19 +12,24 @@ jobs:
                 shell: bash
         
         steps:
+
+            - id: sanitize_artifact_name
+              uses: ./.github/workflows/util-sanitize-name.yml
+              with:
+                name: ${{ github.ref_name }}
             
             # 下载Flutter构建产物
-            - name: 'Download Build Artifacts - ${{ github.ref }} Flutter'
+            - name: 'Download Build Artifacts - ${{ github.ref_name }} - Flutter'
               uses: actions/download-artifact@v3
               with:
-                  name: ${{ github.ref }}-build-flutter
+                  name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
                   path: flutter/build/web/
             
             # 下载Vue构建产物
-            - name: 'Download Build Artifacts - ${{ github.ref }} Vue'
+            - name: 'Download Build Artifacts - ${{ github.ref_name }} Vue'
               uses: actions/download-artifact@v3
               with:
-                  name: ${{ github.ref }}-build-vue
+                  name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
                   path: vue/dist/
             
             # 部署到测试服务器

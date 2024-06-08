@@ -1,0 +1,21 @@
+name: Sanitize Artifact Name
+# Replaces all slashes in the branch name with underscores.
+
+# 触发workflow的条件
+on:
+    workflow_call:
+        inputs:
+            name:
+                required: true
+                type: string
+                description: 'Name to be sanitized'
+
+jobs:
+    sanitize:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps:
+            - name: 'Sanitize Artifact Name'
+              run: echo sanitized_name=$(echo ${{ inputs.name }} | sed 's/\//_/g') >> $GITHUB_OUTPUT

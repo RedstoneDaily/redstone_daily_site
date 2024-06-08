@@ -26,9 +26,15 @@ jobs:
                   ref: ${{ github.ref }}
 
             # Todo...
+
+            - id: sanitize_artifact_name
+              uses: ./.github/workflows/util-sanitize-name.yml
+              with:
+                name: ${{ github.ref_name }}
                   
-            - name: 'Upload Build Artifacts (name: flutter-web-build)'
+            - name: 'Upload Build Artifacts - ${{ github.ref_name }} - Vue'
+              if: steps.sanitize_artifact_name.outputs.sanitized_name
               uses: actions/upload-artifact@v3
               with:
-                  name: ${{ github.ref }}-build-vue
-                  path: ${{ inputs.dir }}- # ?????????
+                name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
+                path: ${{ inputs.dir }}/dist 	# 是这个没错吧？

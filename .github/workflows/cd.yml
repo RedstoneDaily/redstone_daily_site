@@ -2,6 +2,24 @@ name: Frontend CD
 
 on:
     workflow_call:
+        secrets:
+            TEST_SERVER_PRIVATE_KEY:
+                required: true
+            TEST_SERVER_HOST:
+                required: true
+            TEST_SERVER_PORT:
+                required: true
+            TEST_SERVER_USERNAME:
+                required: true
+            SERVER_PRIVATE_KEY:
+                required: true
+            SERVER_HOST:
+                required: true
+            SERVER_PORT:
+                required: true
+            SERVER_USERNAME:
+                required: true
+        
 
 jobs:
     cd-dev:

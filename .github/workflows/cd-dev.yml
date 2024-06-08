@@ -36,6 +36,8 @@ jobs:
                   name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
                   path: vue/dist/
             
+            - run: echo ${{ secrets.TEST_SERVER_USERNAME }}
+            
             # 部署到测试服务器
             - name: Incremental Deploy
               uses: easingthemes/ssh-deploy@main

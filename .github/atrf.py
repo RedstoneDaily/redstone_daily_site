@@ -15,11 +15,11 @@ def sign(key, msg):
     return hmac.new(key, msg.encode("utf-8"), hashlib.sha256).digest()
 
 # secret_id = sys.argv[1]
-secret_id = os.getenv("5es9i5cada")
+secret_id = os.getenv("CDN_REFRESH_API_SID")
 print(secret_id)
 
 # secret_key = sys.argv[2]
-secret_key = os.getenv("s58ka7eycc")
+secret_key = os.getenv("CDN_REFRESH_API_SKEY")
 print(secret_key)
 
 token = ""

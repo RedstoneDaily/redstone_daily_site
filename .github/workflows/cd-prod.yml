@@ -1,4 +1,4 @@
-name: Frontend CD (dev env)
+name: Frontend CD (release)
 
 # 备注：
 # 坑！！！！！巨坑！！！！！！！
@@ -7,10 +7,10 @@ name: Frontend CD (dev env)
 # 触发workflow的条件
 on:
     push:
-        # 只有develop分支发生push事件时，才会触发workflow
-        branches: [develop]
+        # 只有main分支发生push事件时，才会触发workflow
+        branches: [main]
     pull_request:
-        branches: [develop]
+        branches: [main]
 
 jobs:
     # 构建flutter项目任务
@@ -26,7 +26,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@master
               with:
-                  ref: develop
+                  ref: main
 
             - name: Print Texts
               run: cat < ../.github/cyber_budhha.txt && cat < ../.github/RD_text.txt
@@ -91,7 +91,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@master
               with:
-                  ref: develop
+                  ref: main
             
             # 下载构建产物
             - name: 'Download Build Artifacts (name: flutter-web-build)'
@@ -104,15 +104,15 @@ jobs:
             - name: Deploy
               uses: easingthemes/ssh-deploy@main
               with:
-                  SSH_PRIVATE_KEY: ${{ secrets.TEST_SERVER_PRIVATE_KEY }}
-                  REMOTE_HOST: ${{ secrets.TEST_SERVER_HOST }}
-                  REMOTE_PORT: ${{ secrets.TEST_SERVER_PORT }}
-                  REMOTE_USER: ${{ secrets.TEST_SERVER_USERNAME }}
-                  ARGS: '-avz --delete'
-                  # https://ss64.com/bash/rsync_options.html
-                  SOURCE: 'flutter/build/web/'
-                  TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
-            
+                SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+                REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+                REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+                REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+                ARGS: '-avz --delete'
+                # https://ss64.com/bash/rsync_options.html
+                SOURCE: 'flutter/build/web/'
+                TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
+
             # 上传完运行atrf.py 调用API刷新cdn
             - name: Setup Python
               uses: actions/setup-python@v5.1.0

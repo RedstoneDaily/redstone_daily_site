@@ -14,8 +14,8 @@ on:
         branches: [dev-cd]
 
 jobs:
-    # 构建任务
-    build:
+    # 构建flutter项目任务
+    build-flutter:
         runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
         
         defaults:
@@ -69,11 +69,13 @@ jobs:
                   name: flutter-web-build
                   path: flutter/build/web
 
+    # 构建vue项目任务
+    # todo...
             
     # 部署任务
     deploy: 
         runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
-        needs: build
+        needs: build-flutter
         if: github.event_name == 'push'
 
         defaults:

@@ -45,7 +45,7 @@ export ENV_TYPE
 if [ $aegis_enabled == true ]; then
   echo "AEGIS is enabled, inserting script snippet into index.html"
   # 但在此之前需要先把ENV_TYPE值替换入aeigs-script.html中
-  AEGIS_SCRIPT=$(envsubst web/aegis-script.html)
+  AEGIS_SCRIPT=$(envsubst < web/aegis-script.html)
 else
   AEGIS_SCRIPT=""
 fi

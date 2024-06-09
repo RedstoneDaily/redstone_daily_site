@@ -4,6 +4,8 @@
 
 这是红石日报的前端
 
+**PR尽量往develop分支上推哦! 阿里嘎多~**
+
 # 注意事项（Flutter工程）
 
 ### Aegis & prebuild脚本

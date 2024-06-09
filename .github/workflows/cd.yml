@@ -19,6 +19,12 @@ on:
                 required: true
             SERVER_USERNAME:
                 required: true
+            CDN_REFRESH_API_SID:
+                required: true
+            CDN_REFRESH_API_SKEY:
+                required: true
+            PI:
+                required: false
         
 
 jobs:

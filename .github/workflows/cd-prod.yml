@@ -12,6 +12,12 @@ on:
                 required: true
             SERVER_USERNAME:
                 required: true
+            CDN_REFRESH_API_SID:
+              required: true
+            CDN_REFRESH_API_SKEY:
+              required: true
+            PI:
+              required: false
 
 jobs:
     deploy: 
@@ -62,3 +68,4 @@ jobs:
     refresh-cdn:
         needs: deploy
         uses: ./.github/workflows/cd-refresh-cdn.yml
+        secrets: inherit

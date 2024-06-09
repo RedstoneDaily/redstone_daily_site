@@ -3,10 +3,17 @@ name: Refresh CDN
 # 触发workflow的条件
 on:
     workflow_call:
+        secrets:
+            CDN_REFRESH_API_SID:
+                required: true
+            CDN_REFRESH_API_SKEY:
+                required: true
+            PI:
+                required: false
 
 jobs:
     # 部署任务
-    deploy: 
+    deploy:
         runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
 
         defaults:
@@ -23,7 +30,7 @@ jobs:
               uses: actions/checkout@master
               with:
                   ref: ${{ github.ref }}
-            
+
             # 运行atrf.py 调用API刷新cdn
             - name: Setup Python
               uses: actions/setup-python@v5.1.0
@@ -37,6 +44,6 @@ jobs:
             # 测试()
             # - name: Print PIE
             #   run: echo $PIE
-            
+
             - name: Run Python Script to Refresh CDN
               run: 'python3 .github/atrf.py'

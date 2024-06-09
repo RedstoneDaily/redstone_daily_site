@@ -50,11 +50,13 @@ jobs:
             - name: Get Flutter dependencies
               run: flutter pub get
             
-            - name: Prebuild
-              run: ./prebuild.sh
+            - name: Build Web (develop)
+              if: github.ref == 'refs/heads/develop'        
+              run: ./prebuild.sh --aegis dev && flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
             
-            - name: Build Web
-              run: flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
+            - name: Build Web (production)
+              if: github.ref == 'refs/heads/main'        
+              run: ./prebuild.sh --aegis prod && flutter build web --release --source-maps --web-renderer canvaskit
             
             - id: sanitize_artifact_name
               uses: ./.github/actions/sanitize-name

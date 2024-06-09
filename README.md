@@ -31,7 +31,7 @@ prebuild.bat && flutter build web --web-renderer canvaskit
 
 传递`--aegis [env-type]`参数即可启用aegis观测，指定env-type可将观测流量标记分类至不同环境种类
 ```bash
-./prebuild.sh --aegis && flutter build web --web-renderer canvaskit
+./prebuild.sh --aegis local && flutter build web --web-renderer canvaskit
 ```
 `env-type` 可选值:
 - `prod` 生产环境
@@ -66,9 +66,11 @@ prebuild.bat && flutter build web --web-renderer canvaskit
         : Uri.parse('/api/daily?yy=${widget.year}&mm=${widget.month}&dd=${widget.day}');
 ```
 
-用例：.github/cd-test.yml（测试服的CD部署脚本）:
+用例：.github/workflows/ci-build-flutter.yml:
 ```
-- run: prebuild.sh && flutter build web --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
+- name: Build Web (develop)
+  if: github.ref == 'refs/heads/develop'        
+  run: ./prebuild.sh --aegis dev && flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
 ```
 测试服的CD会将此变量定义为"redstonedaily.top"（指向正式服api，但某些时候可能会需要改指测试服api以进行一些测试）；
 
@@ -96,6 +98,6 @@ Execute类型选择Script Text
 
 工作目录在Flutter文件夹下
 
-然后Script text里填`bash ./prebuild.sh --aegis local`（或者windows的话改成对应bat脚本）（或者再其他的自己看看咋改把）
+然后Script text里填`bash ./prebuild.sh --aegis local`（Linux）`.\prebuild.bat --aegis local`（Windows）(还没试过)
 
 然后Working directory填入项目根目录即可

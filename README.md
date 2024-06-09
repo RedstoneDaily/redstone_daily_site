@@ -14,7 +14,7 @@
 
 然后另一种是往index.html里插入html片段（是一些script标签，会引入&执行脚本，html片段内容从web/aegis-script.html读取）
 
-所以index.html现在是生成性文件，使用预构建脚本prebuild.sh以web/template.html为模板，使用envsubst命令将其中的`${AEGIS_SCRIPT}`替换为对应html片段（如果不启用aegis则替换为空），生成index.html；
+所以index.html现在是生成性文件，使用预构建脚本prebuild.sh以web/template.html为模板，使用envsubst命令将其中的`$AEGIS_SCRIPT`替换为对应html片段（如果不启用aegis则替换为空），生成index.html；
 
 要修改index.html内容的话请在template.html里修改
 
@@ -29,10 +29,20 @@ prebuild.bat && flutter build web --web-renderer canvaskit
 ```
 
 
-传递`--aegis-enabled`参数，页面将启用aegis观测
+传递`--aegis [env-type]`参数即可启用aegis观测，指定env-type可将观测流量标记分类至不同环境种类
 ```bash
-./prebuild.sh --aegis-enabled && flutter build web --web-renderer canvaskit
+./prebuild.sh --aegis && flutter build web --web-renderer canvaskit
 ```
+`env-type` 可选值:
+- `prod` 生产环境
+- `dev` 开发环境
+- `gray` 灰度环境
+- `pre` 预发布环境
+- `daily` 日发布环境
+- `local` 本地环境
+- `test` 测试环境
+- `others` 其他环境(默认值)
+
 
 ### `API_HOST` dart-define变量
 
@@ -86,6 +96,6 @@ Execute类型选择Script Text
 
 工作目录在Flutter文件夹下
 
-然后Script text里填`bash ./prebuild.sh`（或者`bash ./flutter/prebuild.sh --aegis-enabled`）（或者windows的话改成对应bat脚本）（或者再其他的自己看看咋改把）
+然后Script text里填`bash ./prebuild.sh --aegis local`（或者windows的话改成对应bat脚本）（或者再其他的自己看看咋改把）
 
 然后Working directory填入项目根目录即可

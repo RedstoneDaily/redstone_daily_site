@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Acacia 编译器</title>
+	<script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
+	<style>
+		body {
+			height: 100vh;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background-color: #f4f4f4;
+		}
+
+		h1 {
+			font-size: 2em;
+			margin-bottom: 20px;
+		}
+
+		#source-code {
+			width: 80%;
+			height: 200px;
+			margin-bottom: 20px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+
+		#acacia {
+			font-size: 13px;
+			text-align: center;
+			line-height: 16px;
+			width: 228px;
+			height: 28px;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 5px;
+			background-image: linear-gradient(179deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.00) 96%), linear-gradient(to bottom right, #2277ff, #0c61ff);
+			background-size: 100% 100%;
+			color: #fff;
+		}
+
+		#output {
+			font-family: 'Courier New', Courier, monospace;
+			white-space: pre-wrap;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Acacia 编译器</h1>
+	<textarea id="source-code" rows="20" cols="80">What Can I Say</textarea><br>
+	<div onclick="compileAcacia()" id="acacia">编译</div>
+	<pre id="output">ValueError: Only be int module!</pre>
+
+	<script type="text/javascript">
+		async function compileAcacia() {
+			let pyodide = await loadPyodide();
+
+			const sourceCode = document.getElementById("source-code").value;
+
+			// 在 Pyodide 文件系统中创建必要的文件结构
+			pyodide.FS.mkdir('/acacia');
+			pyodide.FS.mkdir('/acacia/acaciamc');
+			pyodide.FS.mkdir('/acacia/acaciamc/mccmdgen');
+			pyodide.FS.mkdir('/acacia/acaciamc/modules');
+			pyodide.FS.mkdir('/acacia/acaciamc/objects');
+			pyodide.FS.mkdir('/acacia/acaciamc/tools');
+			pyodide.FS.mkdir('/acacia/test');
+
+			// 这里，您需要将所有必要的文件写入 Pyodide 文件系统
+			// 为简单起见，假设您有所有文件内容的字符串
+			// 如果文件很多或频繁更改，您可以自动化此部分
+
+			// 写入单个文件的示例
+			pyodide.FS.writeFile('/acacia/acaciamc/ast.py', '... ast.py 文件内容 ...');
+			// 对所有其他必要文件重复此操作
+
+			// 将源代码写入文件
+			pyodide.FS.writeFile('/acacia/source.aca', sourceCode);
+
+			// 运行 Acacia 编译器
+			try {
+				pyodide.runPython(`
+import sys
+sys.path.append('/acacia')
+from acaciamc import cli
+
+cli.main(['/acacia/source.aca'])
+`
+				);
+				const output = pyodide.FS.readFile('/acacia/output.txt', { encoding: 'utf8' });
+				document.getElementById("output").innerText = output;
+			} catch (err) {
+				document.getElementById("output").innerText = err;
+			}
+		}
+	</script>
+</body>
+
+</html>

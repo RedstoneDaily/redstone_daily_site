@@ -45,7 +45,7 @@ class _HeadState extends State<HeadWidget> {
 
     const cutFraction = 0.387;
     const inverseSlopeTrapezoid = 0.44;
-    var isApprooooooaching = widget.date.month == 6 && widget.date.day == 14;
+    var isApprooooooaching = widget.date.month == 6 && widget.date.day == 15 && DateTime.timestamp().month == 6 && DateTime.timestamp().day == 15;
 
     return SizedBox(
       height: height,

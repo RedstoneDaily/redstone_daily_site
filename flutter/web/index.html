@@ -1,75 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.f.min.js"></script>
-<script>
-  // Aegis 观测上报环境
-  const AegisENV = Object.freeze({
-    // 生产环境
-    pro: 'Aegis.environment.production',
-    // 开发环境
-    dev: 'Aegis.environment.development',
-    // 灰度环境
-    gray: 'Aegis.environment.gray',
-    // 预发布环境
-    pre: 'Aegis.environment.pre',
-    // 日发布环境
-    daily: 'Aegis.environment.daily',
-    // 本地环境
-    local: 'Aegis.environment.local',
-    // 测试环境
-    test: 'Aegis.environment.test',
-    // 其他环境
-    others: 'Aegis.environment.others'
-  });
-
-  const uin = Date.now() + "-" + window.btoa(Math.random().toString(36));
-  if (typeof Aegis === 'function') {
-    var aegis = new Aegis({
-      // Env
-      id: 'xEjDYTQvJ6JbYQ771W',
-      uin: uin,
-      env: AegisENV.local,
-      hostUrl: 'https://rumt-zh.com',
-
-      // Speed Report
-      reportApiSpeed: true,
-      pagePerformance: true,
-      reportAssetSpeed: true,
-      speedSample: false,
-
-      // Error Report
-      onError: true,
-
-      // SPA Set
-      spa: true,
-
-      // API
-      api: {
-        // Report
-        apiDetail: true,
-        reportRequest: true,
-        websocketHack: true,
-        usePerformanceTiming: true,
-
-        // Trace Header
-        injectTraceHeader: 'traceparent',
-
-        // Header Report
-        reqHeaders: ['traceparent'],
-        resHeaders: ['content-type', 'server'],
-
-        // Ignore URL
-        injectTraceIgnoreUrls: ['/gstatic.com/', '/bilibili.com/'],
-
-        // RC Report
-        // retCodeHandler(data, url, xhr) {
-          
-        // }
-      }
-    });
-  }
-</script>
+    
     <!--
       If you are serving your web app in a path other than the root, change the
       href value below to reflect the base path you are serving from.

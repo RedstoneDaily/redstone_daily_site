@@ -45,6 +45,7 @@ class _HeadState extends State<HeadWidget> {
 
     const cutFraction = 0.387;
     const inverseSlopeTrapezoid = 0.44;
+    var isApprooooooaching = widget.date.month == 6 && widget.date.day == 14;
 
     return SizedBox(
       height: height,
@@ -55,20 +56,35 @@ class _HeadState extends State<HeadWidget> {
         clipBehavior: Clip.hardEdge,
         children: [
           // 背景图
-          Positioned(
-              left: positionCoeffImage.left * size.width,
-              top: positionCoeffImage.top * height,
-              right: positionCoeffImage.right * size.width,
-              bottom: positionCoeffImage.bottom * height,
-              child: ImageFiltered(
-                  imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                  child: ColorFiltered(
-                      // lower the brightness
-                      colorFilter: const ColorFilter.mode(Colors.black45, BlendMode.multiply),
-                      child: Image.asset(
-                        'assets/images/backgrounds/rd-nn.webp',
-                        fit: BoxFit.cover,
-                      )))),
+          isApprooooooaching
+              ? Positioned(
+                  left: 0.3 * size.width,
+                  top: 0 * height,
+                  right: -0.2 * size.width,
+                  bottom: 0 * height,
+                  child: ImageFiltered(
+                      imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                      child: ColorFiltered(
+                          // lower the brightness
+                          colorFilter: const ColorFilter.mode(Colors.black45, BlendMode.multiply),
+                          child: Image.asset(
+                            'assets/images/backgrounds/approoooooaching.png',
+                            fit: BoxFit.cover,
+                          ))))
+              : Positioned(
+                  left: positionCoeffImage.left * size.width,
+                  top: positionCoeffImage.top * height,
+                  right: positionCoeffImage.right * size.width,
+                  bottom: positionCoeffImage.bottom * height,
+                  child: ImageFiltered(
+                      imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                      child: ColorFiltered(
+                          // lower the brightness
+                          colorFilter: const ColorFilter.mode(Colors.black45, BlendMode.multiply),
+                          child: Image.asset(
+                            'assets/images/backgrounds/rd-nn.webp',
+                            fit: BoxFit.cover,
+                          )))),
           // 梯形
           CustomPaint(
             painter: TrapezoidPainter(
@@ -108,7 +124,9 @@ class _HeadState extends State<HeadWidget> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Transform.scale(scaleY: 1.2, child: Text("[${DateFormat("yyyy-MM-dd").format(widget.date)}]", style: typography.issueNum)),
+                      isApprooooooaching
+                          ? Image.asset("assets/images/backgrounds/15 JUNE.jpg", height: 0.2 * height)
+                          : Transform.scale(scaleY: 1.2, child: Text("[${DateFormat("yyyy-MM-dd").format(widget.date)}]", style: typography.issueNum)),
                       const Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: Icon(Icons.arrow_drop_down, color: Colors.white, size: 36),

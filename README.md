@@ -15,6 +15,7 @@
 ```
 --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
 ```
+参考：https://github.com/flutter/flutter/pull/92134
 
 ### Aegis & prebuild脚本
 

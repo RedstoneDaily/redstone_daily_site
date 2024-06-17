@@ -111,9 +111,18 @@ flutter:
   # example:
 
   fonts:
+
+    # 这部分的目的是为了解除对gstatic源的依赖
+    # 此解法参照 https://github.com/flutter/flutter/issues/85793
+    # （btw这个莫名其妙的k3kCo84MPvpLmixcA63oeAL7Iqp5IZJF9bmaG9_FnYxNbPzS5HE.ttf做法真的好内啥啊
+    # （甚至当前看到的字体混淆名称也不是那个issue解法里所用的名称）
     - family: Roboto
       fonts:
         - asset: assets/google_fonts/Roboto-Regular.ttf
+    - family: Noto Sans SC
+      fonts:
+        - asset: assets/google_fonts/k3kCo84MPvpLmixcA63oeAL7Iqp5IZJF9bmaG9_FnYxNbPzS5HE.ttf
+
     #    - family: HuXiaoBo
     #      fonts:
     #        - asset: assets/fonts/HuXiaoBoZhenShuaiTi.otf

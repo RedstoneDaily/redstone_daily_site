@@ -109,13 +109,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+
   fonts:
-#    - family: HuXiaoBo
-#      fonts:
-#        - asset: assets/fonts/HuXiaoBoZhenShuaiTi.otf
-#    - family: Kingsoft_Cloud
-#      fonts:
-#        - asset: assets/fonts/Kingsoft_Cloud_Font.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/google_fonts/Roboto-Regular.ttf
+    #    - family: HuXiaoBo
+    #      fonts:
+    #        - asset: assets/fonts/HuXiaoBoZhenShuaiTi.otf
+    #    - family: Kingsoft_Cloud
+    #      fonts:
+    #        - asset: assets/fonts/Kingsoft_Cloud_Font.ttf
     - family: FontquanXinYiGuanHeiTi
       fonts:
         - asset: assets/fonts/FontquanXinYiGuanHeiTi-Regular.ttf

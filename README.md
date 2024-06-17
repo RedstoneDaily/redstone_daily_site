@@ -26,7 +26,7 @@
 ./prebuild.sh && flutter build web --web-renderer canvaskit
 ```
 **Windows**:
-```bash
+```powershell
 prebuild.bat && flutter build web --web-renderer canvaskit
 ```
 

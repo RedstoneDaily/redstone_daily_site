@@ -11,7 +11,7 @@
 ### 杂项
 
 - Flutter的web渲染引擎需设置为canvaskit才能清晰显示主页里的那些低清像素mc物品图片，否则会被“优化”图片会变模糊
-- 为了使页面调取打包的canvaskit而非gstatic源的canvaskit，使用dart-define变量`FLUTTER_WEB_CANVASKIT_URL`以指定canvaskit的url：
+- 为了使页面调取打包的canvaskit而非gstatic源的canvaskit，使用dart-define变量`FLUTTER_WEB_CANVASKIT_URL`以指定canvaskit的url，即在flutter build命令里加上参数：
 ```
 --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
 ```

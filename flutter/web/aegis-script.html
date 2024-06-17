@@ -24,8 +24,9 @@
   const UIN_Length = 10;
   let uin = '';
   for (let i = 0; i < UIN_Length; i++) {
-    uin += Date.now() + "-" + Math.floor(Math.random() * 10);
+    uin += Math.floor(Math.random() * 10);
   }
+  uin = Date.now() + "-" + uin;
 
   if (typeof Aegis === 'function') {
     var aegis = new Aegis({

@@ -1,82 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.f.min.js" crossorigin="anonymous"></script>
-<script>
-  // Aegis 观测上报环境
-  const AegisENV = Object.freeze({
-    // 生产环境
-    prod: 'Aegis.environment.production',
-    // 开发环境
-    dev: 'Aegis.environment.development',
-    // 灰度环境
-    gray: 'Aegis.environment.gray',
-    // 预发布环境
-    pre: 'Aegis.environment.pre',
-    // 日发布环境
-    daily: 'Aegis.environment.daily',
-    // 本地环境
-    local: 'Aegis.environment.local',
-    // 测试环境
-    test: 'Aegis.environment.test',
-    // 其他环境
-    others: 'Aegis.environment.others'
-  });
-
-  // Generate UIN
-  const UIN_Length = 10;
-  let uin = '';
-  for (let i = 0; i < UIN_Length; i++) {
-    uin += Math.floor(Math.random() * 10);
-  }
-  uin = Date.now() + "-" + uin;
-
-  if (typeof Aegis === 'function') {
-    var aegis = new Aegis({
-      // Env
-      id: 'mZxy9hL2PY1GozZLD9',
-      uin: uin,
-      env: AegisENV.local,
-      hostUrl: 'https://rumt-zh.com',
-
-      // Speed Report
-      reportApiSpeed: true,
-      pagePerformance: true,
-      reportAssetSpeed: true,
-      speedSample: false,
-
-      // Error Report
-      onError: true,
-
-      // SPA Set
-      spa: true,
-
-      // API
-      api: {
-        // Report
-        apiDetail: true,
-        reportRequest: true,
-        websocketHack: true,
-        usePerformanceTiming: true,
-
-        // Trace Header
-        // injectTraceHeader: 'traceparent',
-
-        // Header Report
-        // reqHeaders: ['traceparent'],
-        resHeaders: ['content-type', 'server'],
-
-        // Ignore URL
-        // injectTraceIgnoreUrls: ['/gstatic.com/', '/bilibili.com/'],
-
-        // RC Report
-        // retCodeHandler(data, url, xhr) {
-
-        // }
-      }
-    });
-  }
-</script>
     <!--
       If you are serving your web app in a path other than the root, change the
       href value below to reflect the base path you are serving from.
@@ -93,9 +17,11 @@
     <base href="$FLUTTER_BASE_HREF">
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-    <meta name="description" content="A new Flutter project.">
-    <meta name="referrer" content="never">
+    <meta name="description" content="红石日报（Redstone Daily）是一个开源非盈利项目，专注于收集和发布全网红石科技的最新进展。了解最新的红石科技动态，请访问我们的网站。">
+    <meta name="keywords" content="红石科技, 红石日报, 红石科技日报, 红石周报, 红石月报, 红石年报, 红石科技动态, 最新红石科技进展">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- iOS meta tags & icons -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -106,7 +32,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
 
-    <title>redstone_daily_site</title>
+    <title>红石日报 | Redstone Daily</title>
     <link rel="manifest" href="manifest.json">
 
     <script>

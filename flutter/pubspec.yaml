@@ -109,13 +109,27 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+
   fonts:
-#    - family: HuXiaoBo
-#      fonts:
-#        - asset: assets/fonts/HuXiaoBoZhenShuaiTi.otf
-#    - family: Kingsoft_Cloud
-#      fonts:
-#        - asset: assets/fonts/Kingsoft_Cloud_Font.ttf
+
+    # 这部分的目的是为了解除对gstatic源的依赖
+    # 此解法参照 https://github.com/flutter/flutter/issues/85793
+    # （btw这个莫名其妙的k3kCo84MPvpLmixcA63oeAL7Iqp5IZJF9bmaG9_FnYxNbPzS5HE.ttf做法真的好内啥啊
+    # （甚至当前看到的字体混淆名称也不是那个issue解法里所用的名称）
+    # 另：服务器会将这些个别大体积资源重定向到cdn img上，但是文件还是得塞进assets和flutter build里 这样页面才能认我们自己的资源（
+    - family: Roboto
+      fonts:
+        - asset: assets/google_fonts/Roboto-Regular.ttf
+    - family: Noto Sans SC
+      fonts:
+        - asset: assets/google_fonts/k3kCo84MPvpLmixcA63oeAL7Iqp5IZJF9bmaG9_FnYxNbPzS5HE.ttf
+
+    #    - family: HuXiaoBo
+    #      fonts:
+    #        - asset: assets/fonts/HuXiaoBoZhenShuaiTi.otf
+    #    - family: Kingsoft_Cloud
+    #      fonts:
+    #        - asset: assets/fonts/Kingsoft_Cloud_Font.ttf
     - family: FontquanXinYiGuanHeiTi
       fonts:
         - asset: assets/fonts/FontquanXinYiGuanHeiTi-Regular.ttf

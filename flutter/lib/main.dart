@@ -126,7 +126,12 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp.router(
           title: '红石日报',
-          theme: ThemeData(colorScheme: RDColors.white, useMaterial3: true, fontFamily: 'FontquanXinYiGuanHeiTi'),
+          theme: ThemeData(
+            colorScheme: RDColors.white,
+            useMaterial3: true,
+            fontFamily: 'FontquanXinYiGuanHeiTi',
+            fontFamilyFallback: const ['Noto Sans SC'],
+          ),
           routerConfig: _router,
         ));
   }

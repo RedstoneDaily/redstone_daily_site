@@ -8,6 +8,16 @@
 
 # 注意事项（Flutter工程）
 
+### 杂项
+
+- Flutter的web渲染引擎需设置为canvaskit才能清晰显示主页里的那些低清像素mc物品图片，否则会被“优化”图片会变模糊
+- 为了使页面调取打包的canvaskit而非gstatic源的canvaskit，使用dart-define变量`FLUTTER_WEB_CANVASKIT_URL`以指定canvaskit的url，即在flutter build命令里加上参数：
+```
+--dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
+```
+参考：https://github.com/flutter/flutter/pull/92134
+另：服务器会将这些个别大体积资源重定向到cdn img上，但是文件还是得塞进assets和flutter build里 这样页面才能认我们自己的资源（
+
 ### Aegis & prebuild脚本
 
 项目使用Aegis平台进行性能观测，有两种途径——
@@ -23,17 +33,17 @@
 然后 flutter build 之前记得执行一下`prebuild.sh` (linux) 或 `prebuild.bat` (windows) 谢谢喵
 **Linux**:
 ```bash
-./prebuild.sh && flutter build web --web-renderer canvaskit
+./prebuild.sh && flutter build web --web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
 ```
 **Windows**:
-```bash
-prebuild.bat && flutter build web --web-renderer canvaskit
+```powershell
+prebuild.bat && flutter build web --web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
 ```
 
 
 传递`--aegis [env-type]`参数即可启用aegis观测，指定env-type可将观测流量标记分类至不同环境种类
 ```bash
-./prebuild.sh --aegis local && flutter build web --web-renderer canvaskit
+./prebuild.sh --aegis local && flutter build web --web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/ --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
 ```
 `env-type` 可选值:
 - `prod` 生产环境
@@ -44,7 +54,6 @@ prebuild.bat && flutter build web --web-renderer canvaskit
 - `local` 本地环境
 - `test` 测试环境
 - `others` 其他环境(默认值)
-
 
 ### `API_HOST` dart-define变量
 
@@ -72,15 +81,11 @@ prebuild.bat && flutter build web --web-renderer canvaskit
 ```
 - name: Build Web (develop)
   if: github.ref == 'refs/heads/develop'        
-  run: ./prebuild.sh --aegis dev && flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
+  run: ./prebuild.sh --aegis dev && flutter build web --release --source-maps --web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/ --dart-define=API_HOST=redstonedaily.top
 ```
 测试服的CD会将此变量定义为"redstonedaily.top"（指向正式服api，但某些时候可能会需要改指测试服api以进行一些测试）；
 
 正式服不定义此变量。
-
-### 其他
-
-- Flutter的web渲染引擎需设置为canvaskit才能清晰显示主页里的那些低清像素mc物品图片，否则会被“优化”图片会变模糊
 
 ## Android Studio 开发环境配置（的一点提示）：
 
@@ -100,6 +105,6 @@ Execute类型选择Script Text
 
 工作目录在Flutter文件夹下
 
-然后Script text里填`bash ./prebuild.sh --aegis local`（Linux）`.\prebuild.bat --aegis local`（Windows）(还没试过)
+然后Script text里填`bash ./prebuild.sh --aegis local`（Linux）`.\prebuild.bat --aegis local`（Windows）
 
 然后Working directory填入项目根目录即可

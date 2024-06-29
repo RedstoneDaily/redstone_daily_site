@@ -1,5 +1,5 @@
 <script setup>
-import ToolButton from '../tool/UnderlinedButton.vue'
+import ToolButton from '../tool/ButtonUnderlined.vue'
 </script>
 
 <template >

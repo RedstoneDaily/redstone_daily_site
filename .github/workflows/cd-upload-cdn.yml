@@ -1,17 +1,13 @@
-name: Frontend CD (dev env)
+name: Frontend CD - CDN upload
 
 # 触发workflow的条件
 on:
   workflow_call:
+    inputs:
+      cospath:
+        type: string
+        required: true
     secrets:
-      TEST_SERVER_PRIVATE_KEY:
-        required: true
-      TEST_SERVER_HOST:
-        required: true
-      TEST_SERVER_PORT:
-        required: true
-      TEST_SERVER_USERNAME:
-        required: true
       COS_API_ID:
         required: true
       COS_API_KEY:
@@ -20,7 +16,7 @@ on:
         required: true
 
 jobs:
-  deploy:
+  upload-cdn:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -51,27 +47,18 @@ jobs:
           name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
           path: dist/vue/
 
-      # 部署到测试服务器
-      - name: Incremental Deploy
-        uses: easingthemes/ssh-deploy@main
+      - name: Setup Python
+        uses: actions/setup-python@v5.1.0
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.TEST_SERVER_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.TEST_SERVER_HOST }}
-          REMOTE_PORT: ${{ secrets.TEST_SERVER_PORT }}
-          REMOTE_USER: ${{ secrets.TEST_SERVER_USERNAME }}
-          ARGS: '-avz --delete'
-          # https://ss64.com/bash/rsync_options.html
-          SOURCE: 'dist/'
-          TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
+          # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+          python-version: ^3.12
+          # Used to specify the path to dependency files. Supports wildcards or a list of file names for caching multiple dependencies.
+          # cache-dependency-path: # optional
+          # update-environment: false
 
-  upload-cdn:
-    needs: deploy
-    uses: ./.github/workflows/cd-upload-cdn.yml
-    secrets: inherit
-    with:
-      cospath: 'dev/'
-
-  # 刷新CDN
-  # refresh-eo:
-  #     needs: deploy
-  #     uses: ./.github/workflows/cd-refresh-eo.yml
+      # coscmd
+      - name: coscmd
+        run: |
+          pip install coscmd
+          coscmd config -a ${{ secrets.COS_API_ID }} -s ${{ secrets.COS_API_KEY }} -b ${{ secrets.COS_API_BUCKET }} -r ap-hongkong
+          coscmd upload -rfs --delete ./dist ${{ inputs.cospath }} --ignore ".DS_Store" --ignore ".git*"

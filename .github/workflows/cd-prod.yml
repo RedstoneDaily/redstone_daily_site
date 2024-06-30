@@ -2,70 +2,83 @@ name: Frontend CD (prod env)
 
 # 触发workflow的条件
 on:
-    workflow_call:
-        secrets:
-            SERVER_PRIVATE_KEY:
-                required: true
-            SERVER_HOST:
-                required: true
-            SERVER_PORT:
-                required: true
-            SERVER_USERNAME:
-                required: true
-            CDN_REFRESH_API_SID:
-              required: true
-            CDN_REFRESH_API_SKEY:
-              required: true
-            PI:
-              required: false
+  workflow_call:
+    secrets:
+      SERVER_PRIVATE_KEY:
+        required: true
+      SERVER_HOST:
+        required: true
+      SERVER_PORT:
+        required: true
+      SERVER_USERNAME:
+        required: true
+      CDN_REFRESH_API_SID:
+        required: true
+      CDN_REFRESH_API_SKEY:
+        required: true
+      PI:
+        required: false
+      COS_API_ID:
+        required: true
+      COS_API_KEY:
+        required: true
+      COS_API_BUCKET:
+        required: true
 
 jobs:
-    deploy: 
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                shell: bash
-        
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@master
-              with:
-                  ref: ${{ github.ref }}
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
 
-            - id: sanitize_artifact_name
-              uses: ./.github/actions/sanitize-name
-              with:
-                name: ${{ github.ref_name }}
-            
-            # 下载Flutter构建产物
-            - name: 'Download Build Artifacts - ${{ github.ref_name }} - Flutter'
-              uses: actions/download-artifact@v3
-              with:
-                  name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
-                  path: dist/flutter-project/
-            
-            # 下载Vue构建产物
-            - name: 'Download Build Artifacts - ${{ github.ref_name }} Vue'
-              uses: actions/download-artifact@v3
-              with:
-                  name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
-                  path: dist/vue/
-            
-            # 部署到测试服务器
-            - name: Incremental Deploy
-              uses: easingthemes/ssh-deploy@main
-              with:
-                SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
-                REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-                REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-                REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
-                ARGS: '-avz --delete'
-                # https://ss64.com/bash/rsync_options.html
-                SOURCE: 'dist/'
-                TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
 
-    # 刷新CDN
-    refresh-cdn:
-        needs: deploy
-        uses: ./.github/workflows/cd-refresh-cdn.yml
-        secrets: inherit
+      - id: sanitize_artifact_name
+        uses: ./.github/actions/sanitize-name
+        with:
+          name: ${{ github.ref_name }}
+
+      # 下载Flutter构建产物
+      - name: 'Download Build Artifacts - ${{ github.ref_name }} - Flutter'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
+          path: dist/flutter-project/
+
+      # 下载Vue构建产物
+      - name: 'Download Build Artifacts - ${{ github.ref_name }} Vue'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
+          path: dist/vue/
+
+      # 部署到测试服务器
+      - name: Incremental Deploy
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+          REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+          REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+          ARGS: '-avz --delete'
+          # https://ss64.com/bash/rsync_options.html
+          SOURCE: 'dist/'
+          TARGET: '/root/redstone_daily/frontend/' # 服务器目标路径
+
+  upload-cdn:
+    needs: deploy
+    uses: ./.github/workflows/cd-upload-cdn.yml
+    secrets: inherit
+    with:
+      cospath: 'prod/'
+
+  # 刷新eo
+  refresh-eo:
+    needs: deploy
+    uses: ./.github/workflows/cd-refresh-eo.yml
+    secrets: inherit

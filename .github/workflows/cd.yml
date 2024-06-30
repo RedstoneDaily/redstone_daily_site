@@ -1,39 +1,45 @@
 name: Frontend CD
 
 on:
-    workflow_call:
-        secrets:
-            TEST_SERVER_PRIVATE_KEY:
-                required: true
-            TEST_SERVER_HOST:
-                required: true
-            TEST_SERVER_PORT:
-                required: true
-            TEST_SERVER_USERNAME:
-                required: true
-            SERVER_PRIVATE_KEY:
-                required: true
-            SERVER_HOST:
-                required: true
-            SERVER_PORT:
-                required: true
-            SERVER_USERNAME:
-                required: true
-            CDN_REFRESH_API_SID:
-                required: true
-            CDN_REFRESH_API_SKEY:
-                required: true
-            PI:
-                required: false
-        
+  workflow_call:
+    secrets:
+      TEST_SERVER_PRIVATE_KEY:
+        required: true
+      TEST_SERVER_HOST:
+        required: true
+      TEST_SERVER_PORT:
+        required: true
+      TEST_SERVER_USERNAME:
+        required: true
+      SERVER_PRIVATE_KEY:
+        required: true
+      SERVER_HOST:
+        required: true
+      SERVER_PORT:
+        required: true
+      SERVER_USERNAME:
+        required: true
+      CDN_REFRESH_API_SID:
+        required: true
+      CDN_REFRESH_API_SKEY:
+        required: true
+      PI:
+        required: false
+      COS_API_ID:
+        required: true
+      COS_API_KEY:
+        required: true
+      COS_API_BUCKET:
+        required: true
+
 
 jobs:
-    cd-dev:
-        uses: ./.github/workflows/cd-dev.yml
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
-        secrets: inherit
+  cd-dev:
+    uses: ./.github/workflows/cd-dev.yml
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
+    secrets: inherit
 
-    cd-prod:
-        uses: ./.github/workflows/cd-prod.yml
-        if: github.ref == 'refs/heads/main'
-        secrets: inherit
+  cd-prod:
+    uses: ./.github/workflows/cd-prod.yml
+    if: github.ref == 'refs/heads/main'
+    secrets: inherit

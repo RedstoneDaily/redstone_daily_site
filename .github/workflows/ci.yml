@@ -35,7 +35,7 @@ jobs:
         needs: spellcasting
         uses: ./.github/workflows/ci-build-flutter.yml
         with:
-            dir: ./flutter
+            dir: ./flutter_project
 
     # 构建vue项目
     build-vue:

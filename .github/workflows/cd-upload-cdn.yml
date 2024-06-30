@@ -38,7 +38,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
-          path: dist/flutter-project/
+          path: dist/flutter-project/build/web
 
       # 下载Vue构建产物
       - name: 'Download Build Artifacts - ${{ github.ref_name }} Vue'
@@ -62,4 +62,4 @@ jobs:
           pip install coscmd
           pip install coscmd -U
           coscmd config -a ${{ secrets.COS_API_ID }} -s ${{ secrets.COS_API_KEY }} -b ${{ secrets.COS_API_BUCKET }} -r ap-hongkong
-          coscmd upload -rfs --delete ./dist ${{ inputs.cospath }} --ignore ".DS_Store" --ignore ".git*"
+          coscmd upload -rfs --delete ./dist/ ${{ inputs.cospath }} --ignore ".DS_Store" --ignore ".git*"

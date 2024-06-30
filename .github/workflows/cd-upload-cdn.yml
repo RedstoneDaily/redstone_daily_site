@@ -38,7 +38,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
-          path: dist/flutter-project/build/web
+          path: dist/flutter_project/build/web/
 
       # 下载Vue构建产物
       - name: 'Download Build Artifacts - ${{ github.ref_name }} Vue'

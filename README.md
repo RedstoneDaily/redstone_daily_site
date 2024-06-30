@@ -6,6 +6,8 @@
 
 **PR尽量往develop分支上推哦! 阿里嘎多~**
 
+[changelog](./changelog.md)
+
 # 注意事项（Flutter工程）
 
 ### 杂项
@@ -43,7 +45,7 @@ prebuild.bat && flutter build web --web-renderer canvaskit --dart-define=FLUTTER
 
 传递`--aegis [env-type]`参数即可启用aegis观测，指定env-type可将观测流量标记分类至不同环境种类
 ```bash
-./prebuild.sh --aegis local && flutter build web --web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/ --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
+./prebuild.sh --aegis local && flutter build web --web-renderer canvaskit --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
 ```
 `env-type` 可选值:
 - `prod` 生产环境
@@ -87,7 +89,7 @@ prebuild.bat && flutter build web --web-renderer canvaskit --dart-define=FLUTTER
 
 正式服不定义此变量。
 
-## Android Studio 开发环境配置（的一点提示）：
+## Android Studio 开发环境配置（的一点tips）：
 
 由于现在在试验其他框架，Flutter工程被移入/flutter文件夹内，另外结合上述提示，可能需要小改一下运行配置：
 

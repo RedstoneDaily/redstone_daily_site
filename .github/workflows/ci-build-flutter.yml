@@ -52,11 +52,11 @@ jobs:
             
             - name: Build Web (develop)
               if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
-              run: 'echo \x22{"aegis_env": "dev"}\x22 > config.json && flutter build web --release --source-maps --dart-define API_HOST=redstonedaily.top'
+              run: "echo \x22{'aegis_env': 'dev'}\x22 > config.json && flutter build web --release --source-maps --dart-define API_HOST=redstonedaily.top"
 
             - name: Build Web (production)
               if: github.ref == 'refs/heads/main'
-              run: 'echo \x22{"aegis_env": "prod"}\x22 > config.json && flutter build web --release --source-maps'
+              run: "echo \x22{'aegis_env': 'prod'}\x22 > config.json && flutter build web --release --source-maps"
             
             - id: sanitize_artifact_name
               uses: ./.github/actions/sanitize-name

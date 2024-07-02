@@ -43,7 +43,11 @@ const apiQuizCheck = async (quiz_id, ans_link) => {
   const url = new URL(api_quiz_check);
   url.searchParams.set("id", quiz_id);
   url.searchParams.set("ans", ans_link);
-  return fetch(url).then((res) => res.json()).then || null;
+  return (
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => data.score) || null
+  );
 };
 
 const quiz_id = ref(null);
@@ -79,7 +83,8 @@ const newQuiz = async () => {
 
 const checking_status = ref(AsyncStatus.uninited);
 const check = async () => {
-  if (loading_status.value != AsyncStatus.done || quiz_id.value === null) return;
+  if (loading_status.value != AsyncStatus.done || quiz_id.value === null)
+    return;
   checking_status.value = AsyncStatus.in_progress;
   const checked_score = await apiQuizCheck(quiz_id, ans_link);
   if (checked_score >= 0 && checked_score <= 100) {

@@ -38,7 +38,7 @@ const { pagesNum } = defineProps(['pagesNum'])
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/assets/background/Fparrot_CPU.png');
+  background-image: url('@/assets/background/Fparrot_CPU.png');
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;

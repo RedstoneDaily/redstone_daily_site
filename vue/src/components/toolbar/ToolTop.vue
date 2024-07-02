@@ -6,7 +6,7 @@ import ToolButton from '../tool/ButtonUnderlined.vue'
   <div class="main">
     <nav>
       /
-      <ToolButton name="红石图寻" dst="/rdsearch" /> / <ToolButton /> / <ToolButton /> /
+      <ToolButton name="红石图寻" dst="/rs_search" /> / <ToolButton /> / <ToolButton /> /
     </nav>
     <nav>
       /

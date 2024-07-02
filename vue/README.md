@@ -48,6 +48,7 @@ pnpm lint
   - [Pinia](https://pinia.vuejs.org/)
   - [Vue Router](https://router.vuejs.org/)
   - [url-polyfill](https://github.com/lifaon74/url-polyfill)
+  - [aegis-web-sdk](https://cloud.tencent.com/document/product/1464)
 - 开发依赖
   - [ESLint](https://eslint.org/)
   - [Vite](https://vitejs.dev/)

@@ -1,3 +1,5 @@
+import Aegis from 'aegis-web-sdk';
+
 // Aegis 观测上报环境
 const AegisENVs = Object.freeze({
   // 生产环境
@@ -30,11 +32,11 @@ for (let i = 0; i < UIN_Length; i++) {
 uin = Date.now() + "-" + uin;
 
 if (typeof Aegis === 'function') {
-  var aegis = new Aegis({
+  const aegis = new Aegis({
     // Env
     id: 'mZxy9hL2PY1GozZLD9',
     uin: uin,
-    env: AegisENVs.prod,
+    env: env,
     hostUrl: 'https://rumt-zh.com',
 
     // Speed Report
@@ -73,4 +75,5 @@ if (typeof Aegis === 'function') {
       // }
     }
   });
+  console.log(aegis || 'Aegis is not a function');
 }

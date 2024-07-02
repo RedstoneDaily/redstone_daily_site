@@ -1,4 +1,4 @@
-name: Build Vue Project
+name: CI - Build Vue Project
 
 # 触发workflow的条件
 on:
@@ -25,10 +25,30 @@ jobs:
               with:
                   ref: ${{ github.ref }}
 
-            # Todo...
-
-            - run: 'mkdir dist'
-            - run: 'touch ./dist/index.html'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+                check-latest: true
+            
+            - name: Setup pnpm & dependencies
+              run: |
+                npm install -g pnpm
+                pnpm install
+            
+            - name: Lint Vue Project
+              run: pnpm lint
+            
+            - name: Config (dev)
+              if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
+              run: 'echo \x22{"aegis_env": "dev"}\x22 > config.json'
+            
+            - name: Config (prod)
+              if: github.ref == 'refs/heads/main'
+              run: 'echo \x22{"aegis_env": "prod"}\x22 > config.json'
+            
+            - name: Build Vue Project
+              run: pnpm build
 
             - id: sanitize_artifact_name
               uses: ./.github/actions/sanitize-name
@@ -40,4 +60,4 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                 name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
-                path: ${{ inputs.dir }}/dist 	# 是这个没错吧？
+                path: ${{ inputs.dir }}/dist

@@ -42,5 +42,4 @@ jobs:
         needs: spellcasting
         uses: ./.github/workflows/ci-build-vue.yml
         with:
-            dir: ./vue
-                    
+            dir: ./vue  

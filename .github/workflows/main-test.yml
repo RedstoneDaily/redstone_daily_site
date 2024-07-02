@@ -1,4 +1,4 @@
-name: Main Workflow (test)
+name: Main (dev)
 
 # 触发workflow的条件
 on:

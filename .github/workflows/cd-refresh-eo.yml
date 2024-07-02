@@ -1,4 +1,4 @@
-name: Refresh CDN
+name: CD - Refresh EO
 
 # 触发workflow的条件
 on:

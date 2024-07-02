@@ -1,4 +1,4 @@
-name: Frontend CD - CDN upload
+name: CD - Upload CDN
 
 # 触发workflow的条件
 on:

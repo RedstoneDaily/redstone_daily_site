@@ -1,4 +1,4 @@
-name: Frontend CD
+name: CD
 
 on:
   workflow_call:

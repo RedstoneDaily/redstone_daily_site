@@ -1,4 +1,4 @@
-name: Frontend CD (prod env)
+name: CD (prod env)
 
 # 触发workflow的条件
 on:

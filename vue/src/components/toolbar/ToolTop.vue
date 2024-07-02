@@ -2,22 +2,17 @@
 import ToolButton from '../tool/ButtonUnderlined.vue'
 </script>
 
-<template >
+<template>
   <div class="main">
     <nav>
       /
-      <ToolButton /> /
-      <ToolButton /> /
-      <ToolButton /> /
+      <ToolButton name="红石图寻" dst="/rdsearch" /> / <ToolButton /> / <ToolButton /> /
     </nav>
     <nav>
       /
-      <ToolButton /> /
-      <ToolButton /> /
-      <ToolButton /> /
+      <ToolButton /> / <ToolButton /> / <ToolButton /> /
     </nav>
   </div>
-
 </template>
 
 <style scoped>

@@ -1,14 +1,14 @@
 <script setup>
-import ToolTop from '@/components/toolbar/ToolTop.vue';
+import ToolTop from '@/components/toolbar/ToolTop.vue'
 
-const {pagesNum} = defineProps(['pagesNum'])
+const { pagesNum } = defineProps(['pagesNum'])
 
 // const p = ref(0);
 </script>
 
 <template>
   <!-- top=0px width=变量 -->
-  <div :style="{ top:'0px',height:`${pagesNum == 0 ? 100 : 0}%` }">
+  <div :style="{ top: '0px', height: `${pagesNum == 0 ? 100 : 0}%` }">
     <!-- 页面容器 -->
     <div class="page-container">
       <!-- 顶部工具栏 -->
@@ -38,7 +38,7 @@ const {pagesNum} = defineProps(['pagesNum'])
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/background/Fparrot_CPU.png");
+  background-image: url('../../assets/background/Fparrot_CPU.png');
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;

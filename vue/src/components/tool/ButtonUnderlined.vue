@@ -1,10 +1,29 @@
 <script setup>
-// 如果有需要在脚本中定义变量或导入其他模块，可以在这里添加
+import { useRouter } from 'vue-router';
+
+const props = defineProps({
+  name: {
+	type: String,
+	required: false,
+	default: '日报'
+  }, 
+  dst: {
+	type: String,
+	required: false,
+	default: '/'
+  }
+})
+
+const router = useRouter()
+
+const navigate = () => {
+  router.push(props.dst)
+}
 </script>
 
 <template>
-  <div class="tool-button">
-    <button>日报</button>
+  <div class="tool-button" @click="navigate">
+    <button>{{ props.name }}</button>
   </div>
 </template>
 
@@ -37,7 +56,9 @@
   bottom: 5px;
   left: 50%;
   background-color: #fff;
-  transition: width 0.3s ease, left 0.3s ease;
+  transition:
+    width 0.3s ease,
+    left 0.3s ease;
 }
 
 .tool-button:hover::before {

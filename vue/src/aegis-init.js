@@ -18,16 +18,8 @@ const AegisENVs = Object.freeze({
   others: 'Aegis.environment.others'
 });
 
-let env = AegisENVs.prod;
-
-// content of config.json:
-// {
-//	"aegis_env": "dev"
-// }
-
-await fetch('/config.json').then(res => res.json()).then(config => {
-  env = AegisENVs[config.aegis_env] || AegisENVs.prod;
-});
+import {aegis_env as env_option} from './config.json'
+const env = AegisENVs[env_option] || AegisENVs.prod;
 
 // Generate UIN
 const UIN_Length = 10;
@@ -42,7 +34,7 @@ if (typeof Aegis === 'function') {
     // Env
     id: 'mZxy9hL2PY1GozZLD9',
     uin: uin,
-    env: env,
+    env: AegisENVs.prod,
     hostUrl: 'https://rumt-zh.com',
 
     // Speed Report

@@ -22,7 +22,7 @@ const router = createRouter({
     //   component: () => import('../views/HomePage.vue')
     // },
     { path: "/rs_search", name: "rs_search", component: RSSearchView },
-	{ path: '/:pathMatch(.*)*', name: 'not_found', component: NotFoundView }
+	{ path: '/:catchAll(.*)*', name: 'not_found', component: NotFoundView }
   ],
 });
 

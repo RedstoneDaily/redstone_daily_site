@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
-          path: dist/vue/
+          path: dist/vue/dist/
 
       # 部署到测试服务器
       - name: Incremental Deploy

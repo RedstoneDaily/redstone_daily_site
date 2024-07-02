@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
-          path: dist/vue/
+          path: dist/vue/dist
 
       - name: Setup Python
         uses: actions/setup-python@v5.1.0

@@ -11,11 +11,10 @@
  * - 真的应该用url-polyfill吗？
  */
 
-import { ref, inject, onMounted } from "vue";
+// import { ref, inject, onMounted } from "vue";
 import "url-polyfill";
 
 import ToolTop from "@/components/toolbar/ToolTop.vue";
-
 </script>
 
 <template>
@@ -24,9 +23,18 @@ import ToolTop from "@/components/toolbar/ToolTop.vue";
     <div id="container">
       <h1>Acacia编译器 demo</h1>
       <img class="quiz-img" v-if="quiz_img" :src="quiz_img" />
-      <div style="width: 90vw; height: 30vw; font-size: 5vw; display: flex; align-items: center; justify-content: center;">
-		To be continued...
-	  </div>
+      <div
+        style="
+          width: 90vw;
+          height: 30vw;
+          font-size: 5vw;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        To be continued...
+      </div>
     </div>
   </div>
 </template>
@@ -44,6 +52,4 @@ import ToolTop from "@/components/toolbar/ToolTop.vue";
   align-items: center;
   gap: 10px;
 }
-
-
 </style>

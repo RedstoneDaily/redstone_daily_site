@@ -42,7 +42,8 @@ if (typeof Aegis === 'function') {
     // Env
     id: 'mZxy9hL2PY1GozZLD9',
     uin: uin,
-    env: AegisENVs.prod,
+    // env: AegisENVs.prod,
+    env: Aegis.environment.production
     hostUrl: 'https://rumt-zh.com',
 
     // Speed Report

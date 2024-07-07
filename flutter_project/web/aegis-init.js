@@ -1,5 +1,5 @@
 // Aegis 观测上报环境
-const AegisENVs = Object.freeze({
+export AegisENVs = Object.freeze({
   // 生产环境
   prod: 'Aegis.environment.production',
   // 开发环境

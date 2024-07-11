@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-NewsPaper newsPaperFromJson(String str) => NewsPaper.fromJson(json.decode(str));
+NewsPaper newsPaperFromJson(String str) => NewsPaper.fromJson(json.decode(str))..sortedByScore(); // 临时的排序
 
 String newsPaperToJson(NewsPaper data) => json.encode(data.toJson());
 
@@ -30,6 +30,12 @@ class NewsPaper {
     "description": description,
     "content": List<dynamic>.from(content.map((x) => x.toJson())),
   };
+
+  // 一个函数自动排序内部数据，依据是content[index].data.score，降序
+  // 临时
+  void sortedByScore() {
+    content.sort((a, b) => b.data.score.compareTo(a.data.score));
+  }
 }
 
 class Content {

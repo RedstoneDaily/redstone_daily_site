@@ -1,4 +1,4 @@
-name: Main (prod)
+name: Main
 
 # 触发workflow的条件
 on:

@@ -48,4 +48,4 @@ jobs:
             - name: Run Python Script to Refresh CDN
               run: |
                   python3 .github/atrf.py
-                  python3 .github/atrf_rcdn.py
+                  sleep 20 && python3 .github/atrf_rcdn.py

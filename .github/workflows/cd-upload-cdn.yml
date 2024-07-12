@@ -62,5 +62,4 @@ jobs:
           pip install coscmd
           pip install coscmd -U
           coscmd config -a ${{ secrets.COS_API_ID }} -s ${{ secrets.COS_API_KEY }} -b ${{ secrets.COS_API_BUCKET }} -r ap-hongkong
-          coscmd delete -r ${{ inputs.cospath }} -y
           coscmd upload -rfs --delete ./dist/ ${{ inputs.cospath }} --ignore ".DS_Store" --ignore ".git*"

@@ -4,6 +4,7 @@ import hmac
 import json
 import sys
 import time
+import os
 from datetime import datetime
 if sys.version_info[0] <= 2:
     from httplib import HTTPSConnection

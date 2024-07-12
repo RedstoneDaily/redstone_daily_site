@@ -1,21 +1,21 @@
 // Aegis 观测上报环境
-export AegisENVs = Object.freeze({
-  // 生产环境
-  prod: 'Aegis.environment.production',
-  // 开发环境
-  dev: 'Aegis.environment.development',
-  // 灰度环境
-  gray: 'Aegis.environment.gray',
-  // 预发布环境
-  pre: 'Aegis.environment.pre',
-  // 日发布环境
-  daily: 'Aegis.environment.daily',
-  // 本地环境
-  local: 'Aegis.environment.local',
-  // 测试环境
-  test: 'Aegis.environment.test',
-  // 其他环境
-  others: 'Aegis.environment.others'
+  const AegisENVs = Object.freeze({
+    // 生产环境
+    prod: 'production',
+    // 开发环境
+    dev: 'development',
+    // 灰度环境
+    gray: 'gray',
+    // 预发布环境
+    pre: 'pre',
+    // 日发布环境
+    daily: 'daily',
+    // 本地环境
+    local: 'local',
+    // 测试环境
+    test: 'test',
+    // 其他环境
+    others: 'others'
 });
 
 let env = AegisENVs.prod;

@@ -46,4 +46,6 @@ jobs:
             #   run: echo $PIE
 
             - name: Run Python Script to Refresh CDN
-              run: 'python3 .github/atrf.py'
+              run: |
+                  python3 .github/atrf.py
+                  python3 .github/atrf_rcdn.py

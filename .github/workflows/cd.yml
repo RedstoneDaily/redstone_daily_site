@@ -3,21 +3,7 @@ name: CD
 on:
   workflow_call:
     secrets:
-      TEST_SERVER_PRIVATE_KEY:
-        required: true
-      TEST_SERVER_HOST:
-        required: true
-      TEST_SERVER_PORT:
-        required: true
-      TEST_SERVER_USERNAME:
-        required: true
-      SERVER_PRIVATE_KEY:
-        required: true
-      SERVER_HOST:
-        required: true
-      SERVER_PORT:
-        required: true
-      SERVER_USERNAME:
+      TARGET_SERVERS:
         required: true
       CDN_REFRESH_API_SID:
         required: true
@@ -34,12 +20,34 @@ on:
 
 
 jobs:
+
+  validate-server-info:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: write secret to file
+        run: echo "${{ secrets.TARGET_SERVERS }}" > ./.github/target-servers.yml
+
+      - name: validate
+        uses: ammarlakis/action-ajv@master
+        with:
+          schema: ./.github/target-servers-schema.json
+          data: ./.github/target-servers.yml
+          allErrors: true
+  
   cd-dev:
+    needs: validate-server-info
     uses: ./.github/workflows/cd-dev.yml
     if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
     secrets: inherit
 
   cd-prod:
+    needs: validate-server-info
     uses: ./.github/workflows/cd-prod.yml
     if: github.ref == 'refs/heads/main'
     secrets: inherit

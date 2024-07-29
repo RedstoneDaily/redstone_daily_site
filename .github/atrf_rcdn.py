@@ -4,6 +4,7 @@ import hmac
 import json
 import sys
 import time
+import os
 from datetime import datetime
 if sys.version_info[0] <= 2:
     from httplib import HTTPSConnection
@@ -30,7 +31,7 @@ host = "cdn.tencentcloudapi.com"
 region = ""
 version = "2018-06-06"
 action = "PurgePathCache"
-payload = "{\"Paths\":[\"https://cstatic.charcaius.com\"],\"FlushType\":\"flush\",\"UrlEncode\":false}"
+payload = "{\"Paths\":[\"https://cstatic.charcaius.com\"],\"FlushType\":\"delete\",\"UrlEncode\":false}"
 params = json.loads(payload)
 endpoint = "https://cdn.tencentcloudapi.com"
 algorithm = "TC3-HMAC-SHA256"

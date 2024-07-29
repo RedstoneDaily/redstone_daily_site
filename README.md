@@ -6,6 +6,8 @@
 
 **PR尽量往develop分支上推哦! 阿里嘎多~**
 
+**日常开发也都往develop分支上推~ 但是跟==Github Actions==相关的开发往workflow-dev分支上推哦**
+
 [changelog](./changelog.md)
 
 # 注意事项（Flutter工程）

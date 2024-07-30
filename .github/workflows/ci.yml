@@ -8,14 +8,13 @@ name: CI
 # cache源码 检测子模块变动->选择性构建
 # cache产物&编译缓存 -> 增量编译
 
-# 触发workflow的条件
 on:
     workflow_call:
 
 jobs:
     # 进行一些施法（
     spellcasting:
-        runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
+        runs-on: ubuntu-latest
         
         defaults:
             run:

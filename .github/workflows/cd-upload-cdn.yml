@@ -35,28 +35,24 @@ jobs:
 
       # 下载Flutter构建产物
       - name: 'Download Build Artifacts - ${{ github.ref_name }} - Flutter'
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
           path: dist/flutter_project/build/web/
 
       # 下载Vue构建产物
       - name: 'Download Build Artifacts - ${{ github.ref_name }} Vue'
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
           path: dist/vue/dist
 
+      # coscmd上传
       - name: Setup Python
         uses: actions/setup-python@v5.1.0
         with:
-          # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
           python-version: "3.10"
-          # Used to specify the path to dependency files. Supports wildcards or a list of file names for caching multiple dependencies.
-          # cache-dependency-path: # optional
-          # update-environment: false
 
-      # coscmd
       - name: coscmd
         run: |
           pip install coscmd

@@ -1,4 +1,4 @@
-name: Build Flutter Project
+name: CI - Build Flutter Project
 
 # 触发workflow的条件
 on:
@@ -65,9 +65,8 @@ jobs:
             
             - name: 'Upload Build Artifacts - ${{ github.ref_name }} - Flutter'
               if: steps.sanitize_artifact_name.outputs.sanitized_name
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
                 path: ${{ inputs.dir }}/build/web
-
-
+#?

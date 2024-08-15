@@ -4,12 +4,10 @@ name: CD - Refresh EO
 on:
     workflow_call:
         secrets:
-            CDN_REFRESH_API_SID:
+            EO_API_SID:
                 required: true
-            CDN_REFRESH_API_SKEY:
+            EO_API_SKEY:
                 required: true
-            PI:
-                required: false
 
 jobs:
     # 部署任务
@@ -21,9 +19,8 @@ jobs:
                 shell: bash
 
         env:
-            CDN_REFRESH_API_SID: ${{ secrets.CDN_REFRESH_API_SID }}
-            CDN_REFRESH_API_SKEY: ${{ secrets.CDN_REFRESH_API_SKEY }}
-            PIE: ${{ secrets.PI }}
+            EO_API_SID: ${{ secrets.EO_API_SID }}
+            EO_API_SKEY: ${{ secrets.EO_API_SKEY }}
 
         steps:
             - name: Checkout code
@@ -35,15 +32,7 @@ jobs:
             - name: Setup Python
               uses: actions/setup-python@v5.1.0
               with:
-                  # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
                   python-version: ^3.12
-                  # Used to specify the path to dependency files. Supports wildcards or a list of file names for caching multiple dependencies.
-                  # cache-dependency-path: # optional
-                  # update-environment: false
-
-            # 测试()
-            # - name: Print PIE
-            #   run: echo $PIE
 
             - name: Run Python Script to Refresh CDN
               run: |

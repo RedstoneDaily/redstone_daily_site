@@ -3,51 +3,38 @@ name: CD
 on:
   workflow_call:
     secrets:
-      TARGET_SERVERS:
+      # for ssh deploy
+      SSH_DEPLOY_KEY:
         required: true
-      CDN_REFRESH_API_SID:
+      # for Tencent Edgeone refresh API
+      EO_API_SID:
         required: true
-      CDN_REFRESH_API_SKEY:
+      EO_API_SKEY:
         required: true
-      PI:
-        required: false
+      # for the CDN on Tencent COS
       COS_API_ID:
         required: true
       COS_API_KEY:
         required: true
       COS_API_BUCKET:
         required: true
+      # test
+      PI:
+        required: false
 
 
 jobs:
-
-  validate-server-info:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-        with:
-          ref: ${{ github.ref }}
-      
-      - name: write secret to file
-        run: echo "${{ secrets.TARGET_SERVERS }}" > ./.github/target-servers.yml
-
-      - name: validate
-        uses: ammarlakis/action-ajv@master
-        with:
-          schema: ./.github/target-servers-schema.json
-          data: ./.github/target-servers.yml
-          allErrors: true
   
   cd-dev:
-    needs: validate-server-info
-    uses: ./.github/workflows/cd-dev.yml
+    uses: ./.github/workflows/cd-to-env.yml
     if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
+    with:
+        environment: dev
     secrets: inherit
 
   cd-prod:
-    needs: validate-server-info
-    uses: ./.github/workflows/cd-prod.yml
+    uses: ./.github/workflows/cd-to-env.yml
     if: github.ref == 'refs/heads/main'
+    with:
+        environment: prod
     secrets: inherit

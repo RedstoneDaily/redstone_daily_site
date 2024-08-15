@@ -83,7 +83,7 @@ class MainPageEnd extends StatelessWidget {
     ]),
     NavCategory("其他", [
       NavItem("随机页面", "/random"),
-      NavItem("支持我们", "https://afdian.net/a/crebet", isRoute: false),
+      NavItem("支持我们", "https://afdian.com/a/crebet", isRoute: false),
       NavItem("致谢", "/articles/credits.md"),
       NavItem("友情链接", "/articles/links.md"),
     ]),

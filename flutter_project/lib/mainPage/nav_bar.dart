@@ -58,7 +58,7 @@ class NavBar extends StatelessWidget {
         Flexible(flex: flexSearchBar, child: searchBar()),
         const Spacer(flex: flexSearchBarMargin),
         Text(" / ", style: style),
-        navItem(dst: "https://afdian.net/a/crebet", text: "赞助", isRoute: false),
+        navItem(dst: "https://afdian.com/a/crebet", text: "赞助", isRoute: false),
         Text(" / ", style: style),
         navItem(dst: "https://github.com/RedstoneDaily/redstone_daily", text: "源码", isRoute: false),
         Text(" / ", style: style),

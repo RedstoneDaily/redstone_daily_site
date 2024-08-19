@@ -10,6 +10,11 @@ name: CI
 
 on:
     workflow_call:
+        inputs:
+            ENV_TYPE: 
+                description: 'The Environment to deploy'
+                type: string
+                required: true
 
 jobs:
     # 进行一些施法（
@@ -35,6 +40,7 @@ jobs:
         uses: ./.github/workflows/ci-build-flutter.yml
         with:
             dir: ./flutter_project
+            ENV_TYPE: ${{ inputs.ENV_TYPE }}
 
     # 构建vue项目
     build-vue:
@@ -42,3 +48,4 @@ jobs:
         uses: ./.github/workflows/ci-build-vue.yml
         with:
             dir: ./vue  
+            ENV_TYPE: ${{ inputs.ENV_TYPE }}

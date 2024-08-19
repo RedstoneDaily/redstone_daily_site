@@ -7,6 +7,7 @@ on:
       cospath:
         type: string
         required: true
+        description: 'The destination path to upload to COS'
     secrets:
       COS_API_ID:
         required: true

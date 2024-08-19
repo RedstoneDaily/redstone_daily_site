@@ -10,10 +10,10 @@ name: CD - SSH Deploy
 on:
   workflow_call:
     inputs:
-      environment:
-        description: "The name of the Github Environment to deploy to"
-        type: string
-        required: true
+        ENV_TYPE: 
+            description: 'The Environment to deploy'
+            type: string
+            required: true
     secrets:
       SSH_DEPLOY_KEY:
         required: true
@@ -21,10 +21,10 @@ on:
 jobs:
   ssh-deploy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.ENV_TYPE }}
 
     steps:
-      - run: echo "Deploying to ${{ inputs.environment }}"
+      - run: echo "Deploying to ${{ inputs.ENV_TYPE }}"
 
       - name: Checkout
         uses: actions/checkout@master

@@ -50,13 +50,9 @@ class _SilverContentListState extends State<SilverContentList> {
     
     // fetch data from url api
     const String apiHost = String.fromEnvironment('API_HOST', defaultValue: _defaultApiHost);
-    const String apiDailyPath = "api/daily";
+    const String apiDailyPath = "daily/get";
 
-    Uri uri = Uri.https(apiHost, _apiBase + apiDailyPath, {
-            'yy': widget.year,
-            'mm': widget.month,
-            'dd': widget.day,
-          });
+    Uri uri = Uri.https(apiHost, "$_apiBase$apiDailyPath/${widget.year}/${widget.month}/${widget.day}");
     
     try {
       final response = await http.get(uri);

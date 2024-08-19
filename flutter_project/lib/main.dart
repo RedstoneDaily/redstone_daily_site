@@ -35,9 +35,12 @@ class IssuesListProvider extends ChangeNotifier {
   Future<String> _fetchData() async {
 
     const String apiHost = String.fromEnvironment('API_HOST', defaultValue: _defaultApiHost);
-    const String apiListPath = "api/list";
+    const String apiListPath = "daily/query";
 
-    Uri uri = Uri.https(apiHost, _apiBase + apiListPath);
+    Uri uri = Uri.https(apiHost, _apiBase + apiListPath, {
+      'start_date': '2024-05-01',
+      'end_date': DateFormat("yyyy-MM-dd").format(DateTime.now()),
+    });
 
     try {
       final response = await http.get(uri);

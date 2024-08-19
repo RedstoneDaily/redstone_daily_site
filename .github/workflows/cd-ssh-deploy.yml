@@ -81,7 +81,7 @@ jobs:
           REMOTE_HOST: ${{ env.HOST }}
           REMOTE_PORT: ${{ env.PORT }}
           REMOTE_USER: ${{ env.USERNAME }}
-          ARGS: "-avz --delete"
+          ARGS: "-avz"
           # https://ss64.com/bash/rsync_options.html
           SOURCE: "dist/"
           TARGET: ${{ env.TARGET_PATH }}

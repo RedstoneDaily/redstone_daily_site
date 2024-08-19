@@ -2,6 +2,11 @@ name: CD
 
 on:
   workflow_call:
+    inputs:
+      ENV_TYPE:
+        description: "The Environment to deploy"
+        type: string
+        required: true
     secrets:
       # for ssh deploy
       SSH_DEPLOY_KEY:
@@ -22,19 +27,24 @@ on:
       PI:
         required: false
 
-
 jobs:
-  
-  cd-dev:
-    uses: ./.github/workflows/cd-to-env.yml
-    if: github.ref == 'refs/heads/develop'
+  ssh-deploy:
+    uses: ./.github/workflows/cd-ssh-deploy.yml
     with:
-        environment: dev
+      ENV_TYPE: ${{ inputs.ENV_TYPE }}
     secrets: inherit
 
-  cd-prod:
-    uses: ./.github/workflows/cd-to-env.yml
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/workflow-dev'
+  # 上传CDN
+  upload-cdn:
+    needs: ssh-deploy
+    uses: ./.github/workflows/cd-upload-cdn.yml
+    secrets: inherit
     with:
-        environment: prod
+      cospath: "${{ inputs.ENV_TYPE }}/"
+
+  # 刷新eo（条件：environment == 'prod'）
+  refresh-eo:
+    needs: ssh-deploy
+    if: ${{ inputs.ENV_TYPE == 'prod' }}
+    uses: ./.github/workflows/cd-refresh-eo.yml
     secrets: inherit

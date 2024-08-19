@@ -1,19 +1,17 @@
-name: Workflow Test
-
-# 触发workflow的条件
+name: Main Workflow - On pushing to main branch
 on:
     push:
-        branches: [workflow-dev]
+        branches: [main]
 
 jobs:
     ci:
         uses: ./.github/workflows/ci.yml
         with:
-            ENV_TYPE: dev
+            ENV_TYPE: prod
     
     cd:
         needs: ci
         uses: ./.github/workflows/cd.yml
         with:
-            ENV_TYPE: dev
+            ENV_TYPE: prod
         secrets: inherit

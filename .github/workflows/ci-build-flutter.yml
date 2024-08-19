@@ -7,7 +7,11 @@ on:
             dir:
                 required: true
                 type: string
-                description: 'Flutter Project Directory'
+                description: 'Flutter Project Directory Root'
+            ENV_TYPE: 
+                description: 'The Environment to deploy'
+                type: string
+                required: true
 
 jobs:
     # 构建flutter项目任务
@@ -50,12 +54,12 @@ jobs:
             - name: Get Flutter dependencies
               run: flutter pub get
             
-            - name: Build Web (develop)
-              if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
-              run: "echo \x22{'aegis_env': 'dev'}\x22 > config.json && flutter build web --release --source-maps --dart-define API_HOST=redstonedaily.top"
+            - name: Build Web (dev)
+              if: inputs.ENV_TYPE == 'dev'
+              run: "echo \x22{'aegis_env': 'dev'}\x22 > config.json && flutter build web --release --source-maps --dart-define API_HOST=api.rsdaily.com"
 
-            - name: Build Web (production)
-              if: github.ref == 'refs/heads/main'
+            - name: Build Web (prod)
+              if: inputs.ENV_TYPE == 'prod'
               run: "echo \x22{'aegis_env': 'prod'}\x22 > config.json && flutter build web --release --source-maps"
             
             - id: sanitize_artifact_name

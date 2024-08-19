@@ -8,6 +8,10 @@ on:
                 required: true
                 type: string
                 description: 'Vue Project Directory'
+            ENV_TYPE: 
+                description: 'The Environment to deploy'
+                type: string
+                required: true
 
 jobs:
     # 构建Vue项目任务
@@ -39,13 +43,9 @@ jobs:
             - name: Lint Vue Project
               run: pnpm lint
             
-            - name: Config (dev)
-              if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/workflow-dev'
-              run: 'echo \x22{"aegis_env": "dev"}\x22 > config.json'
-            
-            - name: Config (prod)
-              if: github.ref == 'refs/heads/main'
-              run: 'echo \x22{"aegis_env": "prod"}\x22 > config.json'
+            - name: Config (${{ inputs.ENV_TYPE }})
+              run: |
+                  echo '{"aegis_env": "${{ inputs.ENV_TYPE }}"}' > config.json
             
             - name: Build Vue Project
               run: pnpm build

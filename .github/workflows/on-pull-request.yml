@@ -1,9 +1,7 @@
-name: Workflow Test
-
-# 触发workflow的条件
+name: Main Workflow - When PR to main branch updates
 on:
-    push:
-        branches: [workflow-dev]
+    pull_request_target:
+        branches: [main]
 
 jobs:
     ci:

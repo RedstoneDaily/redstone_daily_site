@@ -32,7 +32,7 @@ class SilverContentList extends StatefulWidget {
   State<SilverContentList> createState() => _SilverContentListState();
 }
 
-const String _defaultApiHost = "api.redstonedaily.com";
+const String _defaultApiHost = "api.rsdaily.com";
 const String _apiBase = "/v1/";
 
 class _SilverContentListState extends State<SilverContentList> {

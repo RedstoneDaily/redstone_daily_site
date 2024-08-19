@@ -18,7 +18,7 @@ void main() {
   runApp(MyApp());
 }
 
-const String _defaultApiHost = "api.redstonedaily.com";
+const String _defaultApiHost = "api.rsdaily.com";
 const String _apiBase = "/v1/";
 
 class IssuesListProvider extends ChangeNotifier {
@@ -36,7 +36,7 @@ class IssuesListProvider extends ChangeNotifier {
 
     const String apiHost = String.fromEnvironment('API_HOST', defaultValue: _defaultApiHost);
     const String apiListPath = "api/list";
-    
+
     Uri uri = Uri.https(apiHost, _apiBase + apiListPath);
 
     try {

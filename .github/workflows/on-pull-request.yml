@@ -1,6 +1,6 @@
 name: Main Workflow - When PR to main branch updates
 on:
-    pull_request_target:
+    pull_request:
         branches: [main]
 
 jobs:

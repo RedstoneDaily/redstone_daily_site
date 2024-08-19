@@ -22,19 +22,26 @@ class IssuesList {
   late final dailyFlattened = memo0(() => daily.values.expand((e) => e.values).expand((e) => e.entries).toList());
 
   factory IssuesList.fromJson(List<Map<String, dynamic>> jsonObject) => IssuesList(
-        daily: (jsonObject.map((e) => MapEntry(DateFormat("yyyy-MM-dd").parse(e["date"]!), e["title"]! as String)).toList()
-              ..sort((a, b) => a.key.compareTo(b.key)))
-            .fold<SplayTreeMap<int, SplayTreeMap<int, SplayTreeMap<DateTime, String>>>>(
-          SplayTreeMap(),
-          (SplayTreeMap<int, SplayTreeMap<int, SplayTreeMap<DateTime, String>>> map, MapEntry<DateTime, String> item) {
-            final year = item.key.year;
-            final month = item.key.month;
-            map.putIfAbsent(year, () => SplayTreeMap());
-            map[year]!.putIfAbsent(month, () => SplayTreeMap());
-            map[year]![month]!.putIfAbsent(item.key, () => item.value);
-            return map;
-          },
-        ),
+        daily: (
+            jsonObject.map(
+                (e) => MapEntry(
+                    DateFormat("yyyy-MM-dd").parse(e["date"]!),
+                    e["title"]! as String,
+                ),
+            )
+                .toList()
+                ..sort((a, b) => a.key.compareTo(b.key)))
+                .fold<SplayTreeMap<int, SplayTreeMap<int, SplayTreeMap<DateTime, String>>>>(
+                    SplayTreeMap(),
+                    (SplayTreeMap<int, SplayTreeMap<int, SplayTreeMap<DateTime, String>>> map, MapEntry<DateTime, String> item) {
+                      final year = item.key.year;
+                      final month = item.key.month;
+                      map.putIfAbsent(year, () => SplayTreeMap());
+                      map[year]!.putIfAbsent(month, () => SplayTreeMap());
+                      map[year]![month]!.putIfAbsent(item.key, () => item.value);
+                      return map;
+                    },
+                ),
       );
 
 // Map<int, Map<int, List<String>>> toJsonObject() => daily.map<int, Map<int, List<String>>>(

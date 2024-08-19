@@ -17,11 +17,11 @@ def sign(key, msg):
 
 
 # secret_id = sys.argv[1]
-secret_id = os.getenv("CDN_REFRESH_API_SID")
+secret_id = os.getenv("EO_API_SID")
 # print(secret_id)
 
 # secret_key = sys.argv[2]
-secret_key = os.getenv("CDN_REFRESH_API_SKEY")
+secret_key = os.getenv("EO_API_SKEY")
 # print(secret_key)
 
 token = ""

@@ -157,11 +157,23 @@ class MainPageEnd extends StatelessWidget {
                     left: 0,
                     right: 0,
                     bottom: 0.015 * height,
-                    child: Text(
-                      "非 MINECRAFT 官方产品服务。未经 MOJANG 或 MICROSOFT 批准，也不与 MOJANG 或 MICROSOFT 关联",
-                      textAlign: TextAlign.center,
-                      style: textStyles.zh_p.copyWith(color: RDColors.white.onBackground),
-                    )),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "非 MINECRAFT 官方产品服务。未经 MOJANG 或 MICROSOFT 批准，也不与 MOJANG 或 MICROSOFT 关联",
+                          textAlign: TextAlign.center,
+                          style: textStyles.zh_p.copyWith(color: RDColors.white.onBackground),
+                        ),
+                        SizedBox(height: 8), // 添加一些间距
+                        Text(
+                          "ICP备案号：XXXXXX", // 替换为实际的备案号
+                          textAlign: TextAlign.center,
+                          style: textStyles.zh_p.copyWith(color: RDColors.white.onBackground),
+                        ),
+                      ],
+                    ),
+                  ),
 
                 // Debug Reference Image
                 // Positioned(

@@ -34,7 +34,7 @@ jobs:
       - id: sanitize_artifact_name
         uses: ./.github/actions/sanitize-name
         with:
-          name: ${{ github.ref_name }}
+          name: ${{ github.ref }}
 
       # 解析SSH连接信息 --- username@host:port
       - name: Parse SSH Deploy Info

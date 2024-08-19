@@ -18,6 +18,9 @@ void main() {
   runApp(MyApp());
 }
 
+const String _defaultApiHost = "api.redstonedaily.com";
+const String _apiBase = "/v1/";
+
 class IssuesListProvider extends ChangeNotifier {
   IssuesList? _issuesList;
 
@@ -30,8 +33,12 @@ class IssuesListProvider extends ChangeNotifier {
   }
 
   Future<String> _fetchData() async {
-    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: '');
-    Uri uri = apiHost != '' ? Uri.https(apiHost, '/api/list') : Uri.parse('/api/list');
+
+    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: _defaultApiHost);
+    const String apiListPath = "api/list";
+    
+    Uri uri = Uri.https(apiHost, _apiBase + apiListPath);
+
     try {
       final response = await http.get(uri);
       if (response.statusCode == 200) {

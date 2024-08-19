@@ -32,6 +32,9 @@ class SilverContentList extends StatefulWidget {
   State<SilverContentList> createState() => _SilverContentListState();
 }
 
+const String _defaultApiHost = "api.redstonedaily.com";
+const String _apiBase = "/v1/";
+
 class _SilverContentListState extends State<SilverContentList> {
   static const double listPaddingMedium = 280;
   static const double listPaddingSmall = 0;
@@ -44,17 +47,17 @@ class _SilverContentListState extends State<SilverContentList> {
 
   // 异步获取json字符串
   Future<String> fetchJson(BuildContext context) async {
-    // return DefaultAssetBundle.of(context).loadString("assets/demo.json");
+    
     // fetch data from url api
-    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: '');
-    Uri uri = apiHost != ''
-        ? Uri.https(apiHost, '/api/daily', {
+    const String apiHost = String.fromEnvironment('API_HOST', defaultValue: _defaultApiHost);
+    const String apiDailyPath = "api/daily";
+
+    Uri uri = Uri.https(apiHost, _apiBase + apiDailyPath, {
             'yy': widget.year,
             'mm': widget.month,
             'dd': widget.day,
-          })
-        : Uri.parse('/api/daily?yy=${widget.year}&mm=${widget.month}&dd=${widget.day}');
-
+          });
+    
     try {
       final response = await http.get(uri);
       if (response.statusCode == 200) {

@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:redstone_daily_site/mainPage/nav_underlined_text.dart';
 import 'package:redstone_daily_site/mainPage/typography.dart';
 import 'package:redstone_daily_site/underlined_text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -154,21 +156,30 @@ class MainPageEnd extends StatelessWidget {
                         ))),
 
                 Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0.015 * height,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "非 MINECRAFT 官方产品服务。未经 MOJANG 或 MICROSOFT 批准，也不与 MOJANG 或 MICROSOFT 关联\n"
-                              "ICP备案号：闽ICP备2024058720号-2",
-                          textAlign: TextAlign.center,
+                  left: 0,
+                  right: 0,
+                  bottom: 0.015 * height,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "非 MINECRAFT 官方产品服务。未经 MOJANG 或 MICROSOFT 批准，也不与 MOJANG 或 MICROSOFT 关联",
+                        textAlign: TextAlign.center,
+                        style: textStyles.zh_p.copyWith(color: RDColors.white.onBackground),
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 0.01 * height)),
+                      NavUnderlinedText.url(
+                          dst: "https://beian.miit.gov.cn/",
+                          text: "ICP备案号：闽ICP备2024058720号-2",
                           style: textStyles.zh_p.copyWith(color: RDColors.white.onBackground),
-                        ),
-                      ],
-                    ),
+                          textAlign: TextAlign.center,
+                          underlineColor: RDColors.white.primaryContainer,
+                          underlineAlign: Alignment.bottomCenter
+                      ),
+                    ],
                   ),
+                ),
 
                 // Debug Reference Image
                 // Positioned(

@@ -1,0 +1,61 @@
+name: CD - Upload CDN
+
+# 触发workflow的条件
+on:
+  workflow_call:
+    inputs:
+      cospath:
+        type: string
+        required: true
+        description: 'The destination path to upload to COS'
+      sha:
+        description: "The specified commit's sha"
+        type: string
+        required: false
+    secrets:
+      COS_API_ID:
+        required: true
+      COS_API_KEY:
+        required: true
+      COS_API_BUCKET:
+        required: true
+
+jobs:
+  upload-cdn:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
+
+      # 下载Flutter构建产物
+      - name: 'Download Build Artifacts - ${{ inputs.sha || github.sha }} - Flutter'
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.sha || github.sha }}-build-flutter
+          path: dist/flutter_project/build/web/
+
+      # 下载Vue构建产物
+      - name: 'Download Build Artifacts - ${{ inputs.sha || github.sha }} Vue'
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.sha || github.sha }}-build-vue
+          path: dist/vue/dist
+
+      # coscmd上传
+      - name: Setup Python
+        uses: actions/setup-python@v5.1.0
+        with:
+          python-version: "3.10"
+
+      - name: coscmd
+        run: |
+          pip install coscmd
+          pip install coscmd -U
+          coscmd config -a ${{ secrets.COS_API_ID }} -s ${{ secrets.COS_API_KEY }} -b ${{ secrets.COS_API_BUCKET }} -r ap-hongkong
+          coscmd upload -rfs --delete ./dist/ ${{ inputs.cospath }} --ignore ".DS_Store" --ignore ".git*"

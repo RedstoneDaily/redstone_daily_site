@@ -1,4 +1,4 @@
-name: Build Vue Project
+name: CI - Build Vue Project
 
 # 触发workflow的条件
 on:
@@ -8,6 +8,10 @@ on:
                 required: true
                 type: string
                 description: 'Vue Project Directory'
+            ENV_TYPE: 
+                description: 'The Environment to deploy'
+                type: string
+                required: true
 
 jobs:
     # 构建Vue项目任务
@@ -25,19 +29,29 @@ jobs:
               with:
                   ref: ${{ github.ref }}
 
-            # Todo...
-
-            - run: 'mkdir dist'
-            - run: 'touch ./dist/index.html'
-
-            - id: sanitize_artifact_name
-              uses: ./.github/actions/sanitize-name
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
               with:
-                name: ${{ github.ref_name }}
-                  
-            - name: 'Upload Build Artifacts - ${{ github.ref_name }} - Vue'
-              if: steps.sanitize_artifact_name.outputs.sanitized_name
-              uses: actions/upload-artifact@v3
+                node-version: '20'
+                check-latest: true
+            
+            - name: Setup pnpm & dependencies
+              run: |
+                npm install -g pnpm
+                pnpm install
+            
+            - name: Lint Vue Project
+              run: pnpm lint
+            
+            - name: Config (${{ inputs.ENV_TYPE }})
+              run: |
+                  echo '{"aegis_env": "${{ inputs.ENV_TYPE }}"}' > config.json
+            
+            - name: Build Vue Project
+              run: pnpm build
+            
+            - name: 'Upload Build Artifacts - ${{ github.sha }} - Vue'
+              uses: actions/upload-artifact@v4
               with:
-                name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
-                path: ${{ inputs.dir }}/dist 	# 是这个没错吧？
+                name: ${{ github.sha }}-build-vue
+                path: ${{ inputs.dir }}/dist

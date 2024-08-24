@@ -1,0 +1,86 @@
+# The workflow to execute the CD process for a existing Github Environment specified by the job input parameter.
+# The workflow accesses the secrets in the Environments to get the information for the deployment.
+
+# Secrets:
+#   SSH_DEPLOY_KEY: The SSH private key to connect to the deployment server
+#   SSH_DEPLOY_INFO: The SSH connection info in URI format: username@host:port/absolute/path/to/deploy/
+
+name: CD - SSH Deploy
+
+on:
+  workflow_call:
+    inputs:
+      ENV_TYPE:
+        description: "The Environment to deploy"
+        type: string
+        required: true
+      sha:
+        description: "The specified commit's sha"
+        type: string
+        required: false
+    secrets:
+      SSH_DEPLOY_KEY:
+        required: true
+
+jobs:
+  ssh-deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENV_TYPE }}
+
+    steps:
+      - run: echo "Deploying to ${{ inputs.ENV_TYPE }}"
+
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
+
+      # 解析SSH连接信息 --- username@host:port
+      - name: Parse SSH Deploy Info
+        env:
+          INFO: ${{ secrets.SSH_DEPLOY_INFO }}
+        run: |
+          AUTH=$(echo "$INFO" | cut -d'/' -f1)
+          USERNAME=$(echo "$AUTH" | cut -d'@' -f1)
+          HOST_PORT=$(echo "$AUTH" | cut -d'@' -f2)
+          HOST=$(echo "$HOST_PORT" | cut -d':' -f1)
+          PORT=$(echo "$HOST_PORT" | cut -d':' -f2)
+          TARGET_PATH="/"$(echo "$INFO" | cut -d'/' -f2-)      
+
+          echo "USERNAME=$USERNAME" >> $GITHUB_ENV
+          echo "HOST=$HOST" >> $GITHUB_ENV
+          echo "PORT=$PORT" >> $GITHUB_ENV
+          echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
+
+          echo ::add-mask::$USERNAME
+          echo ::add-mask::$HOST
+          echo ::add-mask::$PORT
+        #   echo ::add-mask::$PATH
+        shell: bash
+
+      # 下载Flutter构建产物
+      - name: "Download Build Artifacts - ${{ inputs.sha || github.sha }} - Flutter"
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.sha || github.sha }}-build-flutter
+          path: dist/flutter_project/build/web/
+
+      # 下载Vue构建产物
+      - name: "Download Build Artifacts - ${{ inputs.sha || github.sha }} - Vue"
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.sha || github.sha }}-build-vue
+          path: dist/vue/dist/
+
+      # 部署到Env指定的服务器
+      - name: Incremental Deploy
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+          REMOTE_HOST: ${{ env.HOST }}
+          REMOTE_PORT: ${{ env.PORT }}
+          REMOTE_USER: ${{ env.USERNAME }}
+          ARGS: "-avz"
+          # https://ss64.com/bash/rsync_options.html
+          SOURCE: "dist/"
+          TARGET: ${{ env.TARGET_PATH }}

@@ -1,0 +1,10 @@
+name: Main Workflow - on a PR to main updates
+on:
+    pull_request:
+        branches: [main]
+
+jobs:
+    ci:
+        uses: ./.github/workflows/ci.yml
+        with:
+            ENV_TYPE: dev

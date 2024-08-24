@@ -1,0 +1,17 @@
+name: Main Workflow - On pushing to main branch
+on:
+    push:
+        branches: [main]
+
+jobs:
+    ci:
+        uses: ./.github/workflows/ci.yml
+        with:
+            ENV_TYPE: prod
+    
+    cd:
+        needs: ci
+        uses: ./.github/workflows/cd.yml
+        with:
+            ENV_TYPE: prod
+        secrets: inherit

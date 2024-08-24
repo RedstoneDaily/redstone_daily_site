@@ -1,0 +1,40 @@
+name: CD - Refresh EO
+
+# 触发workflow的条件
+on:
+    workflow_call:
+        secrets:
+            EO_API_SID:
+                required: true
+            EO_API_SKEY:
+                required: true
+
+jobs:
+    # 部署任务
+    refresh-eo:
+        runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
+
+        defaults:
+            run:
+                shell: bash
+
+        env:
+            EO_API_SID: ${{ secrets.EO_API_SID }}
+            EO_API_SKEY: ${{ secrets.EO_API_SKEY }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@master
+              with:
+                  ref: ${{ github.ref }}
+
+            # 运行atrf.py 调用API刷新cdn
+            - name: Setup Python
+              uses: actions/setup-python@v5.1.0
+              with:
+                  python-version: ^3.12
+
+            - name: Run Python Script to Refresh CDN
+              run: |
+                  python3 .github/atrf.py
+                  sleep 20 && python3 .github/atrf_rcdn.py

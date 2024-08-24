@@ -1,4 +1,4 @@
-name: Build Flutter Project
+name: CI - Build Flutter Project
 
 # 触发workflow的条件
 on:
@@ -7,7 +7,11 @@ on:
             dir:
                 required: true
                 type: string
-                description: 'Flutter Project Directory'
+                description: 'Flutter Project Directory Root'
+            ENV_TYPE: 
+                description: 'The Environment to deploy'
+                type: string
+                required: true
 
 jobs:
     # 构建flutter项目任务
@@ -50,23 +54,17 @@ jobs:
             - name: Get Flutter dependencies
               run: flutter pub get
             
-            - name: Build Web (develop)
-              if: github.ref == 'refs/heads/develop'        
-              run: ./prebuild.sh --aegis dev && flutter build web --release --source-maps --web-renderer canvaskit --dart-define API_HOST=redstonedaily.top
+            - name: Build Web (dev)
+              if: inputs.ENV_TYPE == 'dev'
+              run: "echo \x22{'aegis_env': 'dev'}\x22 > config.json && flutter build web --release --source-maps --dart-define API_HOST=api.rsdaily.com"
+
+            - name: Build Web (prod)
+              if: inputs.ENV_TYPE == 'prod'
+              run: "echo \x22{'aegis_env': 'prod'}\x22 > config.json && flutter build web --release --source-maps"
             
-            - name: Build Web (production)
-              if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/workflow-dev'
-              run: ./prebuild.sh --aegis prod && flutter build web --release --source-maps --web-renderer canvaskit
-            
-            - id: sanitize_artifact_name
-              uses: ./.github/actions/sanitize-name
+            - name: 'Upload Build Artifacts - ${{ github.sha }} - Flutter'
+              uses: actions/upload-artifact@v4
               with:
-                name: ${{ github.ref_name }}
-            
-            - name: 'Upload Build Artifacts - ${{ github.ref_name }} - Flutter'
-              if: steps.sanitize_artifact_name.outputs.sanitized_name
-              uses: actions/upload-artifact@v3
-              with:
-                name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
+                name: ${{ github.sha }}-build-flutter
                 path: ${{ inputs.dir }}/build/web
-                
+#?

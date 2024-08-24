@@ -1,0 +1,14 @@
+name: Main Workflow - After a PR to main updates
+on:
+    workflow_run:
+        workflows: ["Main Workflow - on a PR to main updates"]
+        types:
+            - completed
+
+jobs:
+    cd:
+        uses: ./.github/workflows/cd.yml
+        with:
+            ENV_TYPE: dev
+            sha: ${{ github.event.workflow_run.head_sha }}
+        secrets: inherit

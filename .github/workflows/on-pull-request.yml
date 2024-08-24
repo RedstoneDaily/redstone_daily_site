@@ -1,4 +1,4 @@
-name: Main Workflow - When PR to main branch updates
+name: Main Workflow - on a PR to main updates
 on:
     pull_request:
         branches: [main]
@@ -8,10 +8,3 @@ jobs:
         uses: ./.github/workflows/ci.yml
         with:
             ENV_TYPE: dev
-    
-    cd:
-        needs: ci
-        uses: ./.github/workflows/cd.yml
-        with:
-            ENV_TYPE: dev
-        secrets: inherit

@@ -49,15 +49,9 @@ jobs:
             
             - name: Build Vue Project
               run: pnpm build
-
-            - id: sanitize_artifact_name
-              uses: ./.github/actions/sanitize-name
-              with:
-                name: ${{ github.ref_name }}
-                  
-            - name: 'Upload Build Artifacts - ${{ github.ref_name }} - Vue'
-              if: steps.sanitize_artifact_name.outputs.sanitized_name
+            
+            - name: 'Upload Build Artifacts - ${{ github.sha }} - Vue'
               uses: actions/upload-artifact@v4
               with:
-                name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
+                name: ${{ github.sha }}-build-vue
                 path: ${{ inputs.dir }}/dist

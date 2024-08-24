@@ -10,10 +10,14 @@ name: CD - SSH Deploy
 on:
   workflow_call:
     inputs:
-        ENV_TYPE: 
-            description: 'The Environment to deploy'
-            type: string
-            required: true
+      ENV_TYPE:
+        description: "The Environment to deploy"
+        type: string
+        required: true
+      sha:
+        description: "The specified commit's sha"
+        type: string
+        required: false
     secrets:
       SSH_DEPLOY_KEY:
         required: true
@@ -31,14 +35,9 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - id: sanitize_artifact_name
-        uses: ./.github/actions/sanitize-name
-        with:
-          name: ${{ github.ref_name }}
-
       # 解析SSH连接信息 --- username@host:port
       - name: Parse SSH Deploy Info
-        env: 
+        env:
           INFO: ${{ secrets.SSH_DEPLOY_INFO }}
         run: |
           AUTH=$(echo "$INFO" | cut -d'/' -f1)
@@ -52,7 +51,7 @@ jobs:
           echo "HOST=$HOST" >> $GITHUB_ENV
           echo "PORT=$PORT" >> $GITHUB_ENV
           echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
-          
+
           echo ::add-mask::$USERNAME
           echo ::add-mask::$HOST
           echo ::add-mask::$PORT
@@ -60,17 +59,17 @@ jobs:
         shell: bash
 
       # 下载Flutter构建产物
-      - name: "Download Build Artifacts - ${{ github.ref_name }} - Flutter"
+      - name: "Download Build Artifacts - ${{ inputs.sha || github.sha }} - Flutter"
         uses: actions/download-artifact@v4
         with:
-          name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
+          name: ${{ inputs.sha || github.sha }}-build-flutter
           path: dist/flutter_project/build/web/
 
       # 下载Vue构建产物
-      - name: "Download Build Artifacts - ${{ github.ref_name }} - Vue"
+      - name: "Download Build Artifacts - ${{ inputs.sha || github.sha }} - Vue"
         uses: actions/download-artifact@v4
         with:
-          name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-vue
+          name: ${{ inputs.sha || github.sha }}-build-vue
           path: dist/vue/dist/
 
       # 部署到Env指定的服务器

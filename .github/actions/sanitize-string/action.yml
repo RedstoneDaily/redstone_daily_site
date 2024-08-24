@@ -1,0 +1,19 @@
+name: Sanitize String For Artifact Name
+description: Replaces all slashes in the branch name with underscores.
+
+inputs:
+    string:
+        required: true
+        description: 'String to be sanitized'
+outputs:
+    string:
+        description: 'Sanitized string'
+        value: ${{ steps.sanitize.outputs.sanitized_string }}
+
+runs:
+    using: "composite"
+    steps:
+      - name: Sanitize Artifact Name
+        id: sanitize
+        run: echo sanitized_string=$(echo ${{ inputs.string }} | sed 's/\//_/g') >> $GITHUB_OUTPUT
+        shell: bash

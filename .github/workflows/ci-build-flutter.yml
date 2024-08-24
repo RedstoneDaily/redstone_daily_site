@@ -62,15 +62,9 @@ jobs:
               if: inputs.ENV_TYPE == 'prod'
               run: "echo \x22{'aegis_env': 'prod'}\x22 > config.json && flutter build web --release --source-maps"
             
-            - id: sanitize_artifact_name
-              uses: ./.github/actions/sanitize-name
-              with:
-                name: ${{ github.ref_name }}
-            
-            - name: 'Upload Build Artifacts - ${{ github.ref_name }} - Flutter'
-              if: steps.sanitize_artifact_name.outputs.sanitized_name
+            - name: 'Upload Build Artifacts - ${{ github.sha }} - Flutter'
               uses: actions/upload-artifact@v4
               with:
-                name: ${{ steps.sanitize_artifact_name.outputs.sanitized_name }}-build-flutter
+                name: ${{ github.sha }}-build-flutter
                 path: ${{ inputs.dir }}/build/web
 #?

@@ -7,6 +7,10 @@ on:
         description: "The Environment to deploy"
         type: string
         required: true
+      sha:
+        description: "The specified commit's sha"
+        type: string
+        required: false
     secrets:
       # for ssh deploy
       SSH_DEPLOY_KEY:
@@ -32,6 +36,7 @@ jobs:
     uses: ./.github/workflows/cd-ssh-deploy.yml
     with:
       ENV_TYPE: ${{ inputs.ENV_TYPE }}
+      sha: ${{ inputs.sha }}
     secrets: inherit
 
   # 上传CDN
@@ -41,6 +46,7 @@ jobs:
     secrets: inherit
     with:
       cospath: "${{ inputs.ENV_TYPE }}/"
+      sha: ${{ inputs.sha }}
 
   # 刷新eo（条件：environment == 'prod'）
   refresh-eo:
